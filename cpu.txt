@@ -1,0 +1,4 @@
+vcpu to core ratio:
+    Typical server workloads: 4:1 ratio (4 vCPUs for each physical core).
+    Non-CPU-intensive workloads: Higher ratios (up to 10:1) may be feasible.
+    CPU-intensive workloads: Lower ratios (closer to 1:1) are recommended.

@@ -1,0 +1,18 @@
+Encryption:
+->Symmetric Encryption: Same key is used for encryption and decryption not secure for remote control.If 3rd party gets key he can read messages. The key exchange algoritm(Implemented using Assymetric encryption) is used to prevent interception during key exchange 
+->Assymetric Encryption: One key is used for encryption(public key) and other key is used for decryption(private key). The private key only stays with user and saved on ssh client while public key is saved on SSH server and can be shared with anyone.Assymetric encryption does not not encrypt the complete SSH session. Instead mainly used for key exchange algoritm of symmetric encryption.
+
+
+1.The client generates its own public and private key pair. The client keeps the private key securely stored on its local machine, while the public key is sent to the server. If the server already has your public key it goes to 6th step directly then to 5th step.
+
+2.On the server side, the server also generates its own public and private key pair. The server keeps its private key securely stored, and the corresponding public key is typically stored in a file called authorized_keys in the user's home directory.
+
+3.When a client attempts to connect to the server, the server sends its public key to the client during the SSH handshake process. The client then uses the server's public key to encrypt a symmetric key, which is sent back to the server. The server can decrypt this symmetric key using its private key.The client, checks the server's public key against a known list of trusted keys which may be connecting to the server if the connection to server is for the first time the client receives the server's public key and its fingerprint.The client displays the fingerprint on its screen and prompts the user to verify it.To verify the fingerprint, the user should compare the displayed fingerprint with a trusted source. This trusted source can be the server administrator, who can provide the fingerprint through a secure channel, such as in person or via a secure messaging platform.
+
+4.If the displayed fingerprint matches the one provided by the trusted source, the user can confirm the authenticity of the server's key.
+
+5.Once the initial key exchange is complete, the client and server use the symmetric key to encrypt and decrypt subsequent communication during the SSH session.
+
+6.The private key is used for user authentication the server which send data with client public key encryption, has to be decrypted using client private key allowing the server to verify the client's identity.
+
+->PuTTY, a free and open-source software for Windows devices that gives users the option to transfer data securely and safely using different file transfer protocols.

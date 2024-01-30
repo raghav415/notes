@@ -1,0 +1,24 @@
+->Images are, in a way, just templates, you cannot start or run them. What you can do is use that template as a base to build a container. A container is, ultimately, just a running image. Once you create a container, it adds a writable layer on top of the immutable image, meaning you can now modify it.
+->Containers are lightweight and share the host system's kernel, which makes them more resource-efficient compared to traditional virtual machines.
+->They are light weight as unlike Virtual machines they do not have guest OS.
+->Docker compose makes it easy to start application with multiple containers.
+->We should remove containers before we remove its image.
+->.yaml is same as .yml
+->.yml files start with ---
+->We use .yml files for configuration files and json to exchange data.(b/w client and server)
+->windows images are larger in size.
+->docker comes with embedded DNS server that contains name and IP of containers. Inside each container we have DNS resolver it requests ip from DNS server.
+->commands:
+	docker images
+	docker ps
+	docker image ls		-list of images
+	docker image ls -q	-list of image id's
+	docker image rm <id> <id>
+	docker container rm <id> <id>
+	docker image rm $(docker image ls -q)
+	docker container rm -f $(docker container ls -aq) -a removes container that are stopped
+							  -f to force remove running containers
+	docker-compose up	-to run yml file to intall all dependencies needed in application
+	
+	
+	

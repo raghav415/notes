@@ -1,0 +1,32 @@
+->A data lake is a centralized repository designed to store, process, and secure large amounts of structured, semistructured, and unstructured data. Even if the data comes from on-premises, cloud, or edge-computing systems
+Project:
+    ->Project IDs are immutable and can be set only during project creation.
+    ->The only fields that can be updated are the project name and labels.
+    =>Editor role: Cannot transfer project ownership - Cannot assign the Owner role to other users - Cannot enable or disable APIs - Cannot view audit logs.
+    =>Be aware that the setIamPolicy permission for organization, folder, and project resources allows the user to grant all other permissions, and so should be assigned with care.
+->Vcpu to core ratio:
+    ->If virtual machines consistently experience high "CPU ready" times (waiting for resources), it may be time to reduce the ratio.
+    ->Conversely, consistently low CPU usage indicates potential for cost savings by increasing the ratio.
+-> A command consist of group, sub group, positional arguments, flags(required, optional),..
+->You can use Cloud Identity to manage your users, apps, and devices from a central location—the Google Admin console.
+->Disabling a service's API access does not delete the underlying data which will continue to be billed. 
+->If you attempt to disable a service that other enabled services depend on, the call will fail.
+    ->Set the disable_dependent_services parameter on the services.disable request to true.
+    ->Use --force to disable dependant services.
+    ->Use --async to continue executing other commands in parallel.
+-> If you want to view and monitor the metrics collected by multiple Google Cloud projects(in diff orgs or aws acc), then you need to configure Cloud Monitoring.
+-> You can close an active Cloud Billing account to stop all billable services in any projects.
+-> Cloud Billing export to BigQuery enables you to export detailed Google Cloud billing data (such as usage, cost estimates, and pricing data) automatically.
+->Use the Rebilling data export to manage billing operations for your Google Cloud customers.
+->No, you cannot create a single VPC that spans across different regions in Google Cloud Platform (GCP)
+->max-surge and max-unavailable are flags used during managed instance group rolling updates to control the scaling behavior and maintain service availability while deploying new application versions.
+	->max-surge:Specifies the maximum number of additional instances of the new version that can be created before terminating instances of the old version.
+	->max-unavailable:Specifies the maximum number of healthy instances of the old version that can be terminated at any given time during the update.
+->A snapshot is a point-in-time copy of the data in a specific resource.(VM disk, firestore, big query)
+->commited(1-3 yrs) discount:70%, sustainable use:(20-50)%.
+->spot VM(no max run time) is like preemptible VM(24hrs max runtime).
+->Preemptible VM's can not be migrated to regular VM.
+->cloud load balancing can distribute traffic across multiple regions.
+->Cloud Run is a managed compute platform that lets you run containers directly on top of Google's scalable infrastructure.
+    ->Cloud Run services. Used to run code that responds to web requests, or events.
+    ->Cloud Run jobs. Used to run code that performs work (a job) and quits when the work is done.

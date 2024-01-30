@@ -1,0 +1,11 @@
+->$ENV:path
+
+->When you activate a virtual environment, your PATH variable is changed.When you enter a command that can’t be found in the current working directory, your OS starts looking at all the paths in the PATH variable. It’s the same for Python. When you import a library, Python looks in your PATH for library locations. And that’s where our venv-magic happens: if your venv is there in front of all the other paths, the OS will look there first before looking at system-wide directories like /usr/bin. Hence, anything installed in our venv is found first, and that’s how we can override system-wide packages and tools.
+
+->Without deactivating your venv, all other Python code you execute, even if it is outside your project directory, will also run inside the venv.
+
+->deactivate
+  # If your virtual environment is in a directory called 'venv':
+  rm -r venv
+
+->Pipenv or Poetry: These tools combine the management of your virtual environment with proper package and dependency management.

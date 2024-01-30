@@ -1,0 +1,48 @@
+->Strings are immutable in Python, so any modification to a string creates a new string object.
+
+->The Python logging module has four main parts:
+  Loggers
+  Handlers
+  Filters
+  Formatters:Formatters describe the format of the text which will be rendered.
+
+->Logger:If log level is the same or exceeds the log level of the logger, the message is sent to the handler for further processing. The log levels are:
+  DEBUG: Low-level system information
+  INFO: General system information
+  WARNING: Minor problems related information
+  ERROR: Major problems related information
+  CRITICAL: Critical problems related information
+
+->Handler: ERROR log level messages can be sent in real-time to the developer, while INFO log levels can just be stored in a system file.It essentially tells the system what to do with the message like writing it on the screen, a file, or to a network socket.
+
+->Filters:A filter can sit between a Logger and a Handler. It can be used to filter the log record.
+  For example: in CRITICAL messages, you can set a filter which only allows a particular source to be processed.
+
+->Python's own defaults send records to level warning and higher to console.
+
+->A class method is a method that is bound to a class rather than its object. It doesn't require creation of a class instance, much like staticmethod.
+
+	The difference between a static method and a class method is:
+	->Static method knows nothing about the class and just deals with the parameters
+	->Class method works with the class since its parameter is always the class itself.
+	
+	Example 1:
+		class Person:
+    		 age = 25
+
+    		 def printAge(cls):
+        	   print('The age is:', cls.age)
+		 
+                 @classmethod #classmethod decorator is needed else it will not be able to access class attributes
+		 def printage2(cls):
+		   print(cls.age)	
+
+		# create printAge class method
+		Person.printAge = classmethod(Person.printAge)
+		Person.printage()
+		Person.printage2()
+		
+		Output:
+		The age is: 25
+		25
+

@@ -1,0 +1,3 @@
+Budgets: https://cloud.google.com/billing/docs/how-to/budgets
+https://www.youtube.com/watch?v=N2OG1w6bGFo
+https://cloud.google.com/products/calculator/

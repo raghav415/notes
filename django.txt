@@ -1,0 +1,79 @@
+Djsngo settings:
+
+->Path(__file__).resolve() : Relative path of file.
+  __file__ : Relative path of current file.
+
+->When using django-admin, you can either set the environment variable once, or explicitly pass in the settings module each time you run the utility.
+  Eg:set DJANGO_SETTINGS_MODULE=mysite.settings
+   django-admin runserver
+   django-admin runserver --settings=mysite.settings
+
+->You shouldn’t alter settings in your applications at runtime. For example, don’t do this in a view:
+  from django.conf import settings
+  settings.DEBUG = True   # Don't do this!
+
+->A Django settings file doesn’t have to define any settings if it doesn’t need to. Each setting has a sensible default value. These defaults live in the module django/conf/global_settings.py.
+
+->Because a settings file contains sensitive information, such as the database password, you should make every attempt to limit access to it. For example, change its file permissions so that only you and your web server’s user can read it. This is especially important in a shared-hosting environment.
+
+->There’s nothing stopping you from creating your own settings, for your own Django apps, but follow these guidelines:
+  Setting names must be all uppercase.
+  Don’t reinvent an already-existing setting.
+
+->from django.conf import settings
+  settings.configure(DEBUG=True)
+  Pass configure() as many keyword arguments as you’d like, with each keyword argument representing a setting and its value.
+
+->In this example, default settings are taken from myapp_defaults, and the DEBUG setting is set to True, regardless of its value in myapp_defaults:
+  from django.conf import settings
+  from myapp import myapp_defaults
+  settings.configure(default_settings=myapp_defaults, DEBUG=True)
+
+->The global_settings.py file is a module within the Django framework that contains the default settings for Django projects. These settings serve as a fallback when not specified in the project's settings.py file. Django automatically merges the settings from global_settings.py with the settings defined in settings.py, overriding any duplicate settings.
+
+->settings.configure() does not replace the settings.py or global_settings.py files. It provides a way to override specific settings temporarily or dynamically at runtime while still relying on the main settings files for the majority of the project's configuration.
+
+->If you set DJANGO_SETTINGS_MODULE, access settings values somehow, then call configure(), Django will raise a RuntimeError indicating that settings have already been configured. There is a property for this purpose:
+ django.conf.settings.configured
+ For example:
+ from django.conf import settings
+ if not settings.configured:
+     settings.configure(myapp_defaults, DEBUG=True)
+ Also, it’s an error to call configure() more than once, or to call configure() after any setting has been accessed.
+
+
+django-admin and manage.py:
+
+->django-admin is Django’s command-line utility for administrative tasks.
+
+->In addition, manage.py is automatically created in each Django project. It does the same thing as django-admin but also sets the DJANGO_SETTINGS_MODULE environment variable so that it points to your project’s settings.py file.
+
+->$ django-admin <command> [options]
+  $ manage.py <command> [options]
+  $ python -m django <command> [options]
+
+->Run django-admin version to display the current Django version.
+
+->makemigrations: When you make changes to your Django models (such as adding a new field or modifying an existing field), you need to create migration files that define the changes to the database schema. The makemigrations command analyzes the models and creates these migration files based on the detected changes. Each migration file represents a set of changes to be applied to the database.
+
+->migrate: Once you have created the migration files using makemigrations, you can use the migrate command to apply those changes to the database.It creates or modifies database tables, columns, indexes, and other schema elements accordingly.
+
+->It is possible to undo previous migrations in Django.
+  python manage.py showmigrations (it will show both applied and pending migrations. Applied migrations are marked with [X], while pending migrations are marked with [ ].)
+  python manage.py migrate app_name migration_name --fake (it marks the specified migration as applied without actually executing the associated database changes. However, it does not remove the migration file itself.)
+  python manage.py migrate app_name migration_name (This will undo the changes in the database and update the migration history.)
+
+->Determine which of your application’s models should be editable in the admin interface. For each of those models, register them with the admin as described in ModelAdmin.
+
+Django Templates:
+->A Django template is a text document or a Python string marked-up using the Django template language. Some constructs are recognized and interpreted by the template engine. The main ones are variables and tags.
+
+->Dictionary lookup, attribute lookup and list-index lookups are implemented with a dot notation:
+{{ my_dict.key }}
+{{ my_object.attribute }}
+{{ my_list.0 }}
+For example, a tag can output content, serve as a control structure e.g. an “if” statement or a “for” loop, grab content from a database, or even enable access to other template tags.
+Tags are surrounded by {% and %} like this:
+
+Practice:
+->Use CharField when you need to limit the maximum length, TextField otherwise.(TextField max_length won't get applied at DB level).

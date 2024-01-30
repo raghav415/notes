@@ -1,0 +1,10 @@
+->Instance templates can not be updated. To update copy template and update it.No cost for creating instance template.
+->No need to specify zone region while creating instance template.
+->Use the Resource Manager API to migrate projects between organizations.
+->.projectCreator: Provides access to create new projects. Once a user creates a project, they're automatically granted the owner role for that project.Be aware that the setIamPolicy permission for organization, folder, and project resources allows the user to grant all other permissions, and so should be assigned with care.
+->global:
+    Images
+    Instance template(global resources)
+->VM manager is used for OS (patch, inventory, config) magnt.
+->cloud load balancing can distribute traffic across multiple regions.
+->We only have 1 App engine per project.

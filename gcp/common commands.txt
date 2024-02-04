@@ -1,0 +1,2 @@
+gcloud config set project my-kubernetes-project-304910
+gcloud config set container/cluster VALUE (to execute commands on cluster without using its name)

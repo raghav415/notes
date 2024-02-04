@@ -1,0 +1,27 @@
+cd default-service
+gcloud app deploy
+gcloud app services list
+gcloud app versions list
+gcloud app instances list
+gcloud app deploy --version=v2 (To save as version v2)
+gcloud app versions list
+gcloud app browse (to get url of current working version)
+gcloud app browse --version 20210215t072907 (to get specific version deployed url)
+gcloud app deploy --version=v3 --no-promote (to deploy v3 version but not replace the apps deployed url or app current version)
+gcloud app browse --version v3
+gcloud app services set-traffic --splits=v3=.5,v2=.5 (to split traffic b/w different versions)
+gcloud app services set-traffic --splits=v3=.5,v2=.5
+watch curl httpsmelodic-furnace-304906.uc.r.appspot.com
+gcloud app services set-traffic --splits=v3=.5,v2=.5 --split-by=random
+ 
+cd ..my-first-service
+gcloud app deploy
+gcloud app browse --service=my-first-service
+gcloud app services set-traffic s1 --splits=v3=.5,v2=.5 (s1 is service name)
+gcloud app services list
+gcloud app regions list
+ 
+gcloud app browse --service=my-first-service --version=20210215t075851
+gcloud app browse --version=v2
+gcloud app open-console --version=v2 (to get the url of console to manage the specific version of service in app engine dash board)
+gcloud app versions list --hide-no-traffic

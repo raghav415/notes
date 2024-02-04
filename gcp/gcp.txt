@@ -1,0 +1,30 @@
+->gcloud container clusters list
+->Standart: frequet access, Nearline: Backup, Coldline:Disater recovery, Archive: .
+->static IP, internal Ip, licensing server?
+->gcloud iam roles copy \
+  --project=development-project-id \
+  --role=role1,role2 \
+  --new-project=production-project-id
+->Metadata in VM?
+->username and password for VM RDP client?
+->deployment manager, Big query, cloud monitoring, GKE,(*kubectl vs gcloud), type of load balancers and their config, load balancer and auto scale in instance group, ways of uploading and downloading files in GCS/gcp, configmaps?
+->bigQuery.dataViewer role in GCP can run queries on datasets and tables, can export data to vatious formats(json, csv...)
+->bigQuery.dataEditor or bigQuery.admin: Create or modify datasets or tables.
+->bigQuery.admin: Modify access controls for datasets or tables.
+->OAuth (Open Authorization):Standard protocol for authorization: It allows users to grant third-party applications access to their resources without sharing their credentials.Accessing APIs and services on behalf of users.
+->Signed URLs:Mechanism for granting temporary, limited access to a specific resource: They embed authentication information directly in the URL itself.Providing time-limited access to resources for specific actions.
+->Cloud Monitoring: Collects and visualizes metrics for infrastructure and applications.
+Cloud Logging: Aggregates and analyzes logs from your applications and systems.
+Cloud Error Reporting: Manages and analyzes errors and crashes in your applications.
+Cloud Debugger: Enables debugging of applications across various environments.
+Cloud Profiler: Identifies performance bottlenecks and resource usage in your applications.
+
+->We can not change region in App engine once created.
+->ConfigMap is a Kubernetes object used to store non-confidential configuration data in key-value pairs.
+->The initial delay in a VM does include the time it takes for the VM to become available.
+->pg 14
+->No, you cannot directly use the same BigQuery dataset for two different billing accounts in Google Cloud Platform (GCP). Each billing account has its own associated project(s), and BigQuery datasets belong to specific projects. Therefore, a dataset created in one project under a particular billing account cannot be directly accessed or used by another project associated with a different billing account.
+->Data storage and serving(Cloud CDN, Firebase Storage, Cloud Filestore) , Data Processing and Analytics(BigQuery,Dataflow,Vertex AI,Cloud Dataproc,Cloud Pub/Sub), container registry these services use cloude storage.
+->Cloud Monitoring: Stores monitoring data and configuration information in Cloud Storage for historical analysis and reporting.
+->Cloud Logging: Logs application and system events to Cloud Storage for centralized collection, analysis, and archiving.
+-> gcloud compute reset-windows-password command is used to reset the password for a Windows virtual machine (VM) instance in Google Cloud Compute Engine. This can be useful if you forget the password or if you need to grant access to a new user

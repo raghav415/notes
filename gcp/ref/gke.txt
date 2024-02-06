@@ -1,4 +1,14 @@
 gcloud container clusters get-credentials my-cluster --zone us-central1-c --project my-kubernetes-project-304910
+gcloud container clusters delete my-cluster --zone us-central1-c
+gcloud container clusters resize my-cluster --node-pool default-pool --num-nodes=2 --zone=us-central1-c  (to resize number of nodes that can run at any time)
+gcloud container node-pools list --zone=us-central1-c --cluster=my-cluster
+gcloud container workloads deployments create: Creates a new deployment within a cluster.
+gcloud container workloads deployments delete: Deletes an existing deployment.
+gcloud container workloads pods get: Gets information about a specific pod.
+gcloud container workloads pods logs: Views the logs of a specific pod.
+gcloud container workloads services create: Creates a new service to expose pods within a cluster.
+gcloud container workloads services delete: Deletes an existing service.
+
 
 kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE  (hello-world-rest-api:Name of deplyment image_url is from image of docker hub)
 kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE

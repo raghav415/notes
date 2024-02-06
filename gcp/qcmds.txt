@@ -1,14 +1,19 @@
 ->gcloud projects 
     ->gcloud projects create <project-id>
     ->gcloud projects add-iam-policy-binding example-project-id-1 --member='user:test-user@gmail.com' --role='roles/editor'
+    ->gcloud projects list (to list all the Google Cloud Platform (GCP) projects that you have access to)
 ->gcloud services enable
     ->gcloud services list(list only api enabled services)
     ->gcloud services list --available (all services)
 ->gcloud config set project PROJECTID
-    ->the current project can be listed using gcloud config list --format='text(core.project)
+    ->the current project can be listed using gcloud config list --format='text(core.project)'
 ->gcloud billing projects link
 ->gcloud config set project PROJECT_ID.
 ->apt update, apt install apache2.
 ->gcloud compute instance-groups managed list|create.
     ->For specific configuration changes that can be applied directly to individual instances without a full template update, use gcloud compute instance-groups managed update-instances
     ->gcloud compute instance-groups managed rolling-action restart|replace|start-update(--version) my-mig --max-surge=2.
+->gcloud app deploy d.yaml (if config file name is 'app.yaml' we can use gcloud app deploy)
+    ->gcloud app browse (to get url of current working version)
+    ->gcloud app deploy --version=v3 --no-promote (to deploy v3 version but not replace the apps deployed url or app current version)
+->gcloud container clusters create (gke)

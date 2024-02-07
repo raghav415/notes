@@ -30,4 +30,7 @@ Project:
 ->Cloud Run is a managed compute platform that lets you run containers directly on top of Google's scalable infrastructure.
     ->Cloud Run services. Used to run code that responds to web requests, or events.
     ->Cloud Run jobs. Used to run code that performs work (a job) and quits when the work is done.
+->Deploy app in appengine from GCP:
+    ->Prepare your app: Ensure your app is structured correctly for App Engine, with necessary files like app.yaml (configuration) and requirements.txt (dependencies).
+    ->gcloud app services set-traffic --splits=v3=.5,v2=.5 (to split traffic b/w different versions)
 ->External load balancing is for users from internet. Interanal load balancing is for clients inside cloud.

@@ -1,0 +1,7 @@
+when gcp account is created what role would i be assigned -owner
+
+Is role assigned to user specifc to project
+
+google cloud sdk - The Google Cloud SDK (Software Development Kit) is a set of command-line tools and libraries that allows developers and administrators to interact with Google Cloud Platform (GCP) services and resources. It provides a convenient way to manage and work with GCP services from the command line.
+
+access resource from other project

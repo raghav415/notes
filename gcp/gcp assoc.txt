@@ -34,3 +34,19 @@ Project:
     ->Prepare your app: Ensure your app is structured correctly for App Engine, with necessary files like app.yaml (configuration) and requirements.txt (dependencies).
     ->gcloud app services set-traffic --splits=v3=.5,v2=.5 (to split traffic b/w different versions)
 ->External load balancing is for users from internet. Interanal load balancing is for clients inside cloud.
+->Anthons: Manages container across multiple environments(cloud tun, gke, edge, on-prem...).
+->Cloud function Gen2 they run on cloud run so they support multi function, concurrent requests and traffic splitting.
+->Snapshots stores specific point in time state(data) of (disk/file/table/dataBase).
+    ->They can be shared across projects or with other cloud providers.
+    ->We don't lose data by deleting old snapshots.
+->Machine image is created from boot disk.
+    ->Can create multi regional images.
+->Disk size can only be increased can not be decreased.
+->Cloud storage
+    ->Standard: Frequent 
+    ->Nearline: <1 a month(min duration) (backups)
+    ->Coldline: <1 a quater(min duration) (disaster recovery)
+    ->Archive: <1 a year(min duration) (digital preservation)
+->Persistent disks are used to store dataBase.
+->Types of storages GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
+->

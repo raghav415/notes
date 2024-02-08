@@ -27,4 +27,4 @@ Cloud Profiler: Identifies performance bottlenecks and resource usage in your ap
 ->Data storage and serving(Cloud CDN, Firebase Storage, Cloud Filestore) , Data Processing and Analytics(BigQuery,Dataflow,Vertex AI,Cloud Dataproc,Cloud Pub/Sub), container registry these services use cloude storage.
 ->Cloud Monitoring: Stores monitoring data and configuration information in Cloud Storage for historical analysis and reporting.
 ->Cloud Logging: Logs application and system events to Cloud Storage for centralized collection, analysis, and archiving.
--> gcloud compute reset-windows-password command is used to reset the password for a Windows virtual machine (VM) instance in Google Cloud Compute Engine. This can be useful if you forget the password or if you need to grant access to a new user
+->gcloud compute reset-windows-password command is used to reset the password for a Windows virtual machine (VM) instance in Google Cloud Compute Engine. This can be useful if you forget the password or if you need to grant access to a new user

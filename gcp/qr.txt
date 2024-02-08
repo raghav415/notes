@@ -8,6 +8,8 @@
     Static IP.
 ->Multi regional:
     Cloud storage bucket(optional)
+    Cloud Spanner
+    Firestore
 ->Regional:
 
 ->VM manager is used for OS (patch, inventory, config) magnt.
@@ -18,3 +20,4 @@
     ->We use gsutil for cloud storage(Basic file ops can be performed using gcloud).
     ->Max obj size in bucket is 5TB.
     ->In bucket different objects can have different storage classes.
+->cbt cli for Big table.

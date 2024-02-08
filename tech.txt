@@ -1,0 +1,3 @@
+Synchronous replication:Ensures data consistency between source and target databases by waiting for target to confirm the receipt of data before the write operation is considered complete.
+Asynchronous replication:Does not ensure data consistency as the write operation is considered complete before the data is copied to the target database.
+Semi Synchronous replication:Balances performance and data consistency by waiting for a certain time period or amount of data before copying it to the target database.

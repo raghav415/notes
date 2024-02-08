@@ -23,3 +23,7 @@
 ->gsutil mb gs://bktname
     ->gsutil ls
 ->gcloud storage buckets create gs://cvdf
+->gcloud bigtable instances tables create.(gcloud is avail only to create table for rest of ops use cbt cli)
+->gcloud components install cbt.
+->gcloud --version (to see all installed s/w's in gcloud)
+->bq mk (cli cmd to create data set)

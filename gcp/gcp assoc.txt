@@ -48,5 +48,35 @@ Project:
     ->Coldline: <1 a quater(min duration) (disaster recovery)
     ->Archive: <1 a year(min duration) (digital preservation)
 ->Persistent disks are used to store dataBase.
-->Types of storages GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
-->
+->(optional)Types of storages GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
+->Policy trouble shooter helps to check if user has specific permission on specific resource.
+->Oauth 2.0 provides standard way to access tokens that allows your application to access google services.
+->Signed URLs can only be used to access resources in Cloud Storage through XML API endpoints for limited permission and time.
+->SQL:
+    ->OLTP is for high volume of small frequent queries.
+        ->Cloud SQL(Multi zone(replication) or zonal): MySQL, Postgres SQL, SQL server,storage can only be increased(Few TB's(<66TB), 1000 transactions per sec).
+            ->For high availability and failover enable auto backup and binary logging.
+            ->For point in time recovery enable binary logging(It is record of all changes(inc table creation...) made to DB).
+        ->Cloud spanner(global):Google SQL, Postgres SQL dialect(limitations).(Multi PB's, Millions of transactions per sec).
+    ->OLAP is for fewer larger more complex time consuming queries.
+        ->BigQuery:Datasets=>tables, Data warehouse.(Exabyte scale)
+            ->Auto Expire data.
+            ->Can query external data with our storing it in BigQuery.(From cloud storage, Big table,Cloud SQL, Google drive).
+            ->Can query billing.
+            ->--dry run for cost estimation on query.
+->No SQL:
+    ->Cloud Firestore(Next version of Datastore):Serverless,document dataBase,ACID transactions, SQL like queries.(Few TB's of data)
+        ->You cannot use both Native mode and Datastore mode in the same project. 
+        ->Firestore Native Mode: Provide data sync across Apps, Offline mode, More clien libraries, Organized into documents and collection.
+        ->Datastore Mode: Organized into kinds and entity groups. Free for small ops.
+        ->For transactional mobile web apps.
+        ->Does not support joins, Aggregate ops.
+    ->Cloud Big Table:For large analytical op workload(For >10 TB data to PB's, Millions of read/writes per sec).
+        ->For IOT, Analytics, Time series data, graphical and real time data analytics, streaming data.
+        ->Not serverless.
+->In memory DB:
+    ->Memorystore for redis:For fast, real-time processing of data.
+    ->Memorystore for Memcached:For reference data, database query caching, session store.(simple cases)
+->cbt cli for Big table.
+->Data can be exported or imported from cloud storage using all DB's.
+-> 

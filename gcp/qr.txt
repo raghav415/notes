@@ -6,10 +6,16 @@
     Images, snapshots.
     Instance template(global resources).
     Static IP.
+    Cloud Interconnects
+    VPC
 ->Multi regional:
     Cloud storage bucket(optional)
+    Cloud BigTable
     Cloud Spanner
     Firestore
+    Cloud KMS
+    Container Registry
+    Db Migration service
 ->Regional:
 
 ->VM manager is used for OS (patch, inventory, config) magnt.
@@ -21,3 +27,12 @@
     ->Max obj size in bucket is 5TB.
     ->In bucket different objects can have different storage classes.
 ->cbt cli for Big table.
+-Serverless:
+    -cloud run.
+    -cloud functions.
+    -Firestore.
+    -CloudSQL.(doubt)
+    -CloudSpanner.(doubt)
+    -Eventarc.(Asynchronously deliver events from services)
+    -Workflows.
+    -Cloud scheduler.

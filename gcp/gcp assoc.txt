@@ -79,4 +79,34 @@ Project:
     ->Memorystore for Memcached:For reference data, database query caching, session store.(simple cases)
 ->cbt cli for Big table.
 ->Data can be exported or imported from cloud storage using all DB's.
--> 
+->VPC: To create private n/w to control in/out traffic.
+    ->It is global resource and can create sub-nets in one or more regions.
+    ->We can not use Internal IP ranges on internet.
+    ->Connects to on-premises networks by using Cloud VPN tunnels and VLAN attachments for Cloud Interconnect.
+    ->VM instances within a VPC network can communicate among themselves by using internal IP addresses as long as firewall rules permit. However, no internal IP address communication is allowed between networks, unless you set up mechanisms such as VPC Network Peering or Cloud VPN.
+    ->(optional)Multiple network interfaces(https://cloud.google.com/vpc/docs/multiple-interfaces-concepts)
+    ->Multiple network interfaces let you create configurations in which an instance connects directly to several VPC networks(Each instance can have upto 8 interfaces based on instance type).
+    ->Use multiple network interfaces when an individual instance needs access to more than one VPC network, but you don't want to connect both networks directly.
+->Shared VPC: You can share a VPC network from one project (called a host project) to other projects in your Google Cloud organization.
+    ->It allows an organization to connect resources from multiple projects to a common Virtual Private Cloud (VPC) network so that they can communicate with each other securely and efficiently by using internal IP addresses from that network.
+    ->When you use Shared VPC, you designate a project as a host project and attach one or more other service projects to it.
+    ->Linked projects can be in the same or different folders, but if they are in different folders the admin must have Shared VPC Admin rights to both folders.
+    ->Participating host and service projects cannot belong to different organizations. The only exception is during a migration of your projects from one organization to another. During the migration, service projects can be in a different organization than the host project temporarily.
+    ->A project cannot be both a host project and a service project simultaneously. Thus, a service project cannot be a host project to further service projects.
+    ->Each service project can only be attached to a single host project.
+    ->Services running in a service project can use Shared VPC to communicate with resources running in the other service projects.
+    ->For clarity, a project that does not participate in Shared VPC is called a standalone project.
+    ->A standalone VPC network is an unshared VPC network that exists in either a standalone project or a service project.
+    ->A Shared VPC network is a VPC network defined in a host project and made available as a centrally shared network for eligible resources in service projects
+    ->Instances using the same subnet must be located in a zone in the same region as the subnet, even though the subnet and instances are defined in separate projects.
+    ->A Service Project Admin for Service project A who has subnet-level permissions to the 10.0.1.0/24 subnet can create Instance A in it. 
+    ->A Shared VPC Admin can link projects in two different folders only if the admin has the role for both folders.
+    ->Network Admins have full control over all network resources except for firewall rules and SSL certificates.
+->VPC network peering: Lets you build software as a service (SaaS) ecosystems in Google Cloud, making services available privately across different VPC networks, whether the networks are in the same project, different projects, or projects in different organizations.
+    ->Connects two Virtual Private Cloud (VPC) networks so that resources in each network can communicate with each other.
+    ->VPC Network Peering does not provide transitive routing.
+    ->To establish peering connectivity, a Network Administrator for each VPC network must create a peering connection to the other VPC network. A Network Administrator for either VPC network can disconnect a peering connection.
+    ->Peering will be active only when the configuration from both sides matches.
+->Cloud VPN securely extends your peer network to Google's network through an IPsec VPN tunnel. 
+    ->Traffic is encrypted and travels between the two networks over the public internet.
+    ->Cloud VPN is useful for low-volume data connections.

@@ -31,8 +31,9 @@
     -cloud run.
     -cloud functions.
     -Firestore.
-    -CloudSQL.(doubt)
-    -CloudSpanner.(doubt)
+    -CloudSQL.(doubt may be not)
+    -CloudSpanner.(doubt may be not)
     -Eventarc.(Asynchronously deliver events from services)
     -Workflows.
     -Cloud scheduler.
+    -cloud dataflow.

@@ -7,7 +7,7 @@
   --new-project=production-project-id
 ->Metadata in VM?
 ->username and password for VM RDP client?
-->deployment manager, Big query, cloud monitoring, GKE,(*kubectl vs gcloud), type of load balancers and their config, load balancer and auto scale in instance group, ways of uploading and downloading files in GCS/gcp, configmaps?
+->deployment manager, Big query, cloud monitoring, GKE,(*kubectl vs gcloud), type of load balancers and their config, load balancer and auto scale in instance group, ways of uploading and downloading files in GCS/gcp, configmaps(gke)?
 ->bigQuery.dataViewer role in GCP can run queries on datasets and tables, can export data to vatious formats(json, csv...)
 ->bigQuery.dataEditor or bigQuery.admin: Create or modify datasets or tables.
 ->bigQuery.admin: Modify access controls for datasets or tables.

@@ -28,7 +28,9 @@ Project:
 ->cloud load balancing can distribute traffic across multiple regions.
 ->Cloud Run is a managed compute platform that lets you run containers directly on top of Google's scalable infrastructure.
     ->Cloud Run services. Used to run code that responds to web requests, or events.
-    ->Cloud Run jobs. Used to run code that performs work (a job) and quits when the work is done.
+    ->Cloud Run jobs. Used to run code that performs work (a job) and quits when the work is done.Can create schedule.Can split the task to execute parallel(independently). 
+    ->Every depluyment in cloud run creates new immutable revision we can role back to previous revision or split traffic.
+    ->Auto scalling load balancing...
 ->Deploy app in appengine from GCP:
     ->Prepare your app: Ensure your app is structured correctly for App Engine, with necessary files like app.yaml (configuration) and requirements.txt (dependencies).
     ->gcloud app services set-traffic --splits=v3=.5,v2=.5 (to split traffic b/w different versions)
@@ -43,9 +45,9 @@ Project:
 ->Disk size can only be increased can not be decreased.
 ->Cloud storage
     ->Standard: Frequent 
-    ->Nearline: <1 a month(min duration) (backups)
-    ->Coldline: <1 a quater(min duration) (disaster recovery)
-    ->Archive: <1 a year(min duration) (digital preservation)
+    ->Nearline: <=1 a month(min duration) (backups)
+    ->Coldline: <=1 a quater(min duration) (disaster recovery)
+    ->Archive: <=1 a year(min duration) (digital preservation)
 ->Persistent disks are used to store dataBase.
 ->(optional)Types of storages GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
 ->Policy trouble shooter helps to check if user has specific permission on specific resource.
@@ -101,7 +103,8 @@ Project:
     ->A Service Project Admin for Service project A who has subnet-level permissions to the 10.0.1.0/24 subnet can create Instance A in it. 
     ->A Shared VPC Admin can link projects in two different folders only if the admin has the role for both folders.
     ->Network Admins have full control over all network resources except for firewall rules and SSL certificates.
-->VPC network peering: Lets you build software as a service (SaaS) ecosystems in Google Cloud, making services available privately across different VPC networks, whether the networks are in the same project, different projects, or projects in different organizations.
+->VPC network peering: Lets you build software as a service (SaaS) ecosystems in Google Cloud, making services available privately across different VPC networks.
+    ->Whether the networks are in the same project, different projects, or projects in different organizations.
     ->Connects two Virtual Private Cloud (VPC) networks so that resources in each network can communicate with each other.
     ->VPC Network Peering does not provide transitive routing.
     ->To establish peering connectivity, a Network Administrator for each VPC network must create a peering connection to the other VPC network. A Network Administrator for either VPC network can disconnect a peering connection.
@@ -128,3 +131,10 @@ Project:
     ->Alternative to Dataproc in BigQuery but for intelligent analysis using AI/ML choose dataproc.
 ->Cloud dataflow: To deploy your batch and streaming data processing pipelines using Dataflow.
 ->ETL services: Cloud datafusion(ETL/ELT, build and manage), Cloud dataflow(analysis), Cloud dataproc.
+->If the service account needs to access resources in other projects, you usually must enable the APIs for those resources in the project where you created the service account.
+->The SSL Proxy Load Balancer is designed specifically for SSL-encrypted traffic and provides SSL termination, minimizing latency for clients worldwide by handling SSL connections efficiently. This load balancer is suitable for applications that receive SSL-encrypted TCP traffic on port 443, making it a good choice for the scenario.
+->External proxy load balancer supports global and regional scope. While external passthrough network load balancer supports regional scope.
+->UDP Load Balancing is a global, UDP-based load balancer that distributes UDP traffic across multiple regions. It's designed for handling gaming, streaming, IoT, and other UDP-based workloads.
+->Network Load Balancing is a regional, high-performance, and scalable load balancer that operates at the network layer.
+    ->Load balancing UDP-based protocols or stateful TCP connections.
+184

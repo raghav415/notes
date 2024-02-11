@@ -35,7 +35,13 @@
 ->Storage Insights Admin: Grants full control of Storage Insights inventory reports and configurations.
 ->Storage Insights Viewer: Grants read-only access to Storage Insights inventory reports and configurations.
 ->Storage Insights Collector Service: Grants read access to object metadata in inventory reports.
-->BigQuery Admin: Provides permissions to manage all resources within the project. Can manage all data within the project, and can cancel jobs from other users running within the project.
+->BigQuery Admin: 
+->BigQuery User: When applied to a dataset, this role provides the ability to read the dataset's metadata and list tables in the dataset.
+
+When applied to a project, this role also provides the ability to run jobs, including queries, within the project. A principal with this role can enumerate their own jobs, cancel their own jobs, and enumerate datasets within a project. Additionally, allows the creation of new datasets within the project; the creator is granted the BigQuery Data Owner role (roles/bigquery.dataOwner) on these new datasets.
 ->SecurityAdmin: Get and set Iam Policy
 ->SecurityReviewer: List all resources and Iam policies.
-->
+->ProjectCreator: Gets project owner role for created project.
+->Cloud Run Invoker: Can invoke a Cloud Run service.
+->iam.roleAdmin role:Create and manage custom roles.
+->https://cloud.google.com/bigquery/docs/access-control

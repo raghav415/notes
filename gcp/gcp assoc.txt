@@ -137,4 +137,8 @@ Project:
 ->UDP Load Balancing is a global, UDP-based load balancer that distributes UDP traffic across multiple regions. It's designed for handling gaming, streaming, IoT, and other UDP-based workloads.
 ->Network Load Balancing is a regional, high-performance, and scalable load balancer that operates at the network layer.
     ->Load balancing UDP-based protocols or stateful TCP connections.
-184
+->A network tag is simply a character string added to a tags field in a resource, such as Compute Engine virtual machine (VM) instances or instance templates.
+    ->Tags enable you to make firewall rules and routes applicable to specific VM instances.
+->Config Connector is a Kubernetes operator that allows you to manage Google Cloud resources.
+->Images can't be created from running instances unless specified.(spefying is not good practics).
+->udp load balancing can not create multi region load balancing.

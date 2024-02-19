@@ -7,7 +7,7 @@
   --new-project=production-project-id
 ->Metadata in VM?
 ->username and password for VM RDP client?
-->deployment manager, Big query, cloud monitoring, GKE,(*kubectl vs gcloud), type of load balancers and their config, load balancer and auto scale in instance group, ways of uploading and downloading files in GCS/gcp, configmaps?
+->deployment manager, Big query, cloud monitoring, GKE,(*kubectl vs gcloud), type of load balancers and their config, load balancer and auto scale in instance group, ways of uploading and downloading files in GCS/gcp, configmaps(gke)?
 ->bigQuery.dataViewer role in GCP can run queries on datasets and tables, can export data to vatious formats(json, csv...)
 ->bigQuery.dataEditor or bigQuery.admin: Create or modify datasets or tables.
 ->bigQuery.admin: Modify access controls for datasets or tables.
@@ -27,4 +27,4 @@ Cloud Profiler: Identifies performance bottlenecks and resource usage in your ap
 ->Data storage and serving(Cloud CDN, Firebase Storage, Cloud Filestore) , Data Processing and Analytics(BigQuery,Dataflow,Vertex AI,Cloud Dataproc,Cloud Pub/Sub), container registry these services use cloude storage.
 ->Cloud Monitoring: Stores monitoring data and configuration information in Cloud Storage for historical analysis and reporting.
 ->Cloud Logging: Logs application and system events to Cloud Storage for centralized collection, analysis, and archiving.
--> gcloud compute reset-windows-password command is used to reset the password for a Windows virtual machine (VM) instance in Google Cloud Compute Engine. This can be useful if you forget the password or if you need to grant access to a new user
+->gcloud compute reset-windows-password command is used to reset the password for a Windows virtual machine (VM) instance in Google Cloud Compute Engine. This can be useful if you forget the password or if you need to grant access to a new user

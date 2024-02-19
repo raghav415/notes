@@ -17,3 +17,13 @@
     ->gcloud app browse (to get url of current working version)
     ->gcloud app deploy --version=v3 --no-promote (to deploy v3 version but not replace the apps deployed url or app current version)
 ->gcloud container clusters create (gke)
+->gcloud functions deploy function_name
+->gcloud compute disks create.
+    ->gcloud compute snapshots create SNAPSHOT_NAME --disk DISK_NAME.
+->gsutil mb gs://bktname
+    ->gsutil ls
+->gcloud storage buckets create gs://cvdf
+->gcloud bigtable instances tables create.(gcloud is avail only to create table for rest of ops use cbt cli)
+->gcloud components install cbt.
+->gcloud --version (to see all installed s/w's in gcloud)
+->bq mk (cli cmd to create data set)

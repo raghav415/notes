@@ -1,0 +1,47 @@
+->Compute Image User :Permission to list and read images and create resources, such as instances and persistent disks, based on images in the project.
+->Compute Network User: Provides access to a shared VPC network.
+    ->Once granted, service owners can use VPC networks and subnets that belong to the host project. For example, a network user can create a VM instance that belongs to a host project network but they cannot delete or create new networks in the host project.
+->Compute Organization Resource Admin role: Full control of Compute Engine Firewall Policy associations to the organization or folders.
+->Compute OS Admin Login: Access to log in to a Compute Engine instance as an administrator user.
+    ->Manage OS, install s/w, config settings.
+->Compute OS Login: Can interact with OS and run s/w.
+->Compute Viewer: Read-only access to get and list Compute Engine resources, without being able to read the data stored on them.
+    ->For example, an account with this role could inventory all of the disks in a project, but it could not read any of the data on those disks.
+->Compute Shared VPC Admin: Able to associate service proj with host projects.
+->Service Account Key Admin: Create and manage (and rotate) service account keys.
+->Service Account Token Creator: Impersonate service accounts (create OAuth2 access tokens, sign blobs or JWTs, etc).
+->Service Account User: lets a principal attach a service account to a resource.
+->App Engine Admin: Read/Write/Modify access to all application configuration and settings.
+    ->To deploy new versions, a principal must have:
+        ->The Service Account User (roles/iam.serviceAccountUser) role on the assigned App Engine service account.
+        ->The Cloud Build Editor (roles/cloudbuild.builds.editor)
+        ->And Cloud Storage Object Admin (roles/storage.objectAdmin) roles on the project.
+->App Engine Code Viewer: Read-only access to all application configuration, settings, and deployed source code.
+->App Engine Deployer : Read-only access to all application configuration and settings.
+    ->To deploy new versions, you must also have the Service Account User (roles/iam.serviceAccountUser) role on the assigned App Engine service account, and the Cloud Build Editor (roles/cloudbuild.builds.editor), and Cloud Storage Object Admin (roles/storage.objectAdmin) roles on the project.
+    ->Cannot modify existing versions other than deleting versions that are not receiving traffic.
+->Kubernetes Engine Admin: Provides access to full management of clusters and their Kubernetes API objects.
+->Kubernetes Engine Cluster Admin: Provides access to management of clusters.
+->Kubernetes Engine Developer: Provides access to Kubernetes API objects inside clusters.
+->Kubernetes Engine Host Service Agent User: Allows the Kubernetes Engine service account in the host project to configure shared network resources for cluster management. Also gives access to inspect the firewall rules in the host project.
+->Kubernetes Engine Viewer: Provides read-only access to resources within GKE clusters, such as nodes, pods, and GKE API objects.
+->Storage Object Creator: Allows users to create objects. Does not give permission to view, delete, or replace objects. Does not give permission to get object ACLs or set object ACLs as part of an object update request.
+->Storage Object Viewer: Grants access to view objects and their metadata, excluding ACLs.Can also list the objects and managed folders in a bucket.
+->Storage Object User: Grants access to create, view, list, update, and delete objects and managed folders, along with their metadata. Does not give permission to get or set ACLs or IAM policies.
+->Storage Object Admin:	Grants full control over objects, including listing, creating, viewing, and deleting objects, as well as setting object ACLs. Also grants access to create, delete, get, and list managed folders.
+->Storage Folder Admin: Grants full control over objects and managed folders, including listing, creating, viewing, deleting, and managing IAM permissions.
+->Storage Admin: Grants full control of buckets, managed folders, and objects, including getting and setting object ACLs or IAM policies.
+    ->Control applies only to the specified bucket and the managed folders and objects within the bucket.
+->Storage Insights Admin: Grants full control of Storage Insights inventory reports and configurations.
+->Storage Insights Viewer: Grants read-only access to Storage Insights inventory reports and configurations.
+->Storage Insights Collector Service: Grants read access to object metadata in inventory reports.
+->BigQuery Admin: 
+->BigQuery User: When applied to a dataset, this role provides the ability to read the dataset's metadata and list tables in the dataset.
+
+When applied to a project, this role also provides the ability to run jobs, including queries, within the project. A principal with this role can enumerate their own jobs, cancel their own jobs, and enumerate datasets within a project. Additionally, allows the creation of new datasets within the project; the creator is granted the BigQuery Data Owner role (roles/bigquery.dataOwner) on these new datasets.
+->SecurityAdmin: Get and set Iam Policy
+->SecurityReviewer: List all resources and Iam policies.
+->ProjectCreator: Gets project owner role for created project.
+->Cloud Run Invoker: Can invoke a Cloud Run service.
+->iam.roleAdmin role:Create and manage custom roles.
+->https://cloud.google.com/bigquery/docs/access-control

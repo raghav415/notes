@@ -41,17 +41,7 @@ Google Cloud Platform (GCP) provides predefined roles for managing access to Bil
     - View aggregated cost data for the project.
     - Cannot manage bills, budgets, or project resources.
 
-**Additional Notes:**
-
-- You can customize access further by creating custom roles using specific permissions from the Billing API.
-- Consider the principle of least privilege, granting only the necessary permissions for each role.
-- Regularly review and update roles to ensure proper access control and security.
-
 **Resourceful Learning:**
 
 - IAM Roles for billing-related job functions: [https://cloud.google.com/billing/docs/how-to/billing-access](https://cloud.google.com/billing/docs/how-to/billing-access)
 - Create custom roles for Billing: [https://cloud.google.com/iam/docs/creating-custom-roles](https://cloud.google.com/iam/docs/creating-custom-roles)
-
-By understanding these roles and managing access strategically, you can ensure secure and efficient handling of billing within your GCP projects and accounts.
-
-Feel free to ask if you have any further questions about specific roles or permissions related to GCP Billing.

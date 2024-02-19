@@ -8,6 +8,10 @@ gcloud iam roles describe roles/storage.objectAdmin
 gcloud iam roles copy --source=roles/storage.objectAdmin --destination=my.custom.role --dest-project=glowing-furnace-304608
 
 gcloud auth login (To use gcloud commands from terminal. gcloud auth login is a command used in the Google Cloud SDK to initiate the authentication process for accessing Google Cloud resources)
+gcloud init	(Authorizes access and performs other common setup steps.)
+    ->Sets up a new or existing configuration.
+    ->Sets properties in that configuration, including the current project and optionally, the default Google Compute Engine region and zone you'd like to use.
+gcloud auth login(Authorizes access only.)
 gcloud auth revoke
 gcloud auth list (list active accounts)
 gcloud projects delete

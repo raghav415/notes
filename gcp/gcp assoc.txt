@@ -18,7 +18,6 @@ Project:
 -> You can close an active Cloud Billing account to stop all billable services in any projects.
 -> Cloud Billing export to BigQuery enables you to export detailed Google Cloud billing data (such as usage, cost estimates, and pricing data) automatically.
 ->Use the Rebilling data export to manage billing operations for your Google Cloud customers.
-->No, you cannot create a single VPC that spans across different regions in Google Cloud Platform (GCP)
 ->max-surge and max-unavailable are flags used during managed instance group rolling updates to control the scaling behavior and maintain service availability while deploying new application versions.
 	->max-surge:Specifies the maximum number of additional instances of the new version that can be created before terminating instances of the old version.
 	->max-unavailable:Specifies the maximum number of healthy instances of the old version that can be terminated at any given time during the update.
@@ -29,7 +28,117 @@ Project:
 ->cloud load balancing can distribute traffic across multiple regions.
 ->Cloud Run is a managed compute platform that lets you run containers directly on top of Google's scalable infrastructure.
     ->Cloud Run services. Used to run code that responds to web requests, or events.
-    ->Cloud Run jobs. Used to run code that performs work (a job) and quits when the work is done.
+    ->Cloud Run jobs. Used to run code that performs work (a job) and quits when the work is done.Can create schedule.Can split the task to execute parallel(independently). 
+    ->Every depluyment in cloud run creates new immutable revision we can role back to previous revision or split traffic.
+    ->Auto scalling load balancing...
 ->Deploy app in appengine from GCP:
     ->Prepare your app: Ensure your app is structured correctly for App Engine, with necessary files like app.yaml (configuration) and requirements.txt (dependencies).
     ->gcloud app services set-traffic --splits=v3=.5,v2=.5 (to split traffic b/w different versions)
+->External load balancing is for users from internet. Interanal load balancing is for clients inside cloud.
+->Anthons: Manages container across multiple environments(cloud tun, gke, edge, on-prem...).
+->Cloud function Gen2 they run on cloud run so they support multi function, concurrent requests and traffic splitting.
+->Snapshots stores specific point in time state(data) of (disk/file/table/dataBase).
+    ->They can be shared across projects or with other cloud providers.
+    ->We don't lose data by deleting old snapshots.
+->Machine image is created from boot disk.
+    ->Can create multi regional images.
+->Disk size can only be increased can not be decreased.
+->Cloud storage
+    ->Standard: Frequent 
+    ->Nearline: <=1 a month(min duration) (backups)
+    ->Coldline: <=1 a quater(min duration) (disaster recovery)
+    ->Archive: <=1 a year(min duration) (digital preservation)
+->Persistent disks are used to store dataBase.
+->(optional)Types of storages GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
+->Policy trouble shooter helps to check if user has specific permission on specific resource.
+->Oauth 2.0 provides standard way to access tokens that allows your application to access google services.
+->Signed URLs can only be used to access resources in Cloud Storage through XML API endpoints for limited permission and time.
+->SQL:
+    ->OLTP is for high volume of small frequent queries.
+        ->Cloud SQL(Multi zone(replication) or zonal): MySQL, Postgres SQL, SQL server,storage can only be increased(Few TB's(<66TB), 1000 transactions per sec).
+            ->For high availability and failover enable auto backup and binary logging.
+            ->For point in time recovery enable binary logging(It is record of all changes(inc table creation...) made to DB).
+        ->Cloud spanner(global):Google SQL, Postgres SQL dialect(limitations).(Multi PB's, Millions of transactions per sec).
+    ->OLAP is for fewer larger more complex time consuming queries.
+        ->BigQuery:Datasets=>tables, Data warehouse.(Exabyte scale)
+            ->Auto Expire data.
+            ->Can query external data with our storing it in BigQuery.(From cloud storage, Big table,Cloud SQL, Google drive).
+            ->Can query billing.
+            ->--dry run for cost estimation on query.
+->No SQL:
+    ->Cloud Firestore(Next version of Datastore):Serverless,document dataBase,ACID transactions, SQL like queries.(Few TB's of data)
+        ->You cannot use both Native mode and Datastore mode in the same project. 
+        ->Firestore Native Mode: Provide data sync across Apps, Offline mode, More clien libraries, Organized into documents and collection.
+        ->Datastore Mode: Organized into kinds and entity groups. Free for small ops.
+        ->For transactional mobile web apps.
+        ->Does not support joins, Aggregate ops.
+    ->Cloud Big Table:For large analytical op workload(For >10 TB data to PB's, Millions of read/writes per sec).
+        ->For IOT, Analytics, Time series data, graphical and real time data analytics, streaming data.
+        ->Not serverless.
+->In memory DB:
+    ->Memorystore for redis:For fast, real-time processing of data.
+    ->Memorystore for Memcached:For reference data, database query caching, session store.(simple cases)
+->cbt cli for Big table.
+->Data can be exported or imported from cloud storage using all DB's.
+->VPC: To create private n/w to control in/out traffic.
+    ->It is global resource and can create sub-nets in one or more regions.
+    ->We can not use Internal IP ranges on internet.
+    ->Connects to on-premises networks by using Cloud VPN tunnels and VLAN attachments for Cloud Interconnect.
+    ->VM instances within a VPC network can communicate among themselves by using internal IP addresses as long as firewall rules permit. However, no internal IP address communication is allowed between networks, unless you set up mechanisms such as VPC Network Peering or Cloud VPN.
+    ->(optional)Multiple network interfaces(https://cloud.google.com/vpc/docs/multiple-interfaces-concepts)
+    ->Multiple network interfaces let you create configurations in which an instance connects directly to several VPC networks(Each instance can have upto 8 interfaces based on instance type).
+    ->Use multiple network interfaces when an individual instance needs access to more than one VPC network, but you don't want to connect both networks directly.
+->Shared VPC: You can share a VPC network from one project (called a host project) to other projects in your Google Cloud organization.
+    ->It allows an organization to connect resources from multiple projects to a common Virtual Private Cloud (VPC) network so that they can communicate with each other securely and efficiently by using internal IP addresses from that network.
+    ->When you use Shared VPC, you designate a project as a host project and attach one or more other service projects to it.
+    ->Linked projects can be in the same or different folders, but if they are in different folders the admin must have Shared VPC Admin rights to both folders.
+    ->Participating host and service projects cannot belong to different organizations. The only exception is during a migration of your projects from one organization to another. During the migration, service projects can be in a different organization than the host project temporarily.
+    ->A project cannot be both a host project and a service project simultaneously. Thus, a service project cannot be a host project to further service projects.
+    ->Each service project can only be attached to a single host project.
+    ->Services running in a service project can use Shared VPC to communicate with resources running in the other service projects.
+    ->For clarity, a project that does not participate in Shared VPC is called a standalone project.
+    ->A standalone VPC network is an unshared VPC network that exists in either a standalone project or a service project.
+    ->A Shared VPC network is a VPC network defined in a host project and made available as a centrally shared network for eligible resources in service projects
+    ->Instances using the same subnet must be located in a zone in the same region as the subnet, even though the subnet and instances are defined in separate projects.
+    ->A Service Project Admin for Service project A who has subnet-level permissions to the 10.0.1.0/24 subnet can create Instance A in it. 
+    ->A Shared VPC Admin can link projects in two different folders only if the admin has the role for both folders.
+    ->Network Admins have full control over all network resources except for firewall rules and SSL certificates.
+->VPC network peering: Lets you build software as a service (SaaS) ecosystems in Google Cloud, making services available privately across different VPC networks.
+    ->Whether the networks are in the same project, different projects, or projects in different organizations.
+    ->Connects two Virtual Private Cloud (VPC) networks so that resources in each network can communicate with each other.
+    ->VPC Network Peering does not provide transitive routing.
+    ->To establish peering connectivity, a Network Administrator for each VPC network must create a peering connection to the other VPC network. A Network Administrator for either VPC network can disconnect a peering connection.
+    ->Peering will be active only when the configuration from both sides matches.
+->Cloud VPN securely extends your peer network to Google's network through an IPsec VPN tunnel. 
+    ->Traffic is encrypted and travels between the two networks over the public internet.
+    ->Cloud VPN is useful for low-volume data connections.
+->Cloud Monitoring provides different services that you can use to understand the health and performance of your applications, and of the other Google Cloud services that you use.
+    ->In Metrics scope we can monitor multiple projects(monitoring project) metrics in one project(scoping project).
+    ->Metrics explorer to filter and query on metrics.
+    ->Uptime check: To know point in time status of service.
+->Cloud logging:
+    ->To get loggs from on-prem we can use cloud logging API.
+    ->Access transparency logs:Action performed by gcp team.
+    ->Cloud Audit logs:
+        ->Activity logs:These log entries capture API calls or administrative actions that modify the configuration or metadata of GCP resources. They are enabled by default for all GCP services and cannot be modified.
+        ->Data access log:Admin read, Data read, and Data write.
+        ->To download logs >10000 we can use sink in Log router.
+->Deployment manager:  Define the desired state of your resources in a YAML configuration file, and then Deployment Manager takes care of creating, updating, and deleting those resources to match the defined state.
+    ->Any changes made are automatically applied.
+    ->Template Library: Deployment Manager includes a library of reusable templates that can be used to deploy common infrastructure configurations.
+    ->Preview Mode: Deployment Manager includes a preview mode, allowing you to preview the changes that will be made to your resources before they are actually deployed.
+->Cloud Dataproc: Managed spark and hadoop servics.
+    ->Alternative to Dataproc in BigQuery but for intelligent analysis using AI/ML choose dataproc.
+->Cloud dataflow: To deploy your batch and streaming data processing pipelines using Dataflow.
+->ETL services: Cloud datafusion(ETL/ELT, build and manage), Cloud dataflow(analysis), Cloud dataproc.
+->If the service account needs to access resources in other projects, you usually must enable the APIs for those resources in the project where you created the service account.
+->The SSL Proxy Load Balancer is designed specifically for SSL-encrypted traffic and provides SSL termination, minimizing latency for clients worldwide by handling SSL connections efficiently. This load balancer is suitable for applications that receive SSL-encrypted TCP traffic on port 443, making it a good choice for the scenario.
+->External proxy load balancer supports global and regional scope. While external passthrough network load balancer supports regional scope.
+->UDP Load Balancing is a global, UDP-based load balancer that distributes UDP traffic across multiple regions. It's designed for handling gaming, streaming, IoT, and other UDP-based workloads.
+->Network Load Balancing is a regional, high-performance, and scalable load balancer that operates at the network layer.
+    ->Load balancing UDP-based protocols or stateful TCP connections.
+->A network tag is simply a character string added to a tags field in a resource, such as Compute Engine virtual machine (VM) instances or instance templates.
+    ->Tags enable you to make firewall rules and routes applicable to specific VM instances.
+->Config Connector is a Kubernetes operator that allows you to manage Google Cloud resources.
+->Images can't be created from running instances unless specified.(spefying is not good practics).
+->udp load balancing can not create multi region load balancing.

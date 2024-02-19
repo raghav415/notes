@@ -1,0 +1,8 @@
+Synchronous replication:Ensures data consistency between source and target databases by waiting for target to confirm the receipt of data before the write operation is considered complete.
+Asynchronous replication:Does not ensure data consistency as the write operation is considered complete before the data is copied to the target database.
+Semi Synchronous replication:Balances performance and data consistency by waiting for a certain time period or amount of data before copying it to the target database.
+DNS Records:
+    ->Address Mapping record (A Record)—stores a hostname and its corresponding IPv4 address.
+    ->IP Version 6 Address record (AAAA Record)—stores a hostname and its corresponding IPv6 address.
+    ->Canonical Name record (CNAME Record)—can be used to alias a hostname to another hostname.
+    ->NS record—identifies a name server responsible for the resolution of queries for a particular hostname.

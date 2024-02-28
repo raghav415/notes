@@ -5,7 +5,7 @@
     ->To keep the “first” row of each group of duplicates where the expression is equal. See the following syntax:
         SELECT DISTINCT ON (column_1), column_2
         FROM tbl_name
-    ====>PostgreSQL also provides the DISTINCT ON (expression) to keep the “first” row of each group of duplicates where the expression is equal.
+    ====>PostgreSQL also provides the DISTINCT ON (expression) to keep the “first” row of each group of duplicates where the expression is equal?
 ->not equal to operator: <> or !=.
 ->select * from t_n order by name1 ASC, name2 desc;
     ->by default asc.
@@ -62,6 +62,7 @@
         ->Here the HAVING clause will turn the query into a single group.
         ->True: single row, False: No rows
 ->JOINS:
+    ->JOIN==INNER JOIN
     ->INNER JOIN, FULL OUTER JOIN, LEFT OUTER JOIN.
         ->Ex:(set of records that only appear in the Registration table)
             SELECT * FROM Registrations
@@ -93,3 +94,31 @@ allows one NULL value in the column that has the UNIQUE constraint.
     ->multi column(table constraint)
 ->CHECK: To check a condition(only +ve values allowed) when you insert or update data.
 ->REFERENCES – constrains the value of the column that exists in a column in another table.
+->SELECT column AS new_name from table. To rename column in result query.
+->UNION: SELECT c1,c2 FROM t1 UNION SELECT c1,c2 FROM t2.(col names should be same)
+->Data types:TIME, DATE, TIMEDATE, TIMEDATEZ(time, date and zone).
+->Functions: TIMEZONE, NOW, TIMEOFDAY, CURRENT_TIME, CURRENT_DATE
+    ->SELECT NOW()
+    ->SELECT TIMEOFDAY() -> understandable time date zone format.
+->Functions: 
+    ->EXTRACT()
+        ->To EXTRACT YEAR, MONTH, DAY, WEEK, QUARTER from timestamp.
+        -> EXTRACT(YEAR FROM date_col)
+    ->AGE()
+        ->Calculates no of years, months, day, hours, mins, sec, milli sec from timestamp to today.
+        ->AGE(date_col)
+    ->TO_CHAR()
+        ->To convert data_type to text and to fomat timestamp.
+        ->TO_CHAR(date_col,'mm-dd-yyyy')
+->SHOW: Shows the current settings of run time params.
+    ->SHOW ALL.
+    ->SHOW TIMEZONE.
+->select count(*) from payment where EXTRACT(dow from payment_date)=1.(dow-day of week, sunday=0).
+->Operator ops:
+    ->select col1+col2 from t1.
+->EXISTS(): To check existence of rows in sub query.
+    ->slect * from t1 where EXISTS(select * from t2 where condn)
+    ->selct f_n, l_n from customer AS c where Exists(select * from payment AS p where p.customer_id=c.customer_id).(Returns customer with atleast 1 payment)
+->Data types:
+    https://www.postgresql.org/docs/current/datatype.html
+====>Exclude, Include constraints?

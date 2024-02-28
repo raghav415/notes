@@ -5,6 +5,7 @@
     ->To keep the “first” row of each group of duplicates where the expression is equal. See the following syntax:
         SELECT DISTINCT ON (column_1), column_2
         FROM tbl_name
+    ====>PostgreSQL also provides the DISTINCT ON (expression) to keep the “first” row of each group of duplicates where the expression is equal.
 ->not equal to operator: <> or !=.
 ->select * from t_n order by name1 ASC, name2 desc;
     ->by default asc.
@@ -42,6 +43,53 @@
     SELECT first_name,last_name
     FROM customer
     WHERE first_name LIKE 'Jen%';
-
-
-    
+->The GROUP BY clause must appear right after the FROM or WHERE clause. Used with Aggregate function:
+    SELECT customer_id,
+    SUM (amount)
+    FROM payment
+    GROUP BY customer_id;
+->We often use the HAVING clause in conjunction with the GROUP BY clause to filter group rows that do not
+  satisfy a specified condition.
+    ->HAVING clause sets the condition for group rows created by the GROUP BY clause after the GROUP BY 
+    clause applies while the WHERE clause sets the condition for individual rows before GROUP BY clause 
+    applies.
+    ->Ex:
+        SELECT column_1, aggregate_function (column_2)
+        FROM tbl_name
+        GROUP BY column_1
+        HAVING SUM (amount) > 200;
+    ->In PostgreSQL, you can use the HAVING clause without the GROUP BY clause.
+        ->Here the HAVING clause will turn the query into a single group.
+        ->True: single row, False: No rows
+->JOINS:
+    ->INNER JOIN, FULL OUTER JOIN, LEFT OUTER JOIN.
+        ->Ex:(set of records that only appear in the Registration table)
+            SELECT * FROM Registrations
+            LEFT OUTER JOIN Logins
+            ON Registrations.name = Logins.name
+            WHERE Logins.id IS null
+    ->SELF JOIN:
+        SELECT a.column_name, b.column_name
+        FROM table1 a, table1 b
+        WHERE a.common_field = b.common_field;
+->PostgreSQL executes the query that contains a subquery in the following sequence(query in where clause):
+    ● First, executes the subquery.
+    ● Second, gets the result and passes it to the outer query.
+    ● Third, executes the outer query.
+->Create table:
+    CREATE TABLE table_name (
+    column_name TYPE column_constraint,
+    table_constraint table_constraint
+    ) INHERITS existing_table_name;
+    ->The TEMPORARY keyword with CREATE TABLE is for creating a temporary table.
+    ->After that, you specify an existing table from which the new table inherits. It means the new 
+    table contains all columns of the existing table and the columns defined in the CREATE TABLE 
+    statement. This is a PostgreSQL’s extension to SQL.
+->UNIQUE – the value of the column must be unique across the whole table. However, the column can have 
+many NULL values because PostgreSQL treats each NULL value to be unique. Notice that SQL standard only 
+allows one NULL value in the column that has the UNIQUE constraint.
+->Primary key: UNIQUE+NOT NULL
+    ->Single column(column constraint)
+    ->multi column(table constraint)
+->CHECK: To check a condition(only +ve values allowed) when you insert or update data.
+->REFERENCES – constrains the value of the column that exists in a column in another table.

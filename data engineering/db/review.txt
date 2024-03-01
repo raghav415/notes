@@ -96,8 +96,8 @@ allows one NULL value in the column that has the UNIQUE constraint.
 ->REFERENCES – constrains the value of the column that exists in a column in another table.
 ->SELECT column AS new_name from table. To rename column in result query.
 ->UNION: SELECT c1,c2 FROM t1 UNION SELECT c1,c2 FROM t2.(col names should be same)
-->Data types:TIME, DATE, TIMEDATE, TIMEDATEZ(time, date and zone).
-->Functions: TIMEZONE, NOW, TIMEOFDAY, CURRENT_TIME, CURRENT_DATE
+->Data types:TIME, DATE, TIMEDATE, TIMEDATEZ(time, date and zone), TIMESTAMP.
+->Functions: TIMEZONE, NOW, TIMEOFDAY, CURRENT_TIME, CURRENT_DATE, CURRENT_TIMESTAMP
     ->SELECT NOW()
     ->SELECT TIMEOFDAY() -> understandable time date zone format.
 ->Functions: 
@@ -122,3 +122,42 @@ allows one NULL value in the column that has the UNIQUE constraint.
 ->Data types:
     https://www.postgresql.org/docs/current/datatype.html
 ====>Exclude, Include constraints?
+->SERIAL(data type) used for primary keys.
+    ->It provide value in sequence 1,2,3,....
+    ->Even if the value is deleted it will not be used again.
+    ->Types: smallserial(2 bytes), serial(4 bytes), bigserial(8 bytes).
+    ->Use Integer when using the datatype as foreign key.Eg(user_id INTEGER REFERENCES account(user_id)):account is different table name.
+->Insert into table_name(c1,c2) values (v1, v2)
+    ->Insert into table_name(c1,c2) select c1,c2 from tabel_name2.
+    ->insert into table_name(c1,c2) values(v1,CURRENT_TIME) 
+->UPDATE:
+    ->UPDATE t1 set c1=val, c2=val2 WHERE condition;
+    ->To update table t1 from other table values: UPDATE t1 set c1=t2.name from t2 where t1.id=t2.id;
+    ->To updated rows: UPDATE t1 set c1=v1 RETURNING c1,c2
+-DELETE
+    ->DELETE from t1 where id=val
+    ->DELETE from t1 USING t2 where t1.id=t2.id
+    ->DELETE from t1 where cond RETURNING c1,c2
+->ALTER:
+    ->Used for:
+        ->Adding, droping or renaming column names.
+        ->Changing column data types.
+        ->Set default values for column.
+        ->Add check constraints.
+        ->Rename table.
+    ->ALTER TABLE table_name ADD COLUMN new_col TYPE;
+    ->ALTER TABLE table_name DROP COLUMN col;
+        ->DROP command in postgresql will remove all indexes, and constraints with them.
+        ->But we need to use CASCADE clause to remove clolumns used in views, triggers, or stored procedures.
+        ->Avoid Error if col doesn't exist: ALTER TABLE table_name DROP COLUMN IF EXISTS col;
+    ->ALTER TABLE t_n RENAME TO new_table_name;
+    ->ALTER TABLE table_name ALTER COLUMN col_name SET DEFAULT value;
+    ->ALTER TABLE table_name ALTER COLUMN col_name SET NOT NULL;
+    ->ALTER TABLE table_name ALTER COLUMN col_name DROP DEFAULT value;
+    ->ALTER TABLE table_name ALTER COLUMN col_name ADD CONSTRAINT constraint_name;
+->CHECK:
+    ->CREATE TABLE t_n(
+        id SERIAL PRIMARY KEY,
+        age SMALLINT CHECK(age > 21),
+        parent_age SMALLINT CHECK(parent_age > age)
+    );

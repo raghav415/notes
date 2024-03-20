@@ -37,7 +37,7 @@
 ->We often use the BETWEEN operator in the WHERE clause of a SELECT, INSERT, UPDATE or DELETE statement.
     value BETWEEN low AND high == value >= low and value <= high;
     value NOT BETWEEN low AND high == value < low OR value > high
-->LIKE, NOT LIKE:
+->LIKE, NOT LIKE, ILIKE(case insensitive) their are other regex for postgres SQL:
     ->'%': To match any sequence of characters.
     ->'_': To match any single char.
     SELECT first_name,last_name
@@ -161,3 +161,25 @@ allows one NULL value in the column that has the UNIQUE constraint.
         age SMALLINT CHECK(age > 21),
         parent_age SMALLINT CHECK(parent_age > age)
     );
+->CASE: Execute only when some cond'n is met.
+    ->General Case:
+        ->Table test:
+            |a|    |a|label|
+            |1| => |1|one  |
+            |2|    |2|two  |
+        ->SELECT a,
+        CASE
+          WHEN a=1 THEN 'one'
+          WHEN a=2 THEN 'two'
+          ELSE 'other' as label
+        END
+        from test;
+    ->Case expr: we will not add condition in WHEN here.
+        ->SELECT a,
+        CASE a
+          WHEN 1 THEN 'one'
+          WHEN 2 THEN 'two'
+          ELSE 'other' as label
+        END
+        from test;
+    

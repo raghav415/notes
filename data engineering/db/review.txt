@@ -73,6 +73,9 @@
         SELECT a.column_name, b.column_name
         FROM table1 a, table1 b
         WHERE a.common_field = b.common_field;
+    ->CROSS JOIN:Returs all possible matching joins from both tables.
+        ->Works as inner join with where clause.
+        =>MYSQL interprets join without ON word as cross JOIN.
 ->PostgreSQL executes the query that contains a subquery in the following sequence(query in where clause):
     ● First, executes the subquery.
     ● Second, gets the result and passes it to the outer query.
@@ -182,4 +185,11 @@ allows one NULL value in the column that has the UNIQUE constraint.
           ELSE 'other' as label
         END
         from test;
-    
+->NTILE:
+    ->SELECT 
+        emp_no,
+        department, 
+        salary,
+        NTILE(4) OVER(PARTITION BY department ORDER BY salary DESC) AS dept_salary_quartile,
+        NTILE(4) OVER(ORDER BY salary DESC) AS salary_quartile
+        FROM employees;

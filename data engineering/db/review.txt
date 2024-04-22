@@ -193,3 +193,6 @@ allows one NULL value in the column that has the UNIQUE constraint.
         NTILE(4) OVER(PARTITION BY department ORDER BY salary DESC) AS dept_salary_quartile,
         NTILE(4) OVER(ORDER BY salary DESC) AS salary_quartile
         FROM employees;
+->Indexing: It is used to reduce I/O time(time taken to transfer data b/w RAM and hard disk) not search time.
+    ->https://www.youtube.com/watch?v=s_S_MpLoDEM
+->

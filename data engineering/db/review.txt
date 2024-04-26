@@ -196,3 +196,8 @@ allows one NULL value in the column that has the UNIQUE constraint.
 ->Indexing: It is used to reduce I/O time(time taken to transfer data b/w RAM and hard disk) not search time.
     ->https://www.youtube.com/watch?v=s_S_MpLoDEM
 =>Transaction which follow ACID rule need to be specified separately.
+=>db.movies.find({$or:[{"rating.average":{$gt:9.4}},{"rating.average":{$lt:4.0}}]})
+=>db.sales.find({$expr:{$gt:['$volume','$target']}}).
+    -> Gives docs where attribute value of volume>target.
+=>db.sales.find({$expr:{$gt:[{$cond: if:{'$volume': {$gt:190}, then:{'$subtract':['$volume',20]}, else:'$volume'}}, '$target']}})
+    ->Gives docs where attribute value of v1>target where v1=volume-20 if volume>190 else v1=volume.

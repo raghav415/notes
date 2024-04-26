@@ -195,4 +195,4 @@ allows one NULL value in the column that has the UNIQUE constraint.
         FROM employees;
 ->Indexing: It is used to reduce I/O time(time taken to transfer data b/w RAM and hard disk) not search time.
     ->https://www.youtube.com/watch?v=s_S_MpLoDEM
-->
+=>Transaction which follow ACID rule need to be specified separately.

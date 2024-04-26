@@ -6,3 +6,7 @@ DNS Records:
     ->IP Version 6 Address record (AAAA Record)—stores a hostname and its corresponding IPv6 address.
     ->Canonical Name record (CNAME Record)—can be used to alias a hostname to another hostname.
     ->NS record—identifies a name server responsible for the resolution of queries for a particular hostname.
+    
+ORMs typically use JDBC/ODBC drivers under the hood to communicate with the database.
+    ->JDBC/ODBC Translate your programming language calls (e.g., Java methods in JDBC) into database-specific queries we use SQL like syntax.
+    ->ORM we control DB using objects.

@@ -1,11 +1,11 @@
 ->Remove duplicated:
     ->select distinct col_name
     ->select distinct (col_name1), col_name2
-    ->selct count(distinct name)
+    ==>selct count(distinct name)
     ->To keep the “first” row of each group of duplicates where the expression is equal. See the following syntax:
         SELECT DISTINCT ON (column_1), column_2
         FROM tbl_name
-    ====>PostgreSQL also provides the DISTINCT ON (expression) to keep the “first” row of each group of duplicates where the expression is equal?
+    ====>PostgreSQL also provides the DISTINCT ON (expression) to keep the “first” row of each group of duplicates where the expression is equal.
 ->not equal to operator: <> or !=.
 ->select * from t_n order by name1 ASC, name2 desc;
     ->by default asc.
@@ -201,3 +201,7 @@ allows one NULL value in the column that has the UNIQUE constraint.
     -> Gives docs where attribute value of volume>target.
 =>db.sales.find({$expr:{$gt:[{$cond: if:{'$volume': {$gt:190}, then:{'$subtract':['$volume',20]}, else:'$volume'}}, '$target']}})
     ->Gives docs where attribute value of v1>target where v1=volume-20 if volume>190 else v1=volume.
+-> \d table_name
+    ->command that describes tabe(cloumn_names, types, default values, Collation, Nullable, Indexes...).
+->A wide-column database is a type of NoSQL database in which the names and format of the columns can vary across rows, even within the same table.
+    ->Each data element can be referenced by the row key, but querying for a value is optimized like querying an index in a RDBMS, rather than a slow table scan.

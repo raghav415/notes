@@ -10,3 +10,11 @@ DNS Records:
 ORMs typically use JDBC/ODBC drivers under the hood to communicate with the database.
     ->JDBC/ODBC Translate your programming language calls (e.g., Java methods in JDBC) into database-specific queries we use SQL like syntax.
     ->ORM we control DB using objects.
+
+Jave Logging:
+	This is the main purpose of SLF4J (Simple Logging Facade for Java) – a logging abstraction which helps to decouple your application from the underlying logger by allowing it to be plugged in – at runtime.
+	SLF4j-serves as a simple facade or abstraction1 for various logging frameworks (e.g. java.util.logging, logback, log4j).
+	Log4j-logging lib for log4j.
+	SLF4J API with a dedicated logging framework to send logs to your desired destination or destinations.
+	When you use Log4j directly without slf4j your application becomes tightly coupled to Log4j. This means if you ever decide to switch to a different logging framework, you will have to change all the logging statements in your code.
+	SLF4J Simple: Use this for simple applications or during development when advanced logging features are not required.

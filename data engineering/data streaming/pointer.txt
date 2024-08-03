@@ -1,0 +1,11 @@
+->Datagen Source Connector: A Kafka Connect connector for generating mock data, not suitable for production.
+->A stream is a an immutable, append-only collection that represents a series of historical facts, or events.
+->A table is a mutable collection that models change over time. It uses row keys to display the most recent data for each key. All but the newest rows for each key are deleted periodically. Also, each row has a timestamp, so you can define a windowed table which enables controlling how to group records that have the same key for stateful operations – like aggregations and joins – into time spans. Windows are tracked by record key.
+->Creating stream:
+	->CREATE STREAM pageviews_stream
+	   WITH (KAFKA_TOPIC='pageviews', VALUE_FORMAT='AVRO');
+->Creating table:
+	->CREATE TABLE users_table (id VARCHAR PRIMARY KEY)
+	   WITH (KAFKA_TOPIC='users', VALUE_FORMAT='AVRO');
+->Schema Registry is installed with Confluent Platform and is running in the stack, so you don’t need to specify message schemas in your CREATE STREAM and CREATE TABLE statements. For the Avro, JSON_SR, and Protobuf formats, Schema Registry infers schemas automatically.
+->https://docs.confluent.io/platform/current/platform-quickstart.html (kafka quick setup).

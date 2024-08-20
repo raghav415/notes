@@ -2,3 +2,4 @@
 2. What is distribution DB and how is it different from traditional DB and which query language in distributed DB?
  Sharding vs distributed DB?
 3. Learn DB's:Key-value, wide column, graph DB, Search Engine, MultiModel(fauna)?
+4. 3-way handshake?

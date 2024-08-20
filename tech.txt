@@ -11,6 +11,11 @@ ORMs typically use JDBC/ODBC drivers under the hood to communicate with the data
     ->JDBC/ODBC Translate your programming language calls (e.g., Java methods in JDBC) into database-specific queries we use SQL like syntax.
     ->ORM we control DB using objects.
 
+vcpu to core ratio:
+    Typical server workloads: 4:1 ratio (4 vCPUs for each physical core).
+    Non-CPU-intensive workloads: Higher ratios (up to 10:1) may be feasible.
+    CPU-intensive workloads: Lower ratios (closer to 1:1) are recommended.
+
 Jave Logging:
 	This is the main purpose of SLF4J (Simple Logging Facade for Java) – a logging abstraction which helps to decouple your application from the underlying logger by allowing it to be plugged in – at runtime.
 	SLF4j-serves as a simple facade or abstraction1 for various logging frameworks (e.g. java.util.logging, logback, log4j).
@@ -18,3 +23,24 @@ Jave Logging:
 	SLF4J API with a dedicated logging framework to send logs to your desired destination or destinations.
 	When you use Log4j directly without slf4j your application becomes tightly coupled to Log4j. This means if you ever decide to switch to a different logging framework, you will have to change all the logging statements in your code.
 	SLF4J Simple: Use this for simple applications or during development when advanced logging features are not required.
+
+A callback API is a feature that allows an API server to send an asynchronous request to a client in response to an earlier request from the client.
+
+OkHTTP: It save response in cache and support connection pooling. It’s designed to load resources faster and save bandwidth.
+Connection pooling: Re-using the connection instead of creationg connection every time.
+(How new connection happens?)
+
+
+HTTP/3, HTTP/2(2015) is much faster and more efficient than HTTP/1.1:
+	->It(HTTP/2) prioritizes content during the loading process.(Should the photo at the top of the article load first? Should the text of the article load first? Should the banner ads load first?,large JavaScript files, may block the rest of the page from loading if they have to load first.)
+	->HTTP/2 supports Multiplexing:
+		->HTTP/1.1 loads resources one after the other.
+		->HTTP/2 is able to use a single TCP connection to send multiple streams of data at once so that no one resource blocks any other resource.
+		->HTTP/2 uses a more advanced compression called Header compression.
+	->HTTP/3 runs over QUIC instead of TCP. Which uses UDP...
+
+The TCP/IP relationship is similar to sending someone a message written on a puzzle through the mail. The message is written down and the puzzle is broken into pieces. Each piece then can travel through a different postal route, some of which take longer than others. When the puzzle pieces arrive after traversing their different paths, the pieces may be out of order. IP makes sure the pieces arrive at their destination address. TCP can be thought of as the puzzle assembler on the other side who puts the pieces together in the right order, asks for missing pieces to be resent, and lets the sender know the puzzle has been received. TCP maintains the connection with the sender from before the first puzzle piece is sent to after the final piece is sent.
+IP is a connectionless protocol, which means that each unit of data is individually addressed and routed from the source device to the target device, and the target does not send an acknowledgement back to the source. That’s where protocols such as TCP come in. TCP is used in conjunction with IP in order to maintain a connection between the sender and the target and to ensure packet order.
+
+The client request will contain the asker’s IP address. Using the provided IP address, we get the response back.
+When a home user connects to the Internet on their laptop, that user’s ISP assigns them a temporary IP address from a pool of shared IP addresses.

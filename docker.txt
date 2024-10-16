@@ -1,3 +1,116 @@
+->Problems with out docker:
+	1. 1 or more file missing.
+	2. Software version mismatch (python 3.12, 3.9).
+	3. Different config setting(script properties).
+->Containers are isolated environments that allow to run multiple apps side by side with different versions of software.
+->We can remove all the dependencies(files) in docker consistently from the system.
+->Virtual machines is abstraction of machine, they use Hypervisor(s/w to create and manage VM's E.g.: VirtualBox, VM Ware, Hyper-v). We can create multi VM's on single system which will create multiple isolated environments.
+	->Cons:
+		1. Need full copy of OS that is licensed, patched and monitored.
+		2. Slow to start as OS needs to be loaded.
+		3. Resource intensive (consumes RAM so have limit for no of VM's to use).
+->For containers:
+	1. Allow multiple isolation env(can be 100).
+	2. Lightweight and starts quickly as it uses hosts OS kernel.
+	3. Need less h/w resources.
+->A kernel manages apps and h/w resources. Different OS kernel uses different API's so we can't use app for Windows on Mac.
+	1. We can only run Linux containers on Linux.
+	2. Mac kernel doesn't support containerized apps. We can't use Linux containers on MAC so the docker uses light weight Linux VM on MAC to run Linux container.
+	3. We can run Linux containers on windows as > windows 10 comes with custom build Linux kernel.
+->Docker Arch:
+	->It uses client server arch.
+	->Client uses Rest API to communicate with server(Docker Engine(takes care of running container)).
+->Docker desktop = docker engine + tools
+->Workflow:
+	-> Take app and dockerize it using DockerFile(Plain text file that includes instructions that docker uses to package the application into image).
+	->The image contains everything the app needs(Cut down os, run time env, app files, 3td party libs, env variables).
+->Node is execution env for JS code.
+->Linux has multiple distributions like ubuntu, alpline, ....
+->pip, npm, yarn, NuGet are package mangers.
+->apt(advanced package tool) is package manager for ubuntu.
+->nano is Linux text editor.
+->Dangling images(loose images): They are created when they are overwritten with a new image with the same name and tag.(Refers to images that are no longer associated with any containers and have no tags. They often result from builds or image updates where older versions remain without being tagged or referenced)
+->Docker cmnds:
+	->doecker image to check commands run on image.
+	->docker run image_name will pull and run the image if not found.
+		->docker run image_name bash to execute bash on container.
+	->docker build -t img_name docker_file_path to build image (-t for tagging eg: -t img_name:v1.0).
+	->docker images (or) docker image ls to list images that area pulled.
+	->docker ps to see the containers running.
+	->docker ps -a to see all the containers(stopped, running).
+	->docker run -it image_name -it here mean to run image in interactive mode.
+		-> -i for interacting with container to send inputs... with out this cotainer runs in background.
+		-> -t for user friendly terminal(colored o/p...)
+	->docker image prune to remove all dangling images.
+		->docker image prune -a to remove all unused images not just dangling ones.
+	->docker image rm i1 i2 to remove images i1 and i2
+	->docker container prune to remove all stopped containers.
+	->To share image with other systems.
+		->docker image save -o file_name.tar image_name:tag to save files and dirs into .tar file.
+		->docker image load -i file_name.tar to create image from .tar/zip.
+->Linux cmds:
+	->whoami to get current user.
+	-># in the cmd means highest privileges(root user) $ in the cmd means(normal user).
+	->echo $0 shows you the name of the currently running process.
+	->history will list commands executed in this session.
+	->!1 will execute 1st command in history.
+	->apt update to update the package database with new packages.
+	->apt install package_name to install package to use it.
+	->apt remove package_name to remove it.
+	->pwd print working dir.
+	->ls list dir/files in current dir.
+	->mv file/folderName newname to rename it.
+	->touch file.txt to create new file.
+	->nano f.txt to create/write something in file.
+	->cat f.txt to view content of file.
+	->less f.txt to view content of large files.
+	->we can also use more, head, tail cmds to view file content.
+	->'>' is re-directional operator used to write std output of cmd on screen to file Eg: echo hello > f.txt.
+		==>'>' will override the file '>>' will append the input into file.
+	->'<' can be used to redirect std input.
+	->grep(global regular expression print) cmd to search in file Eg: grep -i hello f.txt(-i for case insensitive).
+	->find cmd to find files and dir Eg: find -type f(to find files), find -type f -iname "F*"(files that start with f/F).
+	->we can use ; to execute multiple commands at once.
+		-> For ; even if one cmd fails others get executed.
+	->We can also use && and || to execute multiple commands.
+	->we use |(pipe) to send one cmd o/p to other cmd as input Eg: ls /bin | less.
+	->To type multi cmnds in sep lines we use ;\ and enter.
+	->printenv to get all env variables in system.
+		->printenv PATH or echo $PATH.
+		->export DB_USER=mosh to create variable for current terminal session can be used as $DB_USER.
+		->we append variables into .bashrc as it is the file which loads when user logs in, we use it to store permanent env variable.
+		->we need to reload .bashrc file to use the var in same session using cmd: source .bashrc or create new terminal session.
+	->ps cmd to get the current running processes.
+	->To execute command in background we use & Eg: sleep 100 &.
+	->kill process_id to terminate the process Eg: kill 23.
+	-> Manage user/grp:
+		->useradd -m john(-m incate create home dir for user. To see user info we can view /etc/passwd, password are stores in /etc/shadow).
+		->adduser her terminal is more interactive.
+		->groupadd developers to create grp to manage permissions for set of users.
+		->usermod -G developers john(To add user to secondary grp).
+		->chmod cmd to change permission for the file Eg: chmod u+x deploy.sh(It means add x(execute) permission to the user for file deploy.sh), chmod o+x deploy.sh (It means to 		add permission to other users we use - to remove permission).
+->Each container has it's own layer of file system. Directories created in one container won't be avail in other container even for same image.
+->Dockerfile:
+	->FROM: for base image.
+	->WORKDIR: For specifying workdir all the following commands will be executed in this dir.
+	->COPY: For copying and adding dir.
+	->ADD: For copying and adding dir. Here we can copy files from url, from zip files.
+	->RUN: To execute OS commands.
+	->ENV: To set env variables.
+	->EXPOSE: To specify which port host can use won't set any port.
+	->USER: To specify who can run app with limited privileges.
+	->CMD: To specify cmnd to be executed when container is started.
+	->ENTRYPOINT
+->To pull images from other than dockerHub we need to provide full url.
+->Don't use latest as tag in docker file to pull images as it would use latest version for every build which might create issue.
+->use .dockerignore to exclude dir or files in building the image.
+->RUN vs CMD:
+	->RUN executed at time of building image.
+	->CMD is run time instruction executed when starting the container.
+->Docker uses cache to speed up the build so we need to sequence the instructions to execute it in optimized way(Eg: unchanged files should be copied first).
+	->Instruction that change should be at the bottom.
+
+
 ->Images are, in a way, just templates, you cannot start or run them. What you can do is use that template as a base to build a container. A container is, ultimately, just a running image. Once you create a container, it adds a writable layer on top of the immutable image, meaning you can now modify it.
 ->Containers are lightweight and share the host system's kernel, which makes them more resource-efficient compared to traditional virtual machines.
 ->They are light weight as unlike Virtual machines they do not have guest OS.
@@ -19,6 +132,4 @@
 	docker container rm -f $(docker container ls -aq) -a removes container that are stopped
 							  -f to force remove running containers
 	docker-compose up	-to run yml file to intall all dependencies needed in application
-	
-	
 	

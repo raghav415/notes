@@ -1,0 +1,5 @@
+->Kafka focuses on messaging(publishing/subscribing).
+->Spark focuses more on data processing with support for batch processing and SQL queries.
+->Kafka is designed to process data from multiple sources, whereas Spark is designed to process data from only one source.
+->Hadoop, on the other hand, is a distributed framework that can store and process large amounts of data across clusters of commodity hardware. It provides support for batch processing and SQL queries but lacks the real-time processing capabilities provided by Kafka and Spark.
+->Hadoop excels in batch processing and large-scale data storage, using a distributed framework to handle extensive datasets efficiently. Spark, on the other hand, specializes in in-memory data processing, providing fast analytics and real-time data processing capabilities.

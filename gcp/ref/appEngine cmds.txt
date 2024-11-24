@@ -13,6 +13,7 @@ gcloud app browse --version v3
 gcloud app services set-traffic --splits=v3=.5,v2=.5 (to split traffic b/w different versions)
 watch curl httpsmelodic-furnace-304906.uc.r.appspot.com
 gcloud app services set-traffic --splits=v3=.5,v2=.5 --split-by=random
+gcloud app deploy --version=v3 --no-promote (deploys version but do not switch traffic to new version)
  
 cd ..my-first-service
 gcloud app deploy

@@ -13,7 +13,7 @@ gcloud container workloads services delete: Deletes an existing service.
 kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE  (hello-world-rest-api:Name of deplyment image_url is from image of docker hub)
 kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE
 kubectl get deployment
-kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080  (to access deployment we need to expose deployment to outside world)
+kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080  (creates service: to access deployment we need to expose deployment to outside world)
 kubectl get services
 kubectl get services --watch
 curl 35.184.204.214:8080/hello-world  (8080  is port)

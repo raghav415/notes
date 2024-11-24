@@ -1,3 +1,7 @@
+->If we have python 2 and 3 to run python cmmnds with version 3 we use python3 in cmd.
+->Python imports:
+	->To import scripts from parent or sibling directories we should use packages(dir with __init__.py).
+
 ->Strings are immutable in Python, so any modification to a string creates a new string object.
 
 ->The Python logging module has four main parts:
@@ -6,19 +10,19 @@
   Filters
   Formatters:Formatters describe the format of the text which will be rendered.
 
-->Logger:If log level is the same or exceeds the log level of the logger, the message is sent to the handler for further processing. The log levels are:
-  DEBUG: Low-level system information
-  INFO: General system information
-  WARNING: Minor problems related information
-  ERROR: Major problems related information
-  CRITICAL: Critical problems related information
+	->Logger:If log level is the same or exceeds the log level of the logger, the message is sent to the handler for further processing. The log levels are:
+  		DEBUG: Low-level system information
+  		INFO: General system information
+  		WARNING: Minor problems related information
+  		ERROR: Major problems related information
+  		CRITICAL: Critical problems related information
 
-->Handler: ERROR log level messages can be sent in real-time to the developer, while INFO log levels can just be stored in a system file.It essentially tells the system what to do with the message like writing it on the screen, a file, or to a network socket.
+	->Handler: ERROR log level messages can be sent in real-time to the developer, while INFO log levels can just be stored in a system file.It essentially tells the system what to do with the message like writing it on the screen, a file, or to a network socket.
 
-->Filters:A filter can sit between a Logger and a Handler. It can be used to filter the log record.
-  For example: in CRITICAL messages, you can set a filter which only allows a particular source to be processed.
+	->Filters:A filter can sit between a Logger and a Handler. It can be used to filter the log record.
+  		For example: in CRITICAL messages, you can set a filter which only allows a particular source to be processed.
 
-->Python's own defaults send records to level warning and higher to console.
+	->Python's own defaults send records to level warning and higher to console.
 
 ->A class method is a method that is bound to a class rather than its object. It doesn't require creation of a class instance, much like staticmethod.
 
@@ -45,4 +49,38 @@
 		Output:
 		The age is: 25
 		25
+
+->'_' special uses in python:
+	->In interactive mode or during debugging sessions in Python’s interpreter, the underscore _ is used to hold the value of the last executed expression.
+	->Formatting Large Numbers. Eg: amount = 1_000_000
+
+->Zip helps in combining multiple iterables(list, tup, dict) into single iterable of tuples.
+	Eg: unzipped = list(zip(*zipped)) #Unzipping zipped iterables.
+
+->Unlike the .sort() method which modifies the list in place, sorted() works on any iterable and returns a new sorted list from the elements of any iterable, be it lists, tuples, dictionaries, or even custom objects.
+	Eg 1: data = ['a5', 'a2', 'b1', 'b3', 'c2']
+	      sorted_data = sorted(data, key=lambda x: (x[0], int(x[1:])))
+	      print(sorted_data)  # Output: ['a2', 'a5', 'b1', 'b3', 'c2']
+	Eg 2: 	employees = [
+    		{'name': 'Alice', 'age': 30, 'salary': 80000},
+    		{'name': 'Bob', 'age': 25, 'salary': 50000},
+    		{'name': 'Charlie', 'age': 35, 'salary': 120000},
+		]
+		# Sort by age, then by salary if ages are the same
+		sorted_employees = sorted(employees, key=lambda x: (x['age'], x['salary']))
+		print(sorted_employees)
+
+->The from __future__ import statement in Python is a critical tool for developers aiming to use newer Python features in older versions.
+	from __future__ import division
+	print(5 / 2)  # Outputs 2.5, not 2
+->Generator: A way to write functions that can send back a value and later resume to pick up where they left off.
+	Eg: def generate_infinite():
+    		num = 0
+    		while True:
+       		  yield num
+        	  num += 1
+	    gen = generate_infinite()
+	    print(next(gen))
+	    print(next(gen))
+	 ***# You can keep calling next() without worrying about running out of memory***
 

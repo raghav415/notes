@@ -1,0 +1,2 @@
+Graphql: Query, mutation, subscription.
+->Need to add graphene_django in settings.py under INSTALLED_APPS to use it.

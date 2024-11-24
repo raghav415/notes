@@ -1,0 +1,15 @@
+->Images are global and can be used in different projects.
+->Instance templates are global.
+->AppEngine - Standard(sandbox(containers)), Flexible(compute engine)
+	->Uses cloud storage to store deploy package.
+	->Uses cloud build to create deploy package.
+	->It is regional. And can can not change region once assigned.
+	->Can create cro job using .yaml file to hit the url as scheduled.
+->Kubernetes - Standard(can manage infra config, Can be regional/zonal), Autopilot(regional clusters).
+	->Cluster->nodePools->nodes->Pods->containers.
+	->While we run kubectl we check config in kubeconfig entry generated while creating cluster.
+	->Creating cluster creates a node pool with 3 worker nodes.
+	->If we have no of services we can use ingress to redirect traffic to those services.
+		->For microservice arch instead of creating loadBalancer for each microservice we can create ingress.
+	->We can deploy things in kubernetes using cmnd or using YAML.
+->Cloud function - 1st gen, 2nd gen(Cloud run)

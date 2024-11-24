@@ -1,0 +1,2 @@
+hacker news(open source..)
+owasp(security articles)

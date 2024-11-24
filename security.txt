@@ -16,3 +16,7 @@ Encryption:
 6.The private key is used for user authentication the server which send data with client public key encryption, has to be decrypted using client private key allowing the server to verify the client's identity.
 
 ->PuTTY, a free and open-source software for Windows devices that gives users the option to transfer data securely and safely using different file transfer protocols.
+
+->SYN flood: A form of denial-of-service attack on data communications in which an attacker rapidly initiates a connection to a server without finalizing the connection.
+->SQL injection: a cyberattack that involves inserting malicious SQL statements into an entry field to gain access to a database can be avoided using ORM.
+->IP fragmentation attacks is a type of cyber attack that exploits how IP packets are fragmented and reassembled to evade security controls and launch attacks.

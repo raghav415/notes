@@ -1,4 +1,16 @@
-Djsngo settings:
+=>Commands:
+	->django-admin startproject projName .(the dot in the end tells to not create sep dir for proj.
+	->django-admin startapp api(in one project we can have diff apps).
+	->py(can use python) manage.py migrate(to create and update changes from Django to database)
+	->py manage.py createsuperuser(creates user and stores him in DB)
+	->py manage.py makemigrations(to create files that stores changes made to DB).
+->edit config for manage.py by adding parameter runserver to run app directly without cmnd.
+->Need to register app in settings.py by adding app name in INSTALLED_APPS.
+->use admin.py file to register models for app.
+	->admin.site.register(Movie)
+->use def __str__() inside model class to change the way objects displayed in Django admin ui.
+
+Django settings:
 
 ->Path(__file__).resolve() : Relative path of file.
   __file__ : Relative path of current file.

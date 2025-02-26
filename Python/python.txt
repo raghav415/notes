@@ -1,3 +1,5 @@
+->The Python Package Index (PyPI) is a repository of software for the Python programming language.
+->To install modules of PYPI and other indexes we use pip.
 ->If we have python 2 and 3 to run python cmmnds with version 3 we use python3 in cmd.
 ->Python imports:
 	->To import scripts from parent or sibling directories we should use packages(dir with __init__.py).
@@ -84,3 +86,34 @@
 	    print(next(gen))
 	 ***# You can keep calling next() without worrying about running out of memory***
 
+->We can use _ b/w numbers in new python version for readability.
+->Python can understand oxa, hexa decimal values.
+->We can use 3E8 to express (3*10)^8 in python.
+->The result produced by the division operator is always a float .
+->The file .pyc doesn't contain machine code - it's internal Python semi-compiled code, ready to be executed by Python's interpreter.
+->The line starting with #! at start of module has many names - it may be called shabang, shebang, hashbang, poundbang or even hashpling (don't ask us why). The name itself means nothing here - its role is more important. From Python's point of view, it's just a comment as it starts with #. For Unix and Unix-like OSs (including MacOS) such a line instructs the OS how to execute the contents of the file.
+->Use this to get the paths that are being searched for the modules.
+	import sys
+	for p in sys.path:
+    	    print(p)
+->we can use the path.append() method - in effect, the new path will occupy the last element in the path list; if you don't like the idea, you can use insert() instead.
+->Use in if u want to check if single char exists it's faster, index() will return index but will raise error if not found, find() will return -1 if not found.
+->raise and raise BaseException are same.
+	->Exception is subset of BaseException.
+->Python private variables can be accessed and modified outside of class using __dict__ or mangled name constructed as _ClassName__PrivatePropertyName.
+->A class variable always presents the same value in all class instances (objects).
+->If there is more than one class on a particular inheritance path, Python scans them from left to right.
+->A generator returns a series of values, and in general, is (implicitly) invoked more than once.
+	->range() is generator.
+		->range(5) generator is invoked six times, providing five subsequent values from zero to four, and 		finally signaling that the series is complete.
+->We can use os.system("") to execute os commands using python.
+->Garbage collection: A way for a program to automatically release memory when the object taking up memory is no longer in use.
+	Types:
+	1. Reference counting.
+	2. Tracing.
+->Decorators:
+	-Decorators receive the function to be decorated as an argument. This allows the decorator to modify or enhance the function’s behavior.
+	-Decorators return a new function that wraps the original function. This new function adds additional behavior before or after the original function is called.
+	-When a function is decorated, it is assigned to the variable name of the original function. This means the original function is replaced by the decorated (wrapped) function.
+	-@decorator_name:This syntax applies the decorator to the function_to_decorate function. It is equivalent to writing function_to_decorate = decorator_name(function_to_decorate)
+	=A decorator can be applied to multiple functions, promoting code reuse. Instead of writing the same code multiple times to modify different functions, you can write a decorator once and apply it wherever needed.

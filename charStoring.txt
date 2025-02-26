@@ -1,0 +1,9 @@
+->As standard ASCII occupies 128 out of 256 possible code points, you can only make use of the remaining 128.
+->A code point is a number which makes a character. For example, 32 is a code point which makes a space in ASCII encoding.
+->A code page is a standard for using the upper 128 code points to store specific national characters. For example, there are different code pages for Western Europe and Eastern Europe, Cyrillic and Greek alphabets, Arabic and Hebrew languages, and so on.
+    Eg: The code point 200 makes Č (a letter used by some Slavic languages) when utilized by the ISO/IEC 8859-2 code page, and makes Ш (a Cyrillic letter) when used by the ISO/IEC 8859-5 code page.
+->Code page concept is not a permanent solution so the other sol'n is unicode. Unicode assigns unique characters (letters, hyphens, ideograms, etc.) to more than a million code points.
+->In unicode the first 128 Unicode code points are identical to ASCII, and the first 256 Unicode code points are identical to the ISO/IEC 8859-1 code page (a code page designed for western European languages).
+->There is more than one standard describing the techniques used to implement Unicode in actual computers and computer storage systems.
+	->UCS-4 uses 32 bits (four bytes) to store each character.
+	->UTF-8 uses as many bits for each of the code points as it really needs to represent them.Here all Latin characters (and all standard ASCII characters) occupy eight bits, non-Latin characters occupy 16 bits, CJK (China-Japan-Korea) ideographs occupy 24 bits.

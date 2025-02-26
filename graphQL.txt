@@ -1,2 +1,61 @@
 Graphql: Query, mutation, subscription.
 ->Need to add graphene_django in settings.py under INSTALLED_APPS to use it.
+->Need to add schema variable in settings.py(SCHEMA = graphene.Schema(query=ClassName)) or in urls file(path('graphql', GraphQLView.as_view(graphiql=True, .......))).
+->We can add new field in class ...Type which is not in the model:
+	Eg: class MovieType(DjangoObjectType):
+		class Meta:
+			fields="__all__"
+		movie_age = graphene.string()
+		
+		def resolve_movie_age(self, info, **kwargs):
+			return "Old" if self.age<2000 else "New"
+->Alias in graphQl query allows to run multiple queries at once returning single response.
+	Eg: query {
+		firstMovie: movie(id: 1){
+				title
+			}
+		secondMovie: movie(id: 2){
+				title
+			}
+		}
+->Fragment in graphql allows to store query in variable to reuse it at multiple places.
+	Eg: query {
+		firstMovie: movie(id: 1){
+				...movieData
+			}
+		secondMovie: movie(id: 2){
+				...movieData
+			}
+	    fragment movieData on MovieType{
+			id
+			title
+		}
+->Name the query for easy debugging(optional).
+	Eg: query JustMovie{
+			movie(id: 1){
+				title
+				id
+				}
+		}
+->Dynamic variables in query:
+	Eg:query JustMovie($id: int){
+			movie(id: $id){
+				title
+				id
+				}
+		}
+->Directives(include, skip): Helps in controlling dat fetching within query.
+	Eg: query MovieDirector($id: int, $showDirector: Boolean){
+		movie(id: $id){
+			title
+			director @include(if: $showdirector){
+				name
+			}	
+	    }
+
+->we can use Django graphene jwt to authenticate and authorize users.
+	->We can use info param to check if the user is authenticated.
+		Eg: info.context.user.is_authenticated.
+	->We can also use decorator(@login_required) on function to check if user authenticated.
+
+->Relay framework helps in simplifying the API's implementation with built in filter, pagination, ...(not prefarrable as it changes the way ID appears and bit complex).

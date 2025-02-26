@@ -1,0 +1,42 @@
+-Function decorators:
+def simple_decorator(func):
+    def wrapper():
+        print("Before calling the function.")
+        func()
+        print("After calling the function.")
+    return wrapper
+
+#this @simple_decorator is same as greet = simple_decorator(), this will change greet reference from referring to current greet() function to wrapper() function
+@simple_decorator
+def greet():
+    print("Hello, World!")
+
+greet()
+
+-Method Decorators:
+def method_decorator(func):
+    def wrapper(self, *args, **kwargs):
+        print("Before method execution")
+        res = func(self, *args, **kwargs)
+        print("After method execution")
+        return res
+    return wrapper
+
+class MyClass:
+    @method_decorator
+    def say_hello(self):
+        print("Hello!")
+
+obj = MyClass()
+obj.say_hello()
+
+-Class Decorators:
+def fun(cls):
+    cls.class_name = cls.__name__
+    return cls
+
+@fun
+class Person:
+    pass
+
+print(Person.class_name) 

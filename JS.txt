@@ -11,3 +11,5 @@ const increment = counter();
 increment(); // logs 1
 increment(); // logs 2
 increment(); // logs 3
+
+->Some JS inbuilt functions are asynchronous by default.

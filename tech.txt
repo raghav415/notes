@@ -44,3 +44,5 @@ IP is a connectionless protocol, which means that each unit of data is individua
 
 The client request will contain the asker’s IP address. Using the provided IP address, we get the response back.
 When a home user connects to the Internet on their laptop, that user’s ISP assigns them a temporary IP address from a pool of shared IP addresses.
+
+Unix/Linux system file names are case-sensitive. Windows systems store the case of letters used in the file name, but don't distinguish between their cases at all.

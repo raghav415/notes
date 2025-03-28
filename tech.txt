@@ -46,3 +46,9 @@ The client request will contain the asker’s IP address. Using the provided IP 
 When a home user connects to the Internet on their laptop, that user’s ISP assigns them a temporary IP address from a pool of shared IP addresses.
 
 Unix/Linux system file names are case-sensitive. Windows systems store the case of letters used in the file name, but don't distinguish between their cases at all.
+
+Git is the distributed version control system.
+	->We have 2 types of version control centralized(Eg: Subversion), distributed(Eg: Git).
+	->For centralized we do not have local copy of different versions or branches for every command, checkout,.. we need to connect with server to make the change.
+
+SIMD(a form of parallelism) stands for Single Instruction, Multiple Data, a type of parallel processing where a single instruction operates on multiple data elements simultaneously, enhancing performance in tasks.

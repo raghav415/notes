@@ -1,0 +1,8 @@
+->Caching is a technique used to improve the performance and efficiency of a system. It involves storing a copy of certain data in a temporary storage area (the cache) so that future requests for that data can be served faster.
+	->4 types:
+		->Browser caching(local- browser, in directory in hard drive, Cache-Control Header(with max time))
+		->Server caching(involves storing frequently accessed data on the server, reducing the need for expensive operations like database queries).
+			-stored on the server itself or a separate cache server, either in memory (like Redis) or on disk.
+		->Database caching(plays a pivotal role in enhancing the performance of applications that heavily rely on database interactions.)
+			-Internal(DB itself maintains cache) and external(redis or memcache).
+->CDNs are a network of servers distributed geographically, generally used to serve static content such as JavaScript, HTML, CSS, images, and video assets.

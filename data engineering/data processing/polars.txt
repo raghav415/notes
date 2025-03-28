@@ -1,0 +1,34 @@
+https://motional.com/news/polar-stream-simultaneous-object-detection-and-semantic-segmentation-algorithm-streaming-lidar
+Why Polars:
+	->Can do common operations around 5–10 times faster than pandas.
+	->Pandas requires around 5 to 10 times as much RAM as the size of the dataset to carry out operations, compared to the 2 to 4 times needed for Polars.
+	->Polars can work fine upto 200 gigabytes of data on a single machine. If you go into terabyte scale we should use pySpark.
+	->Polar focuses on single machine optimal performance and efficient use of resources.
+	->Support streaming.
+	=>Polars can execute queries on a streaming engine, allowing for processing large datasets without loading everything into memory at once.
+		-Polars supports executing lazy queries in streaming mode by passing streaming=True to the .collect() method.
+		-The streaming engine breaks down queries into batches, allowing for efficient processing of large datasets that don't fit into memory.
+		-Not All Operations Supported. If not supported will fall back to non-streaming execution.
+	->Streaming APIs create a continuous connection to share live data with the user until they close that connection, without significant latency.
+->Why polars is faster:
+	=Written in Rust: 
+		-While pandas uses numpy(written in C) it faces problems with the way python handles certain types in memory, such as strings.
+		-Another adv of using it allows for safe concurrency(parallelism).
+		-Polars is designed to utilize all available CPU cores for parallel execution, not just one core, making it significantly faster than libraries like pandas which primarily use a single core.
+	=Based on Arrow:
+		-It is also the backend for pandas 2.0.
+		-It is called Apache Arrow, a language-independent memory format.
+		-Main advantages of building a data library on Arrow is interoperability. It has been designed to standardize the in-memory data format used across libraries(pandas, spark, ....). So we can switch to pandas from polars anytime to do any task as we just need to pass an arrow memory buffer between them.
+		-This interoperability speeds up performance as it bypasses the need to convert data into a different format to pass it between different steps of the data pipeline (in other words, it avoids the need to serialize and deserialize the data as serialization/deserialization is estimated to represent 80–90% of the computing costs in data workflows, Arrow’s common data format lends Polars significant performance gains).
+		-Arrow also has built-in support for a wider range of data types(pandas excels to handle int, float but not at others) inc datetime, boolean, binary, and even complex column types, such as those containing lists.
+		-Arrow able to natively handle missing data, which requires a workaround in NumPy.
+		-Here columns are stored in a continuous block of memory.
+	=Query optimization:
+		-Pandas, by default, uses eager execution, carrying out operations in the order you’ve written them.
+		-But polar can do both eager and lazy exec.
+			-Lazy exec: Evaluate all of the required operations and map out the most efficient way of executing the code. This can include, among other things, rewriting the execution order of operations or dropping redundant calculations.
+		-Reduces unnecessary work and memory allocations
+	=Expressive API:
+		-Meaning that basically any operation you want to perform can be expressed as a Polars method.
+		-More complex operations in pandas often need to be passed to the apply method as a lambda expression here we loop through each row of DF sequentially executing the operation on each one.
+		-Being able to use built-in methods allows you to work on a columnar level and take advantage of another form of parallelism called SIMD.

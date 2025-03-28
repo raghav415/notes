@@ -1,0 +1,11 @@
+->MongoDB is a document database. It stores data in a type of JSON format called BSON.
+->Collection is a group of documents. Collection is equivalent to RDBMS table.
+->Records in a MongoDB database are called documents, and the field values may include numbers, strings, booleans, arrays, or even nested documents. Collections do not enforce a schema.
+->ObjectId ensures that every document in a collection has a unique identifier, even across multiple MongoDB instances and servers.
+	->The ObjectId includes a timestamp, allowing you to retrieve the creation time of the document.
+	->The first 4 bytes represent the Unix Timestamp of the document.
+	->The next 3 bytes are the machine ID on which the MongoDB server is running.
+	->The next 2 bytes are of the process ID.
+	->The last Field is 3 bytes used for incrementing the objectid.
+->ObjectId is indexed.
+->In MongoDB we create relation b/w two collections by storing _id's of document in one collection as list of _id in a document in other collection. Or we can create separate collection to store both doc _id's from diff collection.

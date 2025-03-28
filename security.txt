@@ -20,3 +20,13 @@ Encryption:
 ->SYN flood: A form of denial-of-service attack on data communications in which an attacker rapidly initiates a connection to a server without finalizing the connection.
 ->SQL injection: a cyberattack that involves inserting malicious SQL statements into an entry field to gain access to a database can be avoided using ORM.
 ->IP fragmentation attacks is a type of cyber attack that exploits how IP packets are fragmented and reassembled to evade security controls and launch attacks.
+
+->Session based Authentication:
+	-Creds are sent to server for validation if validated we create session and store it in DB or cache it(in redis..) this contains user id, session exp time, other metadata then the server sends back the session Id. In all the subsequent requests client sends the session Id and we verify the session from storage.
+	-With session based authentication server is responsible for storing the session data.
+	-Pros: Revoking session is easy.
+	-Cons: Scaling DB's(or distributed DB's) need centralized session storage this adds some complexity and latency.
+->JWT based auth it creates signed token which is verified using the key.
+	-Both symmetric(HMAC) and asymmetric(RSA, ECDSA) algorithms are avail.
+		-While asymmetric are more secure their is overhead here.
+		-Generally we use symmetric way if application is monolithic, and asymmetric if app is microservice.

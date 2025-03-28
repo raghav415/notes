@@ -1,0 +1,1 @@
+->psql let's us connect to postgres db in CLI.

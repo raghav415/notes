@@ -1,0 +1,64 @@
+->pandas 2.0 is built on PyArrow.
+->Data frames, Series are optimized for vectorized operations(involve performing operations on entire arrays or data structures at once, instead of element-by-element).
+->Series: vertical column that has index, by default index start with 0 we can assign keys as index. It has order. Series can contain list, dict,...
+	->Eg: k = [1,2,3]
+	      pd.Series(k)
+	->Each element can be referred using the position or key assigned.
+	->It is 1 dimensional.
+	->.head(7) will pull 1st 7 rows from Series and .last(7) pulls last 7 rows of Series by default they take 5 as input.
+	->We can use .iloc on Series to get using index position.
+		->returns value if single index is provided and returns new series if multiple indexes/slicing are provided.
+		->supports slicing.
+		->Eg: series1.iloc[1]
+		->Eg: series1.iloc[[1,2]]
+	->We can use .loc on Series to get value by index label.
+		->returns value if single index is provided and returns new series if multiple indexes/slicing are provided.
+		->Eg: series1.loc["abc"]
+		->Eg: series1.loc[["a", "h"]]
+	->We can use .get() method to get value by index label and 2nd argument to get would set fallback value if label does not exist.
+	->.count() returns no of values in series excluding missing values. While .size would include missing values.
+	->broadcasting: The process of applying an arithmetic operation to an array.
+		-> ops for series=add, sub, mul, div,...
+	->.value_counts() returns number of times the value present in series in descending order by default. normalize=True in .value_counts() will return % of value in total series data set.
+	->.apply() takes func name as argument and applies the function to all values in the Series.
+		===This is slow. Here we loop through each row of DF sequentially, executing the operation on each row instead of using SIMD as other built-in methods.
+	->.map() acts as bridge to connect series data set with other data set(dict, series,...) to get additional info about values. Here value acts as Foreign Key in DB to connect one data set with other.
+		Eg: series1.map(other_data_set) #will return new Series with index of series1 and new value from new data set that matched value of series1.
+->read_csv: To read csv files it returns dataframe.
+	->usecols argument that can be used to pull/read specific columns from excel instead of getting all columns.
+	->.squeeze("columns") to convert dataframe into series by squeezing columns into series. It returns the view of data frame not the copy changing values of squeezed series will affect df.
+		->Use .copy() to get copy instead of view.
+		->df.squeeze()[here df has 1 col]=>series1.squeeze()[here series has only 1 row]=>scalarSeries1.squeeze()[it doesn't have an indexes for col]=>scalar[this doesn't have a col contains only value].
+	->Can use index_col="Name" argument instead of taking default index values.
+->Data Frame:
+	->A 2D table.
+	->Data frames support inputs:
+		Dict of 1D ndarrays, lists, dicts, or Series
+		2-D numpy.ndarray
+		Structured or record ndarray
+		A Series
+		Another DataFrame
+	->We have some common methods bw series and df.
+	->.sum() returns sum of all rows of each col  as result as series. We can use .sum(axis="index")-default, .sum(axis="columns") to get sum of each col of a row.
+	->.info() would return summary of Series or DF.(number of columns, column labels, column data types, memory usage...)
+	->df1.col1 or df1["col1"] to get col1 column as series this is view.
+	->df1[["col1"]] will return df with one col.
+	->df1["col1", "col2"] to get multi cols as df this is copy.
+	->df1['newCol1']="Hi" will create new col with Hi as all of the row values. df1['newCol1']=df1['col1'].mul(2)
+	->.dropna() will remove entire row that has enen 1 Nan value this will return copy.
+		-.dropna(how="any")-default.
+		-.dropna(how="all") - will remove row that has all NaN values.
+		-.dropna(subset=["col1", "col2"]) - will remove row if either col1 or col2 has NaN values.
+	->.fillna() will replace NaN with value provided - will return copy.
+		-can be applied to Series as well.
+		-.fillna(0) will replace all NaN values with 0s.
+	->.astype() to change the type of data - will return copy.
+		-.astype(int) or .astype("int") to convert to int.
+		-.astype() to convert to int we need to make sure their are no NaN values.
+		==.astype("category") with categories on a column pandas does not create separate value for each cell. Rather, the cell points to a single copy for each unique value.
+	->.nunique() to get no of unique values stored in data set.
+	->.sort_values(by="Salary") will sort df rows by salary column.
+		-.sort_values(by=["col1", "col2"]) will sort by col1, then by col2.
+		-.sort_values(by=["col1", "col2"], ascending=[True, False]) will sort col1 in asc, and col2 in desc.
+	->.sort_index() sort by index label.
+	->df1["salary"].rank(ascending=True) by default this will set higher number rank for higher salary if we want lower no rank we use .rank(ascending=False)

@@ -1,0 +1,18 @@
+->Vertex AI: A primary tool for cloud developers to access google generative AI models.
+	->End to end dev platform to build, deploy and manage models.
+	->Provides two primary capabilities. 1. Predictive AI, 2.Generative AI.
+	->Parametes of vertex AI: Model, Temperature, Top K, Top P.
+	->Temperature indicate the what kind of response you are expecting 1 being the most creative or unexpected content, 0 being most expected answer.
+	->Top K(number) indicates that the model returns a random word from a set of top K possible words.
+	->Top P(probability) indicates the model returns a word  from the smallest subset with the likelihoods that exceeds or equal to p.
+	->Safety setting controls of receiving harmful content(hate speech, sexual content,...).
+->Multimodal model: it's a large foundation model that is capable of processing info from multi modalities(text, image, video) and the generated content can also be in multiple modalities. Eg: Gemini
+-> We can interact with Gemini using UI(google console for testing and exploring prompts), Using SDK's with a notebook(python/java), API's.
+->Promting types: zero shot, one shot(1 example), few shot(few examples).
+->Structured prompting: We specify text which model should follow and some example question and response while generating responses on next prompts.
+->Tuning model: Can be done through prompt, adapter tuning(supervised tuning uses examples..), reinforcement(unsupervised with human feedback), distilling(transfer knowledge from larger model to smaller model to optimize performance, latency and cost).
+	->Fine tuning.
+	->Parameter-efficient tuning: Involves making smaller changes to the model, adding additional layers of embedding.
+		->Aims to reduce challenges of fine tuning as it trains only subset of model.
+		->Suitable when relatively small amount of training data is present.
+

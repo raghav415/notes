@@ -33,5 +33,5 @@ CMD npm start
 #EXEC FORM: In shell form it creates shell and executes it(resource waste).
 CMD ["npm", "start"]
 
-# need to use --entrypoint to replacec this command
+# need to use --entrypoint to replace this command
 ENTRYPOINT ["npm", "start"]

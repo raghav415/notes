@@ -17,28 +17,29 @@
 	1. We can only run Linux containers on Linux.
 	2. Mac kernel doesn't support containerized apps. We can't use Linux containers on MAC so the docker uses light weight Linux VM on MAC to run Linux container.
 	3. We can run Linux containers on windows as > windows 10 comes with custom build Linux kernel.
-->Docker Arch:
+->Docker or Docker Engine Arch:
 	->It uses client server arch.
-	->Client uses Rest API to communicate with server(Docker Engine(takes care of running container)).
+	->Client uses Rest API to communicate with server(Docker Daemon(takes care of building, running, distributing containers)).
+		->Daemon is a computer program running in the background of a multitasking operating system (OS). The system user doesn’t have to start a daemon program for it to run because daemon programs are not under the user’s control. Instead of the user, a certain event or action starts a daemon program.
+	->We can run client on same system as daemon or we can run it remotely.
 ->Docker desktop = docker engine + tools
 ->Workflow:
 	-> Take app and dockerize it using DockerFile(Plain text file that includes instructions that docker uses to package the application into image).
-	->The image contains everything the app needs(Cut down os, run time env, app files, 3td party libs, env variables).
-->Node is execution env for JS code.
+	->The image contains everything the app needs(Cut down os, run time env, app files, 3rd party libs, env variables).
 ->Linux has multiple distributions like ubuntu, alpline, ....
 ->pip, npm, yarn, NuGet are package mangers.
 ->apt(advanced package tool) is package manager for ubuntu.
 ->nano is Linux text editor.
 ->Dangling images(loose images): They are created when they are overwritten with a new image with the same name and tag.(Refers to images that are no longer associated with any containers and have no tags. They often result from builds or image updates where older versions remain without being tagged or referenced)
 ->Docker cmnds:
-	->doecker image to check commands run on image.
+	->docker image to check commands run on image.
 	->docker run image_name will pull and run the image if not found.
 		->docker run image_name bash to execute bash on container.
 	->docker build -t img_name docker_file_path to build image (-t for tagging eg: -t img_name:v1.0).
 	->docker images (or) docker image ls to list images that area pulled.
 	->docker ps to see the containers running.
 	->docker ps -a to see all the containers(stopped, running).
-	->docker run -it image_name -it here mean to run image in interactive mode.
+	->docker run -it image_name (-it here mean to run image in interactive mode).
 		-> -i for interacting with container to send inputs... with out this cotainer runs in background.
 		-> -t for user friendly terminal(colored o/p...)
 	->docker image prune to remove all dangling images.
@@ -100,7 +101,7 @@
 	->EXPOSE: To specify which port host can use won't set any port.
 	->USER: To specify who can run app with limited privileges.
 	->CMD: To specify cmnd to be executed when container is started.
-	->ENTRYPOINT
+	->ENTRYPOINT: Main cmnd to be executed when a container starts. Not easily overridden unless --entrypoint is used.
 ->To pull images from other than dockerHub we need to provide full url.
 ->Don't use latest as tag in docker file to pull images as it would use latest version for every build which might create issue.
 ->use .dockerignore to exclude dir or files in building the image.

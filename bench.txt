@@ -1,0 +1,22 @@
+1. GCP coursera: https://www.coursera.org/learn/gcp-fundamentals/resources/9LsQq
+2. 100xdevs
+3. DSA: leet75, recursion, DP
+4. pandas: https://deloittedevelopment.udemy.com/course/data-analysis-with-pandas/, https://wesmckinney.com/blog/apache-arrow-pandas-internals/, 	https://datapythonista.me/blog/pandas-20-and-the-arrow-revolution-part-i
+4. polars: https://deloittedevelopment.udemy.com/course/data-analysis-with-polars/?kw=polars&src=sac, https://blog.jetbrains.com/pycharm/2024/07/polars-vs-	pandas/, https://www.youtube.com/watch?v=7xcUvzERwx0(how polar achieved parallelism).
+5. numpy
+6. lambda(code, image): https://youtu.be/-8L4OxotXlE?si=3QVbOJcwZe7te6rZ, https://youtu.be/wbsbXfkv47A?si=11fR0rJRpyqAe0v3
+	s3, EC2.
+7. Django https://deloittedevelopment.udemy.com/course/django-python-advanced/
+	https://deloittedevelopment.udemy.com/course/django-course/
+
+
+
+1. Talend
+
+till 24th Feb -> Prep for PCAP cert, Js
+24th Feb -> Memory management in python, Pandas
+25th Feb -> Pandas
+26th Feb -> Pandas
+27th Feb -> Js, DSA
+28th Feb -> DSA, Proj discussion
+3rd Mar -> Client Interview, DSA, JS

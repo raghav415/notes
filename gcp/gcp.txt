@@ -1,5 +1,5 @@
 ->gcloud container clusters list
-->Standart: frequet access, Nearline: Backup, Coldline:Disater recovery, Archive: .
+->Standard: frequent access, Nearline: Backup, Coldline: Disater recovery, Archive: .
 ->static IP, internal Ip, licensing server?
 ->gcloud iam roles copy \
   --project=development-project-id \

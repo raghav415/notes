@@ -4,7 +4,9 @@ Why Polars:
 	->Pandas requires around 5 to 10 times as much RAM as the size of the dataset to carry out operations, compared to the 2 to 4 times needed for Polars.
 	->Polars can work fine upto 200 gigabytes of data on a single machine. If you go into terabyte scale we should use pySpark.
 	->Polar focuses on single machine optimal performance and efficient use of resources.
+	->Adheres to a strict schema (data-types should be known before running the query).
 	->Support streaming.
+	->The streaming API allows you to process your results without requiring all your data to be in memory at the same time.
 	=>Polars can execute queries on a streaming engine, allowing for processing large datasets without loading everything into memory at once.
 		-Polars supports executing lazy queries in streaming mode by passing streaming=True to the .collect() method.
 		-The streaming engine breaks down queries into batches, allowing for efficient processing of large datasets that don't fit into memory.
@@ -32,3 +34,21 @@ Why Polars:
 		-Meaning that basically any operation you want to perform can be expressed as a Polars method.
 		-More complex operations in pandas often need to be passed to the apply method as a lambda expression here we loop through each row of DF sequentially executing the operation on each one.
 		-Being able to use built-in methods allows you to work on a columnar level and take advantage of another form of parallelism called SIMD.
+
+Using Polars:
+->Polar expressions: They provide a way of expressing data transformations. Eg: pl.col("weight") / (pl.col("height") ** 2)
+->Polar Context: Polars expressions need a context in which they are executed to produce a result. Depending on the context it is used in, the same Polars expression can produce different results. Types: select(select and manipulate cols), with_columns(adds cols), filter, group_by.
+->We need to use polars expression API's to use it efficiently.
+	-1st advantage is it let's us transform data or do operations while fetching data.
+	-2nd it takes care of running operations in parallel.
+	-3rd it lets us run ops in lazy mode.
+->Series is a 1-dimensional homogeneous data structure.
+->A dataframe is a 2-dimensional heterogeneous data structure that contains uniquely named series.
+->Polars uses null to represent missing values
+->In Polars NaN values are treated as valid floating-point values
+->In polars:
+	-Any NaN compares equal to other NaN value. And greater than any non NaN values.
+->List vs Array in polars:
+	-list and array both stores homogenous data in them.
+	-We use array when we know the size of it Eg: pl.Array(pl.Boolean, 5).
+	==prefer the data type Array over List because it is more memory efficient and more performant. If you cannot use Array, then use List

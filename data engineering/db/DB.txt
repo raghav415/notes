@@ -1,1 +1,20 @@
 ->psql let's us connect to postgres db in CLI.
+->Window function call always contain over clause directly following the window function.
+	-Eg: select depname, sal, avg(sal) over (partition by depname) from empsal;
+	-Eg: select sal, depname, rank() over (partition by depname order by sal desc) from empsal;
+	===WindowFrame: Many (but not all) window functions act only on the rows of the window frame, rather than of the whole partition.
+		-ORDER BY is supplied then the frame consists of all rows from the start of the partition up through the current row, plus any following rows that are equal to the current row.
+		-SELECT salary, sum(salary) OVER () FROM empsalary; #Here lack of order by and partition by makes all rows as single frame.
+		-SELECT salary, sum(salary) OVER (ORDER BY salary) FROM empsalary;# Here the sum is taken from the first (lowest) salary up through the current one, including any duplicates of the current one.
+	-Window functions are permitted only in the SELECT list and the ORDER BY clause of the query. They are forbidden elsewhere, such as in GROUP BY, HAVING and WHERE clauses. This is because they logically execute after the processing of those clauses.
+	-If there is a need to filter or group rows after the window calculations are performed, you can use a sub-select.
+	-SELECT sum(salary) OVER w, avg(salary) OVER w #when we need same over clause at multi places
+	  FROM empsalary
+  	 WINDOW w AS (PARTITION BY depname ORDER BY salary DESC);
+	-The WINDOW clause, if included, should always come after the WHERE clause.
+->When we perform an aggregate function with limit in SQL query aggregate is performed on all rows not just limited ones.
+->The more queries running concurrently on a database, the more the database must process at a given time and the slower everything will run. It can be especially bad if others are running particularly resource-intensive queries that fulfill some of the above criteria.
+->To increase query speed:
+	-Filtering the data to include only the observations you need can dramatically improve query speed.
+	-Always try to filter or reduce number of rows before doing join.
+===>Need to check pivot and unpivot in SQL.

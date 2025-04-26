@@ -39,6 +39,7 @@
 		A Series
 		Another DataFrame
 	->We have some common methods bw series and df.
+	->Each column can contain different data types.
 	->.sum() returns sum of all rows of each col  as result as series. We can use .sum(axis="index")-default, .sum(axis="columns") to get sum of each col of a row.
 	->.info() would return summary of Series or DF.(number of columns, column labels, column data types, memory usage...)
 	->df1.col1 or df1["col1"] to get col1 column as series this is view.

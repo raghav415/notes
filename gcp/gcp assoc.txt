@@ -7,68 +7,76 @@ Project:
 ->Vcpu to core ratio:
     ->If virtual machines consistently experience high "CPU ready" times (waiting for resources), it may be time to reduce the ratio.
     ->Conversely, consistently low CPU usage indicates potential for cost savings by increasing the ratio.
--> A command consist of group, sub group, positional arguments, flags(required, optional),..
-->You can use Cloud Identity to manage your users, apps, and devices from a central location—the Google Admin console.
-->Disabling a service's API access does not delete the underlying data which will continue to be billed. 
-->If you attempt to disable a service that other enabled services depend on, the call will fail.
+-> A command consist gcloud [release level] [component] [entity] [operation] [positional arguments] [flags].
+	1. gcloud: The base command for interacting with GCP.
+	2. [release level] (optional): Specifies the command's release status (e.g., alpha, beta, or omitted for General Availability).
+	3. [component]: Identifies the Google Cloud service (e.g., compute for Compute Engine, app for App Engine).
+	4. [entity]: Defines the type of resource being managed (e.g., instances for Compute Engine VMs, buckets for Cloud Storage).
+	5. [operation]: Specifies the action to be performed on the resource (e.g., create, list, delete, describe).
+	6. [positional arguments]: Required arguments in a specific order (e.g., <INSTANCE_NAME> for creating an instance).
+	7. [flags]: Optional arguments that modify the command's behavior (e.g., --zone=us-central1-a).
+=>You can use Cloud Identity to manage your users, apps, and devices from a central location—the Google Admin console.
+=>Disabling a service's API access does not delete the underlying data which will continue to be billed. 
+=>If you attempt to disable a service that other enabled services depend on, the call will fail.
     ->Set the disable_dependent_services parameter on the services.disable request to true.
     ->Use --force to disable dependant services.
     ->Use --async to continue executing other commands in parallel.
--> If you want to view and monitor the metrics collected by multiple Google Cloud projects(in diff orgs or aws acc), then you need to configure Cloud Monitoring.
--> You can close an active Cloud Billing account to stop all billable services in any projects.
--> Cloud Billing export to BigQuery enables you to export detailed Google Cloud billing data (such as usage, cost estimates, and pricing data) automatically.
+=> If you want to view and monitor the metrics collected by multiple Google Cloud projects(in diff orgs or aws acc), then you need to configure Cloud Monitoring.
+=> You can close an active Cloud Billing account to stop all billable services in any projects.
+=> Cloud Billing export to BigQuery enables you to export detailed Google Cloud billing data (such as usage, cost estimates, and pricing data) automatically.
 ->Use the Rebilling data export to manage billing operations for your Google Cloud customers.
 ->max-surge and max-unavailable are flags used during managed instance group rolling updates to control the scaling behavior and maintain service availability while deploying new application versions.
 	->max-surge:Specifies the maximum number of additional instances of the new version that can be created before terminating instances of the old version.
 	->max-unavailable:Specifies the maximum number of healthy instances of the old version that can be terminated at any given time during the update.
-->A snapshot is a point-in-time copy of the data in a specific resource.(VM disk, firestore, big query)
 ->commited(1-3 yrs) discount:70%, sustainable use:(20-50)%.
+->Preemptible VM discount: 91%, they are terminated when Google Cloud needs the resources for other tasks.
 ->spot VM(no max run time) is like preemptible VM(24hrs max runtime).
 ->Preemptible VM's can not be migrated to regular VM.
-->cloud load balancing can distribute traffic across multiple regions.
+=>cloud load balancing can distribute traffic across multiple regions.
 ->Cloud Run is a managed compute platform that lets you run containers directly on top of Google's scalable infrastructure.
     ->Cloud Run services. Used to run code that responds to web requests, or events.
     ->Cloud Run jobs. Used to run code that performs work (a job) and quits when the work is done.Can create schedule.Can split the task to execute parallel(independently). 
-    ->Every depluyment in cloud run creates new immutable revision we can role back to previous revision or split traffic.
-    ->Auto scalling load balancing...
-->Deploy app in appengine from GCP:
+    ->Every deployment in cloud run creates new immutable revision we can role back to previous revision or split traffic.
+    ->Auto scalling, load balancing...
+->Deploy app in app engine from GCP:
     ->Prepare your app: Ensure your app is structured correctly for App Engine, with necessary files like app.yaml (configuration) and requirements.txt (dependencies).
     ->gcloud app services set-traffic --splits=v3=.5,v2=.5 (to split traffic b/w different versions)
-->External load balancing is for users from internet. Interanal load balancing is for clients inside cloud.
-->Anthons: Manages container across multiple environments(cloud tun, gke, edge, on-prem...).
-->Cloud function Gen2 they run on cloud run so they support multi function, concurrent requests and traffic splitting.
+->External load balancing is for users from internet. Internal load balancing handle traffic within a private network or Virtual Private Cloud (VPC).
+->Anthons: Enables organizations to maintain kubernetes-based applications across various environments(gcp, on-prem, other public clouds).
+=>Cloud function Gen2 they run on cloud run so they support concurrent requests and traffic splitting.
+->A snapshot is a point-in-time copy of the data in a specific resource.(VM disk, firestore, big query).
 ->Snapshots stores specific point in time state(data) of (disk/file/table/dataBase).
-    ->They can be shared across projects or with other cloud providers.
+    =>They can be shared across projects or with other cloud providers.
     ->We don't lose data by deleting old snapshots.
 ->Machine image is created from boot disk.
     ->Can create multi regional images.
-->Disk size can only be increased can not be decreased.
+=>Disk size can only be increased can not be decreased.
 ->Cloud storage
     ->Standard: Frequent 
     ->Nearline: <=1 a month(min duration) (backups)
     ->Coldline: <=1 a quater(min duration) (disaster recovery)
     ->Archive: <=1 a year(min duration) (digital preservation)
-->Persistent disks are used to store dataBase.
-->(optional)Types of storages GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
-->Policy trouble shooter helps to check if user has specific permission on specific resource.
-->Oauth 2.0 provides standard way to access tokens that allows your application to access google services.
-->Signed URLs can only be used to access resources in Cloud Storage through XML API endpoints for limited permission and time.
-->SQL:
+=>Persistent disks are used to store dataBase.
+=>Types of storages GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
+=>Policy trouble shooter helps to check if user has specific permission on specific resource.
+=>Oauth 2.0 provides standard way to access tokens that allows your application to access google services.
+=>Signed URLs can only be used to access resources in Cloud Storage through XML API endpoints for limited permission and time.
+=>SQL:
     ->OLTP is for high volume of small frequent queries.
-        ->Cloud SQL(Multi zone(replication) or zonal): MySQL, Postgres SQL, SQL server,storage can only be increased(Few TB's(<66TB), 1000 transactions per sec).
+        ->Cloud SQL(Multi zone(replication) or zonal): MySQL, Postgres SQL, SQL server - storage can only be increased(Few TB's(<66TB), 1000 transactions per sec).
             ->For high availability and failover enable auto backup and binary logging.
-            ->For point in time recovery enable binary logging(It is record of all changes(inc table creation...) made to DB).
+            =>For point in time recovery enable binary logging(It is record of all changes(inc table creation...) made to DB).
         ->Cloud spanner(global):Google SQL, Postgres SQL dialect(limitations).(Multi PB's, Millions of transactions per sec).
     ->OLAP is for fewer larger more complex time consuming queries.
         ->BigQuery:Datasets=>tables, Data warehouse.(Exabyte scale)
             ->Auto Expire data.
-            ->Can query external data with our storing it in BigQuery.(From cloud storage, Big table,Cloud SQL, Google drive).
-            ->Can query billing.
-            ->--dry run for cost estimation on query.
+            =>Can query external data with our storing it in BigQuery.(From cloud storage, Big table,Cloud SQL, Google drive).
+            =>Can query billing.
+            =>--dry run for cost estimation on query.
 ->No SQL:
     ->Cloud Firestore(Next version of Datastore):Serverless,document dataBase,ACID transactions, SQL like queries.(Few TB's of data)
         ->You cannot use both Native mode and Datastore mode in the same project. 
-        ->Firestore Native Mode: Provide data sync across Apps, Offline mode, More clien libraries, Organized into documents and collection.
+        ->Firestore Native Mode: Provide data sync across Apps, Offline mode, More client libraries, Organized into documents and collection.
         ->Datastore Mode: Organized into kinds and entity groups. Free for small ops.
         ->For transactional mobile web apps.
         ->Does not support joins, Aggregate ops.
@@ -79,7 +87,7 @@ Project:
     ->Memorystore for redis:For fast, real-time processing of data.
     ->Memorystore for Memcached:For reference data, database query caching, session store.(simple cases)
 ->cbt cli for Big table.
-->Data can be exported or imported from cloud storage using all DB's.
+=>Data can be exported or imported from cloud storage using all DB's.
 ->VPC: To create private n/w to control in/out traffic.
     ->It is global resource and can create sub-nets in one or more regions.
     ->We can not use Internal IP ranges on internet.

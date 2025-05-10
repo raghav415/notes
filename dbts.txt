@@ -3,3 +3,6 @@
  Sharding vs distributed DB?
 3. Learn DB's:Key-value, wide column, graph DB, Search Engine, MultiModel(fauna)?
 4. 3-way handshake?
+5. cpu vs core
+6. how http server created and works. what other servers(smtp,...) are present and their uses and how they are different?
+7. Why do we choose OS for VM in cloud.

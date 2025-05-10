@@ -1,0 +1,6 @@
+->GraphDB: Useful when relation ships needs to be stored.
+	->Social networks.
+	->Neo4j a popular graph DB.
+->VectorDB: Stores data in form of vectors. Usefult for machine learning.
+	->Can store pdf's. Fast at finding text from large data.
+	->Pinecone a popular vector DB.

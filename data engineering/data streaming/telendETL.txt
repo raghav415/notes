@@ -1,0 +1,3 @@
+->ETL Tools are tools which combines all 3 ETL processes together into single programming tool.
+->Talend open studio for data integration is an ETL tool.
+	->It has following components business models(ER diagrams), Job designs, contexts(to store values we might need), code(used when inbuilt components are out of our scope), SQL templates, metadata, documentation.

@@ -1,0 +1,5 @@
+tInputFileDelimited: To read the file and can be used to pass data to other component.
+tOutputFileDelimited: To write data to a file can be used to take data and store it as a file.
+tfilelist: 
+tlogRows: To view the data in tabular format.
+tUniqueRows: Will select unique rows for selected columns. o/p contains other cols.

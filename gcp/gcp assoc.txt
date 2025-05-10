@@ -14,7 +14,7 @@ Project:
 	4. [entity]: Defines the type of resource being managed (e.g., instances for Compute Engine VMs, buckets for Cloud Storage).
 	5. [operation]: Specifies the action to be performed on the resource (e.g., create, list, delete, describe).
 	6. [positional arguments]: Required arguments in a specific order (e.g., <INSTANCE_NAME> for creating an instance).
-	7. [flags]: Optional arguments that modify the command's behavior (e.g., --zone=us-central1-a).
+	7. [flags]: Optional arguments that modify the command's behavior (e.g., --zonis for clients inside cloud.e=us-central1-a).
 =>You can use Cloud Identity to manage your users, apps, and devices from a central location—the Google Admin console.
 =>Disabling a service's API access does not delete the underlying data which will continue to be billed. 
 =>If you attempt to disable a service that other enabled services depend on, the call will fail.
@@ -42,9 +42,8 @@ Project:
     ->Prepare your app: Ensure your app is structured correctly for App Engine, with necessary files like app.yaml (configuration) and requirements.txt (dependencies).
     ->gcloud app services set-traffic --splits=v3=.5,v2=.5 (to split traffic b/w different versions)
 ->External load balancing is for users from internet. Internal load balancing handle traffic within a private network or Virtual Private Cloud (VPC).
-->Anthons: Enables organizations to maintain kubernetes-based applications across various environments(gcp, on-prem, other public clouds).
-=>Cloud function Gen2 they run on cloud run so they support concurrent requests and traffic splitting.
-->A snapshot is a point-in-time copy of the data in a specific resource.(VM disk, firestore, big query).
+->Anthons: Manages container across multiple environments(cloud tun, gke, edge, on-prem...).
+->Cloud function Gen2 they run on cloud run so they support multi function, concurrent requests and traffic splitting.
 ->Snapshots stores specific point in time state(data) of (disk/file/table/dataBase).
     =>They can be shared across projects or with other cloud providers.
     ->We don't lose data by deleting old snapshots.
@@ -57,7 +56,7 @@ Project:
     ->Coldline: <=1 a quater(min duration) (disaster recovery)
     ->Archive: <=1 a year(min duration) (digital preservation)
 =>Persistent disks are used to store dataBase.
-=>Types of storages GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
+=>Types of storages(disk, object, ) GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
 =>Policy trouble shooter helps to check if user has specific permission on specific resource.
 =>Oauth 2.0 provides standard way to access tokens that allows your application to access google services.
 =>Signed URLs can only be used to access resources in Cloud Storage through XML API endpoints for limited permission and time.
@@ -70,12 +69,12 @@ Project:
     ->OLAP is for fewer larger more complex time consuming queries.
         ->BigQuery:Datasets=>tables, Data warehouse.(Exabyte scale)
             ->Auto Expire data.
-            =>Can query external data with our storing it in BigQuery.(From cloud storage, Big table,Cloud SQL, Google drive).
+            =>Can query external data with out storing it in BigQuery.(From cloud storage, Big table, Cloud SQL, Google drive).
             =>Can query billing.
             =>--dry run for cost estimation on query.
 ->No SQL:
-    ->Cloud Firestore(Next version of Datastore):Serverless,document dataBase,ACID transactions, SQL like queries.(Few TB's of data)
-        ->You cannot use both Native mode and Datastore mode in the same project. 
+    ->Cloud Firestore(Next version of Datastore):Serverless, document dataBase, ACID transactions, SQL like queries.(Few TB's of data)
+        =>You cannot use both Native mode and Datastore mode in the same project. 
         ->Firestore Native Mode: Provide data sync across Apps, Offline mode, More client libraries, Organized into documents and collection.
         ->Datastore Mode: Organized into kinds and entity groups. Free for small ops.
         ->For transactional mobile web apps.

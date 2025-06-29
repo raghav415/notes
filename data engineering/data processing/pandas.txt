@@ -63,3 +63,4 @@
 		-.sort_values(by=["col1", "col2"], ascending=[True, False]) will sort col1 in asc, and col2 in desc.
 	->.sort_index() sort by index label.
 	->df1["salary"].rank(ascending=True) by default this will set higher number rank for higher salary if we want lower no rank we use .rank(ascending=False)
+->Modin lib that uses pandas api's and executes in distributed way.

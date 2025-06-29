@@ -52,3 +52,59 @@ Using Polars:
 	-list and array both stores homogenous data in them.
 	-We use array when we know the size of it Eg: pl.Array(pl.Boolean, 5).
 	==prefer the data type Array over List because it is more memory efficient and more performant. If you cannot use Array, then use List
+->modin is library that makes pandas run faster in parallel used to optimize pandas.
+->using engine='pyarrow' in read_csv_optimized code significantly.
+->We can access data from polars df using df[3:,[col1,col2]] but to use full power of polars we should use expression API.
+	-Eg: df.select([pl.col(col1), pl.col(col2)])
+	-It lets us perform transformation on cols.
+	-It takes care of running operations in parallel.
+	-Lets us use query optimization in lazy mode.
+->In lazy mode polars doesn't run each command line by line but gathers full query to run it in one go. It auto optimizes query/ops on data.
+	-Use .describe_optimized_plan() to get the optimized query from polars.
+	-We use scan_csv() instead of read csv to perform ops in lazy mode.
+	-Eg: print(pl.scan_csv(file1)).groupBy(['col1', 'col2']).agg(pl.col("col3").count().alias("al1")).describe_optimized_plan()
+		-Prints query where it gets only required cols from file and perform op.
+->Streamin:
+	-Streaming is where polars runs large data sets in batches so we can work with data sets much larger than memory.
+	-We use streaming in lazy mode in polars.
+		-To use lazy mode without streaming we use .collect() at end of query.
+		-To use lazy mode with streaming we use .collect(streaming=True) at end of query.
+->The lazyframe is query plan to execute ops we need to use .collect for cops to execute and get data frame from it.
+->.lazy() on dataFrames turns it to lazyFrame. 
+->Df to series:
+	-df['col1']
+	-df.select('col1').to_series()
+->Series to DF:
+	-s.to_frame()
+->Series:
+	-values = [1,2,3]
+	 s = pl.Series(name='col1', values=values)
+	-s.to_list()
+->DataFrame:
+	->DF from dict.
+		-data = {'a': [1,2], 'b': [2,3]}
+		 pl.DataFrame(data)
+	->DF from lists.
+		-data=[[1,2][2,3]]
+	 	 pl.DataFrame(data, schema=['col1', 'col2'])
+	->Schema
+		-data={'a': [1,2], 'b': [2,3]}
+		 pl.DataFrame(data, schema=data)
+	->dF to list of dicts
+		-df.to_dict()
+	->DF from numpy.
+		-data = np.random.standard_normal((5, 3))
+		 pl.DataFrame(data)
+	->pandas DF from polars df.
+		-pd.DataFrame(pl_df)
+	->df.to_numpy()
+		-Creates numpy array where each array is a row of DF.
+		-df['col1'].to_numpy() #series to numpy
+		-df['col1'].to_numpy(zero_copy_only=True) #this won't create copy of data as numpy array instead refers data. Doing this we can't perform ops to modify numpy array. And we should not have null or nans in data.
+	->df.to_pandas()
+		-This conversion requires installing pyarrow lib.
+		-This clones data similar to calling to_numpy on DF.
+		-df.to_pandas(use_pyarrow_extension_array=True) #pyArrow backed pandas.
+			-Here we create pandas data frame that refers same arrow table as polars DF. This means you can use pandas code on data with out 			 copying it.
+			-This is very cheap as it does not copy whole data.
+	->.value_count() on series created DF which contain 2 cols value in series and count of each value.

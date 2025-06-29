@@ -124,17 +124,17 @@ Project:
     ->Metrics explorer to filter and query on metrics.
     ->Uptime check: To know point in time status of service.
 ->Cloud logging:
-    ->To get loggs from on-prem we can use cloud logging API.
+    ->To get logs from on-prem we can use cloud logging API.
     ->Access transparency logs:Action performed by gcp team.
     ->Cloud Audit logs:
-        ->Activity logs:These log entries capture API calls or administrative actions that modify the configuration or metadata of GCP resources. They are enabled by default for all GCP services and cannot be modified.
-        ->Data access log:Admin read, Data read, and Data write.
+        ->Activity logs: These log entries capture API calls or administrative actions that modify the configuration or metadata of GCP resources. They are enabled by default for all GCP services and cannot be modified.
+        ->Data access log: Admin read, Data read, and Data write.
         ->To download logs >10000 we can use sink in Log router.
 ->Deployment manager:  Define the desired state of your resources in a YAML configuration file, and then Deployment Manager takes care of creating, updating, and deleting those resources to match the defined state.
     ->Any changes made are automatically applied.
     ->Template Library: Deployment Manager includes a library of reusable templates that can be used to deploy common infrastructure configurations.
     ->Preview Mode: Deployment Manager includes a preview mode, allowing you to preview the changes that will be made to your resources before they are actually deployed.
-->Cloud Dataproc: Managed spark and hadoop servics.
+->Cloud Dataproc: Managed spark and hadoop services.
     ->Alternative to Dataproc in BigQuery but for intelligent analysis using AI/ML choose dataproc.
 ->Cloud dataflow: To deploy your batch and streaming data processing pipelines using Dataflow.
 ->ETL services: Cloud datafusion(ETL/ELT, build and manage), Cloud dataflow(analysis), Cloud dataproc.

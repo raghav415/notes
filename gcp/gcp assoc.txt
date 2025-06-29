@@ -83,8 +83,8 @@ Project:
         ->For IOT, Analytics, Time series data, graphical and real time data analytics, streaming data.
         ->Not serverless.
 ->In memory DB:
-    ->Memorystore for redis:For fast, real-time processing of data.
-    ->Memorystore for Memcached:For reference data, database query caching, session store.(simple cases)
+    ->Memorystore for redis: For fast, real-time processing of data.
+    ->Memorystore for Memcached: For reference data, database query caching, session store.(simple cases)
 ->cbt cli for Big table.
 =>Data can be exported or imported from cloud storage using all DB's.
 ->VPC: To create private n/w to control in/out traffic.

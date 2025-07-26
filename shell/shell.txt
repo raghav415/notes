@@ -8,16 +8,59 @@ Shell:
 	-Shell is command line **interpreter**. It translates commands to language understood by kernel.
 Shell script:
 	-A list of commands to be executed in sequence.
+	-They are interpreted, so there is no compile step.
 	-Can use # for comments.
-	-!#/bin/sh # usuall have this at top of shell script file. This tells full path of interpreter.
+	-!#/bin/sh # usually have this at top of shell script file. This tells full path of interpreter.
+		-called shebang line.
+		-Uses specified shell interpreter even if executed from diff shell.
 	-Types of variables:
 		1. Local varible: created in command propt while executing the script.
 		2. Environment variable: It is avail to all child processes of the shell.
 		3. Shell variable.
+	-Adding user defined function .bashrc file will enable to execute it from any dir and terminal session.
+		-".bashrc" is a shell script that Bash shell runs whenever it is started interactively. The purpose of a .bashrc file is to provide a place where you can set up variables, functions, and aliases, define our prompt, and define other settings that we want to use whenever we open a new terminal window.
+	-if in shell example:
+		x=10
+		y=11
+		if [ $x -ne $y ] # space around [] is must
+		then
+		echo "Not equal"
+		elif [$x -eq 1]
+		then
+		echo "Equals 1"
+		else
+		echo "equal"
+		fi
+	-do while example:
+		x=2
+		while [ $x -lt 6 ]
+		do
+		echo $x
+		x=`expr $x + 1`		# we enclose expr in ` when assigning it to variable.
+		done	
+	-for loop:
+		for var in 2 4 5 8
+		do
+		echo $var
+		done
+	-positional arguments: arguments which we pass to shell when executing script.
+		=The are acessed using variables $1,..$9,${10}...
+		->./script1.sh hi hello	# here $1 inside script returns hi.
+	-Special variables in shell:
+		->$#	# returns no of arguments passed to script.
+		->$0	# returns name of script.
+		->$?	# returns exit code of last executed command. Can return value from 0(success) to 255.
+	-command output can be stored in var in 2 ways:
+		->a=$(pwd)
+		->a=`pwd`
+	-We can manually set exit code in our script.
+		->exit 5	#exits with exit code 5.
 Main types of Shell:
-	-Bourne shell. # has extension .sh
-	-C shell.
-	-Each type has many sub types associated with it.
+	-Bourne shell(sh).
+	-Bourne again shell(BASH).
+	-Korn shell(ksh).
+	-others.....
+	Bourne shell(sh) can be interpreted by Bash and ksh as they both are improved versions of sh and they have more features than sh.
 Nano, vim are command line text editors.
 We always need to add file name with path if operation is not in pwd.
 File permission format:
@@ -46,8 +89,18 @@ Commands:
 	->touch file.txt file2.txt 	# used to create files.
 	->mkdir dir2 # creates dir.
 	->chmod	+wx file_name	# Adds write and executable permision, (helps in changing permissions).
-		->chmod ug+rw,o+r filename 	# Adding read and write permissions to the owner and group, and read-only permissions to others.
+		->chmod ug+rw,o+r filename 	# Adding read and write permissions to the owner and group, and 		  read-only permissions to others.
 		->chmod 777 file_name
 			->Each digit represents permission for owner, group, others.
 			->Each digit can have value from 0(---: 000) to 7(rwx: 111) indicating 3 binary values.
 		->File created using shell has only permissions to read.
+	->expr a tool in shell used for evaluating expresions.
+		-Arithmetic ops.
+		-Evaluating regex, substr from str using indexes, len of str...
+		->expr 1 + 2	# space around operator is must.
+Applicaions:
+	-Helps in automation tasks.
+		-Health checks.
+		-Setting up servers.
+		-Scheduling jobs.
+		-Deployments and infra management.

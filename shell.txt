@@ -1,0 +1,105 @@
+Linux:
+	-Open source operating system. We have access to source code.
+	-Deletes permanently.
+	-Runs faster.
+CLI:
+	-The command line interface is a text based interface used to interace with software and operating system by typing commands into the interface and receive response in the same way.
+Shell:
+	-Shell is command line **interpreter**. It translates commands to language understood by kernel.
+Shell script:
+	-A list of commands to be executed in sequence.
+	-Can use "#" for comments.
+	->!#/bin/sh		# usuall have this at top of shell script file. This tells full path of interpreter. Called shebang line.
+	-> We use "\*" to indicate char does not have Special meaning.
+	-Variable:
+		-Types of variables:
+			1. Local varible: created in command propt while executing the script.
+			2. Environment variable: It is avail to all child processes of the shell.
+			3. Shell variable.
+		-Scalar variables - (Has onle name and value associated)
+			Eg: var1="Hi R" # **no space near =** 
+		->readonly  var1 	# this command tells the va1 can't be changed after this point.
+		->unset var1		#this command tells the var1 will be removed from set of avail varibles.
+		-Special variables: Are predefined variables that the shell uses to store specific information.
+			->$0		# filename of the script.
+			->$1 to $9	# these variables corresponds to arguments with which the script was invoked.
+			->$#	# returns no of arguments supplied to script.
+			->$*	# returns all poaitional arguments.
+			->$@	# returns all poaitional arguments.
+			->$?	# exit status of last command executed. 0-Sucess, 1-Failed
+			->$$	# pocess number of current running shell script. A process id under which it's executed.
+		->./script1.sh Hi Hello		# executing script script1 with 2 args Hi, Hello.
+			->./script1.sh "Hi Hello"	# with single arg.
+		-If else:
+			->if [ expression ]
+			  then
+			  statement1
+			  else
+			  statement2
+			  fi
+		-For:
+			->for i in {1..5}; do # can use $*, $@ to loop through arguments passed.
+  			  # code to repeat five times
+			  done
+		-Function:
+			->function greet {
+			  echo "Hello, $1!"
+			  }
+			  greet "John"
+
+	-operators:
+		-Arithmetic operators:
+			- +,-,*,/,%,=,==,!=.
+			- conditional operators should be inside [] with spaces aroun []. Eg: [$a==$b]
+			- all arithmetic ops done using long int.
+		-Relational operators:
+			- -eq, -ne, -gt, -lt, -ge, -le.
+			- They work only on numeric values not on string values. 
+		-Bool operators:
+			- !,-o,-a	# not, or, and
+		-string operatiors:
+			- =,!=,-z,-n,<,>
+				-> -z $a # checks if str a len is 0.
+				-> -n $a # checks if str len is not 0.
+				-> $a 
+
+Main types of Shell:
+	-Bourne shell. # has extension .sh
+	-C shell.
+	-Each type has many sub types associated with it.
+Nano, vim are command line text editors.
+Tools like awk and sed are used for advanced text manipulation
+We always need to add file name with path if operation is not in pwd.
+File permission format:
+	->All linux files belong to an owner and a group.
+	->-rwxr-xr--.	# this is example of permissions on a file/dir.
+		->-		# file type, - indicates normal file if it is d it indicates dir there are other file types as well.
+		->rwx	# first set applies to owner of file.
+		->r-x	# second set applies to user grp that owns the file.
+		->r--	# third set applies to others.
+		->.		# for Extended attributes.
+Commands:
+	->cmnd_name --help # will list flags avail for command
+	->cd
+	->pwd
+	->ls	# only names of files and directories present in pwd will be listed.
+		->ls /dir1/		# lists files and directories present in dir1 which is in pwd.
+		->-l	# for long listing format(inc permission info).
+	->cp src_file dest_file		# copies file.
+	->mv src_file dest_file		# moves file, renames file if same dir is used.
+	->rm file_name		# permanently deletes file.
+	->cat file_name		# shows content of file (it concatentes file with terminal).
+	->less file_name 	# same as cat but closes and opens new window to show content of file.
+	->more file_name		# can view/stream content of file using down arrow instead of all at once.
+	->grep search_text	# can be used to search the file or command.
+		->mv --help|grep verbose	# searches for word verbose in mv --help output.
+	->touch file.txt file2.txt 	# used to create files.
+	->mkdir dir2 # creates dir.
+	->chmod	+wx file_name	# Adds write and executable permision, (helps in changing permissions).
+		->chmod ug+rw,o+r filename 	# Adding read and write permissions to the owner and group, and read-only permissions to others.
+		->chmod 777 file_name
+			->Each digit represents permission for owner, group, others.
+			->Each digit can have value from 0(---: 000) to 7(rwx: 111) indicating 3 binary values.
+		->File created using shell has only permissions to read.
+	->read -p "Enter name: " username	# -p used to display "Enter name: " and username is var which stores value entered.
+	->ps # returns running process list.

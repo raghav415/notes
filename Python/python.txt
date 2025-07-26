@@ -115,5 +115,15 @@
 	-Decorators receive the function to be decorated as an argument. This allows the decorator to modify or enhance the function’s behavior.
 	-Decorators return a new function that wraps the original function. This new function adds additional behavior before or after the original function is called.
 	-When a function is decorated, it is assigned to the variable name of the original function. This means the original function is replaced by the decorated (wrapped) function.
-	-@decorator_name:This syntax applies the decorator to the function_to_decorate function. It is equivalent to writing function_to_decorate = decorator_name(function_to_decorate)
+	-@decorator_name:This syntax applies the decorator to the function_to_decorate function. It is equivalent to writing function_to_decorate = decorator_name(function_to_decorate).
+		=once we add @decorator_name to a function python calls function with name decorator_name and executes it even if we don't call decorated function.
 	=A decorator can be applied to multiple functions, promoting code reuse. Instead of writing the same code multiple times to modify different functions, you can write a decorator once and apply it wherever needed.
+->Async:
+	-The async keyword transforms a regular function into a coroutine function(async-capable).
+	-When we call async function we get coroutine obj. To actually run it, you need await or asyncio.run(fun())
+	-asyncio.sleep() vs time.sleep()
+	-asyncio.gather(f1(), f2()) will wait for all functions to complete its executions.
+	-__aenter__() and __aexit__() methods in class helps in executing before and after executing methods.
+		Eg:async with Class1() as resource: # in class 1 we define funs __aenter__, __aexit__
+        	       result = await resource.do_work()
+	-return_val=asyncio.create_task(fun1()) create tasks that run in the background. We can use asyncio.gather(return_val) to wait.

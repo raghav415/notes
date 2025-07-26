@@ -11,6 +11,10 @@
 
 curr:
 mongoDb-Done
+polars udemy
+shell script
+sqlLoader
+plSql
 sD-https://www.youtube.com/playlist?list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX;https://www.youtube.com/watch?v=m8Icp_Cid5o
 Elastic search
 lambda, reduce, itertools, decorator, numpy, polars, pandas.

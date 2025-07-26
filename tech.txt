@@ -52,3 +52,11 @@ Git is the distributed version control system.
 	->For centralized we do not have local copy of different versions or branches for every command, checkout,.. we need to connect with server to make the change.
 
 SIMD(a form of parallelism) stands for Single Instruction, Multiple Data, a type of parallel processing where a single instruction operates on multiple data elements simultaneously, enhancing performance in tasks.
+
+A zombie process is a **child process that has already completed its execution** (terminated) but still exists in the process table because its parent process hasn't yet collected its exit status using the wait() system call. A shell script function can be used to find and kill all the zombie processes.
+
+An orphan process, on the other hand, is a child process whose **parent process has terminated or exited before the child process has finished executing**. This will be adopted by init process(parent process to all processes).
+
+A daemon process is a background process designed to run continuously and provide system services without direct user interaction. They are intentionally designed to run in background.
+
+Gracefully unmount a disk is process of safely disconnecting a storage device or filesystem from the operating system allowing it to finish any pending operations and detach the device without causing harm.

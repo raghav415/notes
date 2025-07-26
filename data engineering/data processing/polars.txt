@@ -11,6 +11,7 @@ Why Polars:
 		-Polars supports executing lazy queries in streaming mode by passing streaming=True to the .collect() method.
 		-The streaming engine breaks down queries into batches, allowing for efficient processing of large datasets that don't fit into memory.
 		-Not All Operations Supported. If not supported will fall back to non-streaming execution.
+		-We can check if operation is supported in streaming mode by using .explain() on lazyFrame and if operation is preset b/w pipeline and end pipeline then it can be performed while streaming. 
 	->Streaming APIs create a continuous connection to share live data with the user until they close that connection, without significant latency.
 ->Why polars is faster:
 	=Written in Rust: 
@@ -44,10 +45,13 @@ Using Polars:
 	-3rd it lets us run ops in lazy mode.
 ->Series is a 1-dimensional homogeneous data structure.
 ->A dataframe is a 2-dimensional heterogeneous data structure that contains uniquely named series.
+->We can use pl.Config to set default behavior.
 ->Polars uses null to represent missing values
-->In Polars NaN values are treated as valid floating-point values
-->In polars:
+=>In Polars NaN values are treated as valid floating-point values.
+=>In polars:
 	-Any NaN compares equal to other NaN value. And greater than any non NaN values.
+	-NaN represent undefined or unrepresentable numerical results.
+	-Operations like calculating the mean where a NaN value exists in a column will often result in the entire aggregation also being NaN.
 ->List vs Array in polars:
 	-list and array both stores homogenous data in them.
 	-We use array when we know the size of it Eg: pl.Array(pl.Boolean, 5).
@@ -60,17 +64,13 @@ Using Polars:
 	-It takes care of running operations in parallel.
 	-Lets us use query optimization in lazy mode.
 ->In lazy mode polars doesn't run each command line by line but gathers full query to run it in one go. It auto optimizes query/ops on data.
-	-Use .describe_optimized_plan() to get the optimized query from polars.
+	-Use .explain() to get the optimized query plan from polars.
+	-The lazyframe is query plan to execute ops we need to use .collect for ops to execute and get data frame from it.
+	-.lazy() on dataFrames turns it to lazyFrame.
 	-We use scan_csv() instead of read csv to perform ops in lazy mode.
-	-Eg: print(pl.scan_csv(file1)).groupBy(['col1', 'col2']).agg(pl.col("col3").count().alias("al1")).describe_optimized_plan()
+	-If we are filtering on DF read from CSV by using scan_csv(returns lazy frame) would filter out rows while reading file reducing memory usage.
+	-Eg: print(pl.scan_csv(file1)).groupBy(['col1', 'col2']).agg(pl.col("col3").count().alias("al1")).explain()
 		-Prints query where it gets only required cols from file and perform op.
-->Streamin:
-	-Streaming is where polars runs large data sets in batches so we can work with data sets much larger than memory.
-	-We use streaming in lazy mode in polars.
-		-To use lazy mode without streaming we use .collect() at end of query.
-		-To use lazy mode with streaming we use .collect(streaming=True) at end of query.
-->The lazyframe is query plan to execute ops we need to use .collect for cops to execute and get data frame from it.
-->.lazy() on dataFrames turns it to lazyFrame. 
 ->Df to series:
 	-df['col1']
 	-df.select('col1').to_series()
@@ -108,3 +108,72 @@ Using Polars:
 			-Here we create pandas data frame that refers same arrow table as polars DF. This means you can use pandas code on data with out 			 copying it.
 			-This is very cheap as it does not copy whole data.
 	->.value_count() on series created DF which contain 2 cols value in series and count of each value.
+	->Selecting Rows(polars doesn't have explicit index however it has implicit index):
+		-df[5] to get 5th row.
+		-df[[2,3]] to get 2nd and 3rd row.
+		-df[:2] to get range of rows 0 to 1.
+		-df[range(2,4)] to get range of rows 2 to 3.
+		-df[np.arange(2,4)] to get range of rows 2 to 3 using numpy arrays.
+	->Filtering rows:
+		-df.filter(pl.col('Col1')>54)
+		-df.filter([True, false]) list length should be equal to no of rows in dataFrame.
+			Eg: df.with_columns(new_col=pl.col("col1")<30).filter(new_col) # filtering on Boolean column to get rows that have True value for new_col.
+		-df.partion_by("col1" ,to_dict=False) to get separate list of data frames grouped by col name given.
+	->.suffix("_ff") would create col with suffix.
+	->Selecting columns:
+		-df["col1"] #return col1 column as polars Series.
+		-df[["col1","col2"]] #return dataframe with col1 and col2 as it's columns.
+		-df.select("col1") always returns dataFrame even if 1 col is selected.
+		-[] can only be used in eager mode But select can be used in lazy mode.
+		=multiple expressions in select can run in parallel while selecting columns 
+			Eg:pl.select([pl.col("col1"), pl.col("col2").round(0)])
+		-pl.select(pl.all())#select all columns.
+		-pl.select(pl.exclude(["col1", "col2"])) #returns all cols excluding these.
+		-We can use regex in selecting cols if we pass string starting with ^ and ending with $ polars takes it as regex.
+			-pl.select("^P.*$") or pl.select(pl.col("^P.*$").max()) #returns all cols that starts with P.
+		-We can select cols using dtypes.
+			-pl.select([pl.col([pl.Int64, pl.String])]).
+			-pl.select(pl.col(pl.NUMERIC_DTYPES)) #selects all numeric dtypes.
+		-We can use selectors(cs) to select columns in less verbose way.
+			-They work in lazyFrames and streaming as expressions do.
+			-pl.select(cs.numeric()) #selects all numeric dtypes
+			-pl.select(~cs.by_name("col1", "Age")) #exclude these cols.
+			-We have starts_with(), matches()... methods avail in cs.
+			-pl.select(cs.string()-cs.ends_with("H")).
+			-we can use pl.select() to add new cols when we want few cols with new col.
+	->To select cell in DataFrame ywe can use df[0, "col1"] == df[(0,"col1")].
+		-df[[0,1]["col1", "col2"]] #return dataFrame with first 2 rows with col1 and col2 values.
+		-df[:, 1:6] selects all rows with cols from 1-6.
+		-df[:, "col1":"col6"] selects all rows with cols b/w col1 to col6 ordered in DF.
+	=>We use df.with_columns to transform existing cols and add new cols.
+	->We can use if else in polars using pl.when(*Bool expr*).then().otherwise()
+	->We can also use else if using pl.when().then().when().then().otherwise()
+		Eg: pl.with_columns(pl.when(pl.col("col1")==1).then("firstClass").otherwise("SecondClass").alias("Class")) #creates new col with values based on condn.
+ 	->df.sort("col1", nulls_last=True) to sort df in asc of col1 column.
+		-df.sort(["col1", "col2"])
+	=>For some ops polars uses fastTrack algo if it knows the data in col is sorted.
+		-We can check if col is sorted using df["col1"].flags.
+		-We can set col as sorted using pl.col("col1").set_sorted(reverse=True) so polars apply fastTrack algo on some ops.
+		-If we are sorting cols using .sort() on col polars auto sets flag.
+	->We can use pipe in polars to create user defined functions that accepts arguments for repeated ops.
+	->Iterate on DataFrame:
+		-[age for age in df["Age"]] # iterate on single col
+		-[(row[3],row[5]) for row in df.rows()] (or) [(row[3],row[5]) for row in df.iterrows()]
+			-.rows() converts whole DF to list of tuples where as .iterrows() converts each row as a Python tuple when we iterate over it.
+			-.rows(named=True), .iterrows(named=True) these will create dict instead of tuple so we can access cols using names.
+				-This is slower.
+	->ops on null:
+		=Polars stores metadata about null values for each col in a DataFrame. So most of ops are cheap even on huge cols.
+		-df.null_count() # returns null count in each col of DF.
+		-.is_null() and .is_not_null() can be used to filer rows in cols.
+		-df.filter(pl.any_horizontal(pl.all().is_not_null())) # returns rows where not all col values in a row is null.
+		-df.filter(pl.all_horizontal(pl.all().is_not_null())) # returns rows where not a single null value is present in any col.
+		-df.drop_nulls() # drops rows even if single null value is present.
+			-df.drop_nulls(subset=["col1", "col2"]) # returns rows where not single null present in col1 and col2.
+		
+		-df.with_columns(pl.all().fill_null(val)) # replace null value with provided value. Might change col dtype or dtype of val being passed in case of conflict with col dtype.
+		-df.with_columns(pl.all().fill_null(strategy="forward")) # replace null with preceding non null values.
+			-Won't replace null in 1st row.
+		-df.with_columns(pl.col("col2").fill_null(strategy="forward").over("col1")) # replace null with preceding non null value where same col1 value is present.
+		
+		

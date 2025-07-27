@@ -56,11 +56,21 @@ Shell script:
 	-We can manually set exit code in our script.
 		->exit 5	#exits with exit code 5.
 Main types of Shell:
-	-Bourne shell(sh).
-	-Bourne again shell(BASH).
-	-Korn shell(ksh).
+	-Bourne shell(sh) - faster,# in cmd prompt represents root user
+		-can't recall previouse command, don't have built in support of arithmetic ops and logical expr..
+	-Bourne again shell(BASH) - Inc features from korn and bourne shell. # in cmd prompt represents root user
+	-Korn shell(ksh) - faster than cshell, compatible with cshell script. # in cmd prompt represents root user.
+		-it has interactive fetures, support built in arithmetic ops, C like arrays, functions, str ops.
+	-cshell(csh) - supports features like command history and c like expression syntax, # in cmd prompt represents root user.
+	-zshell(zsh) - extended from bash.
 	-others.....
-	Bourne shell(sh) can be interpreted by Bash and ksh as they both are improved versions of sh and they have more features than sh.
+	-Shell type and ops:
+		-Bourne shell(sh) can be interpreted by Bash and ksh as they both are improved versions of sh and they have more features than sh.
+		->echo $SHELL	# To check type of shell using.
+		->ps -p $$		# Prints info about shell process.
+		->zsh	# enter shell name to switch shells.
+		->csh -s <path> 	# to change the default shell
+		->cat /etc/shells	# to get list of avail shells
 Nano, vim are command line text editors.
 We always need to add file name with path if operation is not in pwd.
 File permission format:
@@ -73,31 +83,55 @@ File permission format:
 		->.		# for Extended attributes.
 Commands:
 	->cmnd_name --help # will list flags avail for command
-	->cd
-	->pwd
-	->ls	# only names of files and directories present in pwd will be listed.
-		->ls /dir1/		# lists files and directories present in dir1 which is in pwd.
-		->-l	# for long listing format(inc permission info).
-	->cp src_file dest_file		# copies file.
-	->mv src_file dest_file		# moves file, renames file if same dir is used.
-	->rm file_name		# permanently deletes file.
-	->cat file_name		# shows content of file (it concatentes file with terminal).
-	->less file_name 	# same as cat but closes and opens new window to show content of file.
-	->more file_name		# can view/stream content of file using down arrow instead of all at once.
-	->grep search_text	# can be used to search the file or command.
-		->mv --help|grep verbose	# searches for word verbose in mv --help output.
-	->touch file.txt file2.txt 	# used to create files.
-	->mkdir dir2 # creates dir.
-	->chmod	+wx file_name	# Adds write and executable permision, (helps in changing permissions).
+	-File Management -> cp, mv, rm, mkdir, touch
+		->touch file.txt file2.txt 	# used to create files.
+	
+	-Navigation -> cd, pwd, ls
+		ls -l 	# for more info on file list.
+	
+	-Text Processing -> cat, grep, sort, head, more, tail, wc
+		->cat file_name		# shows content of file (it concatentes file with terminal).
+		->grep search_text	# can be used to search the file or command.
+			->mv --help|grep verbose	# searches for word verbose in mv --help output.
+			->grep "error" log.txt
+		->more file_name	# can view/stream content of file using down arrow instead of all at once.
+		->sort filename		# sort lines of text, can be used on csv to sort cols..
+		->wc filename	# counts lines, words, chars in a file.
+	
+	-Permissions and Ownership -> chmod, chown(changes owner and grp), chgrp(changes grp)
+		->chmod	+wx file_name	# Adds write and executable permision, (helps in changing permissions).
 		->chmod ug+rw,o+r filename 	# Adding read and write permissions to the owner and group, and 		  read-only permissions to others.
 		->chmod 777 file_name
 			->Each digit represents permission for owner, group, others.
 			->Each digit can have value from 0(---: 000) to 7(rwx: 111) indicating 3 binary values.
 		->File created using shell has only permissions to read.
+	
+	-Networking - > ping, wget, curl, ssh, scp, ftp
+		->wget http://a.com//file.zip	# retrieve files from web.
+		->curl http://a.com		# to send receive data from server.
+		->ssh s@a.com	# to open remote login.
+		->scp file_name user@example.com:/path/	# securely copies files b/w hosts.
+		->ftp ftp.example.com	# transfer files using ftp.
+	-Compression and Archiving - > tar, gzip, gunzip, zip, unzip
+	
+	-Process Management -> kill, killall, bg, killall, kill
+	-System Monitoring -> top, ps, df
+		->top	# Displays real-time system information (CPU, memory)
+		->ps	# Displays list of running processes...
+		->df	# Disk space usage.
+	-Package Management - > dnf, yum, apt-get
+
+	->find /home/user -name "*.txt"
+		-It searches for file in specified dir, sub dirs.
+		-find *file1*.txt	#searches for file1 word in all file names.
 	->expr a tool in shell used for evaluating expresions.
 		-Arithmetic ops.
 		-Evaluating regex, substr from str using indexes, len of str...
 		->expr 1 + 2	# space around operator is must.
+Piping:
+	-Can combine multiple commands.
+	-Output of one command will be input of other command.
+	->mv --help|grep verbose	# searches for word verbose in mv --help output.
 Applicaions:
 	-Helps in automation tasks.
 		-Health checks.

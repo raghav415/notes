@@ -1,0 +1,3 @@
+-In Python, threads and asynchronous tasks facilitate concurrency on a single processor, while multiprocessing allows for true parallelism by utilizing multiple CPU cores.
+-In MultiThreading(preemptive multitasking) here OS can interrupt the thread at any time. Here we don not need to do anything to make the switch. Here the interrupt/switch can happen at any time.
+-In asynchronous(cooperative multitasking) here the tasks must cooperate with each other when they are ready to switch with out OS involvement. Here OS can't switch tasks on it's own.

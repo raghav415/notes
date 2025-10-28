@@ -2,6 +2,25 @@ Linux:
 	-Open source operating system. We have access to source code.
 	-Deletes permanently.
 	-Runs faster.
+Linux file structure:
+	bin - binary or executable files.
+	etc - system config files.
+	opt - optional(3rd party softwares).
+	var - log files.
+	tmp - temporary space cleared on reboot.
+	usr - user related programs.
+	boot - contains boot files.
+	dev - contains device files.
+	lib - contains kernel files and shared library.
+	lost+found - contains orphan/corrupted files.
+	media - contains removable device files.
+	mnt - same as media.
+	proc - stores running processes with PID.
+	run - stores volatile runtime data.
+	sbin - system admin executable files.
+	srv - server related files.
+	sys - vitual file an interface b\w user and kernel. provides structured view of h\w devices...
+	other dirs - home
 CLI:
 	-The command line interface is a text based interface used to interace with software and operating system by typing commands into the interface and receive response in the same way.
 Shell:

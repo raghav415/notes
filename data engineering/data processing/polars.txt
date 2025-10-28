@@ -57,7 +57,7 @@ Using Polars:
 	-We use array when we know the size of it Eg: pl.Array(pl.Boolean, 5).
 	==prefer the data type Array over List because it is more memory efficient and more performant. If you cannot use Array, then use List
 ->modin is library that makes pandas run faster in parallel used to optimize pandas.
-->using engine='pyarrow' in read_csv_optimized code significantly.
+->using engine='pyarrow' in read_csv optimized code significantly.
 ->We can access data from polars df using df[3:,[col1,col2]] but to use full power of polars we should use expression API.
 	-Eg: df.select([pl.col(col1), pl.col(col2)])
 	-It lets us perform transformation on cols.
@@ -71,6 +71,7 @@ Using Polars:
 	-If we are filtering on DF read from CSV by using scan_csv(returns lazy frame) would filter out rows while reading file reducing memory usage.
 	-Eg: print(pl.scan_csv(file1)).groupBy(['col1', 'col2']).agg(pl.col("col3").count().alias("al1")).explain()
 		-Prints query where it gets only required cols from file and perform op.
+	- In lazy frame we can not use square bracket indexing.
 ->Df to series:
 	-df['col1']
 	-df.select('col1').to_series()
@@ -107,7 +108,7 @@ Using Polars:
 		-df.to_pandas(use_pyarrow_extension_array=True) #pyArrow backed pandas.
 			-Here we create pandas data frame that refers same arrow table as polars DF. This means you can use pandas code on data with out 			 copying it.
 			-This is very cheap as it does not copy whole data.
-	->.value_count() on series created DF which contain 2 cols value in series and count of each value.
+	->.value_count() on series creates DF with 2 cols. Series as col and count of each value is series.
 	->Selecting Rows(polars doesn't have explicit index however it has implicit index):
 		-df[5] to get 5th row.
 		-df[[2,3]] to get 2nd and 3rd row.
@@ -123,7 +124,7 @@ Using Polars:
 	->Selecting columns:
 		-df["col1"] #return col1 column as polars Series.
 		-df[["col1","col2"]] #return dataframe with col1 and col2 as it's columns.
-		-df.select("col1") always returns dataFrame even if 1 col is selected.
+		=df.select("col1") always returns dataFrame even if 1 col is selected.
 		-[] can only be used in eager mode But select can be used in lazy mode.
 		=multiple expressions in select can run in parallel while selecting columns 
 			Eg:pl.select([pl.col("col1"), pl.col("col2").round(0)])
@@ -141,7 +142,7 @@ Using Polars:
 			-We have starts_with(), matches()... methods avail in cs.
 			-pl.select(cs.string()-cs.ends_with("H")).
 			-we can use pl.select() to add new cols when we want few cols with new col.
-	->To select cell in DataFrame ywe can use df[0, "col1"] == df[(0,"col1")].
+	->To select cell in DataFrame we can use df[0, "col1"] == df[(0,"col1")].
 		-df[[0,1]["col1", "col2"]] #return dataFrame with first 2 rows with col1 and col2 values.
 		-df[:, 1:6] selects all rows with cols from 1-6.
 		-df[:, "col1":"col6"] selects all rows with cols b/w col1 to col6 ordered in DF.
@@ -165,7 +166,7 @@ Using Polars:
 	->ops on null:
 		=Polars stores metadata about null values for each col in a DataFrame. So most of ops are cheap even on huge cols.
 		-df.null_count() # returns null count in each col of DF.
-		-.is_null() and .is_not_null() can be used to filer rows in cols.
+		-.is_null() and .is_not_null() can be used to filter rows in cols.
 		-df.filter(pl.any_horizontal(pl.all().is_not_null())) # returns rows where not all col values in a row is null.
 		-df.filter(pl.all_horizontal(pl.all().is_not_null())) # returns rows where not a single null value is present in any col.
 		-df.drop_nulls() # drops rows even if single null value is present.
@@ -175,5 +176,108 @@ Using Polars:
 		-df.with_columns(pl.all().fill_null(strategy="forward")) # replace null with preceding non null values.
 			-Won't replace null in 1st row.
 		-df.with_columns(pl.col("col2").fill_null(strategy="forward").over("col1")) # replace null with preceding non null value where same col1 value is present.
-		
-		
+		-df.with_coulumns(pl.coalesce(["a", "b", "c", 9.0]).alias("d")) # creates col with 1st non null value.
+	
+	->NumericDtypes(Memory mgmnt):
+		-pl.col("ints").cast(pl.Int32).upper_bound().alias("pl.Int32_upper") gives max val int32 can store.
+		-If we try to cast a value outside of its valid range polars throws exception.
+		= .shrink_dtype() - Lets polars detect if dtype can fit in lower precision dtype and casts to it.(Float64 to Float32).
+		= .estimated_size() - Would return estimated size of DF.
+		= Moving to 32 bit from 64 bit dtype would reduce memory by half. Even the compuatations on 32 bit is faster than 64.
+		= Moving to lower precision than 32 bit does not always lead to faster performance. As many cpu's do not have support for 8 and 16 bit ops.
+
+	->Categorical data:
+		-Working with integers normally takes less memory and runs faster.
+		-Polars uses integer to map strings storing integer inplace of strings. Same strings will be mapped to same integers.
+		-We can see the integer mapped to each string using .to_physical() method.
+			-Eg: df.with_columns(pl.col("col1").to_physical().alias("new_col"))
+		==When we sort categorical type col by default it sorts by integers values mapped to string.
+			==To sort col based on alphabet(actual values) we can use pl.col("col1").cat.set_ordering("lexical").
+		==Ops on categorical col can produce unexpected results such as .max() giving null.
+		-Concat and join on Categorical columns might create issue. And ops like .is_in(["str1"]) which internally creates series and performs join also causes issue.
+			-We use string cache to overcome it. String cache creates same int mapping for all categorical col created with in scope of string cache.
+			-We can use string cache using context manage(best way).
+				-with pl.StringCache():
+					# code goes here.
+			-We can also use: 
+				-pl.enable_string_cache() # to start string cache.
+				-pl.using_string_cache() # to check if string cache is being used.
+				-pl.disable_string_cache() # to disable string cache.
+	->Pipe in polars allows us to chain operations together by passing the result of one op as input to other.
+		-This allows us to create multiple reusable functions.
+	->Nested Data:
+		-List: Each row of list is a series. And each series has same dtype.
+			-We can see that list here is series by viewing cell of df using df[0, "col1"].
+			-.explode() on list col to have each element on separate row of df this duplicates rest of col data on each row.
+			-Ops performed after exploding list column is often faster than applying expressions directly on list col.
+				-We can do ops on list type col with out exploding using expressions Eg: pl.col("col1").list.first()
+			-.to_struct() on list type col would convert list to struct adding field_0... as keys by default.
+				-(dbt)This op is expensive as list store data row by row where as struct stores it in col by col fashion.
+				-Polars follows first row list size as default size while creating schema for struct. Which could miss values in lists with higher len than first row.
+			-.to_numpy() on list type col would create array of arrays.
+			-We can do set operations(intersectio, diff, symetric diff, unions...) between 2 list cols.
+			- .list.eval(pl.element().rank()) # we can .eval to perform more ops on list elements. 
+		-Array: We can use array dtype if len of list is same on all rows.
+			-It can speed up the performance.
+			-.to_numpy() on array dtype creates 2d array.
+
+		-Object: We use object when list can't be used. Each row in obj is standard python list so ops on it are slow.
+		-Struct: Dict like dtype where eache row has same set of keys and values have specifc dtype associated.
+			-We can use df["Col1"].struct.fields to get list of keys.
+			-We can also use pl.col("col1").struct.field("field1") to access fields with in struct col.
+			-.to_frame() can be used on series(df["col1"]) to convert struct series to it's own multi col dataFrame.
+			-.unnest() can be used on df to become columns on dataFrame.
+
+	->Statistics with polars:
+		-.rolling_mean(window_size=3) # this lets us calculate mean for every 3 values from to 1st 2 being null.
+		- .rolling_mean(window_size=3, min_periods=1) # this make 1st 2 non nulls.
+		-We have methods to do row wise or column wise statistics.
+	->Pivot:
+		-Converts values in columns as separate column.
+	->Melting:
+		-Converts column names as values in a column.
+	->unstack:
+		-Taking n-row values and creating new col out of it....
+	->Concat:
+		- In concat of 2 df's we can refer 2 df's or create copy of 2 or 1 df.
+		- Copying large data can be expensive. 
+		- Methods avail:
+			-df1.vstack(df2): This references 2 df's without copying data.
+				-This can be slow to do ops further after concat like group_by...
+			-df1.vstack(df2).rechunk(): This creates copy of 2 df's as separate df.
+				-This can be used when their are op's to be done post concat.
+			-df1.extend(df2): This appends copy of df2 to df1.
+				-This can be used when the df2 is small and need todo op's post concat.
+				-This happens in place so no need to assign the .extend to df1.
+			-pl.concat([df1, df2], how='vertical', rechunk=False).
+				-This is same as vstack. Keeping rechunk=True or False makes a copy or just refers df's.
+	->Joins:
+		-Joins on categorical on enum type cols are faster.
+			-But when doing categorical joins use global string cache.
+		-Semi join: Join where only cols from lef df are returned with only the left rows having keys in right df.
+		-Anti join: Join where only cols from lef df are returned with only the left rows not having keys in right df.
+		-asof join.
+		-inequality join.
+			- using .join_where()
+	->Reading csv files:
+		-In csv files all data is stored as string eg: 1.2 a float is stored as string for 1, decimal and 2.
+		-We still need to read the whole csv file lin by even if we need subset of col data.
+		-Parquet files are faster to read than csv files.
+	->Reading excel(xlsx) files:
+		-These files are slower to read.
+		-These are simply zip archive files. We can call unzip command on it.
+		-When reading excel files polars has to unzip this file then need to read all .xml files.
+		-As csv's polars has to infer the schema if not provided.
+		-polars itself doesn't parse the xml files instead it hands over to 3rd party lib like calamine(default, rust based, fast, integrates with apache arrow), xlsx2csv(converts spreadsheet to csv in memory and then polars uses csv readers), openpyxl(slower than xlsx2csv), pyxlsxb(for binary xls).
+			-We use engine argument to specify how to read file.
+			-Calamine might not support all the features of excel.
+	->Reading json:
+		-read_json()
+		-read_ndjson()
+			-To read json delimited file.
+		-scan_ndjson()
+			-To read json delimited file.
+			-For now streaming is not supported here.
+	->.profile() on lazyFrame.........(not sure what is the use)
+	->How low_memory=True helps while reading file.
+	->We can use DuckDB with polars as we do with pandas. Some ops are faster with DuckDB.

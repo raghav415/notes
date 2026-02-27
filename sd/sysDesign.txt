@@ -6,3 +6,95 @@
 		->Database caching(plays a pivotal role in enhancing the performance of applications that heavily rely on database interactions.)
 			-Internal(DB itself maintains cache) and external(redis or memcache).
 ->CDNs are a network of servers distributed geographically, generally used to serve static content such as JavaScript, HTML, CSS, images, and video assets.
+
+->Load Balancing:
+	-Hashing:
+		-Hashing on sequential user ID and loading requests:
+			-This creates problem when server is added or removed as it involves costly operation of managing cache, local storage of user being transferred to different server because of different hash value, on changing the total number of servers.
+		-To minimize the no of operations involved we need to follow better hashing technique on server and requests.
+
+->Messae Queue:
+
+->Microservice and Monolithic:
+	-In Microservice arch services interacts using RPC or Event streaming or message brokers.
+
+->Sharding
+
+->Caching:
+	-Types:
+		-Inmemory(in app server).
+		-DB cache.
+		-Independent cache.
+
+->Single point failure in distributed systems
+
+->CDN:
+	-They are close to user to deliver response to user at much faster rate.
+	-It stores static content.
+	-It is cheap and fast to access.
+
+->Event Driven System:
+	-Request/Response: Here we send request to some serveice and wait for it to respond.
+	-Message Brokers: Here we publish request to broker and done with it. The services that subscriped to that broker would pull that request and execute it.
+
+->SQL vs No SQL:
+
+->API Designing:
+	-Naming function.
+	-Use only required arguments.
+	-Return only required info.
+	-If response is large:
+		-Use pagination from client side. Sending n records on every page.
+		-Use fragmentation wher data is sent in fragments continuously.
+
+->Storing Image:
+	-Image can be stored as BLOB(Binary large object) type in DB.
+		-Using select * with BLOB data type could be very expensive op.
+	-Can be stored as file in File System(Preferred way).
+		-Significantly cheaper than storing in DB.
+		-Faster than DB.
+		-Can use CDN here for faster delivery.
+		-Store file URL in DB.
+
+->Message protocals:
+	-XMPP.
+	-WebSocket.
+
+-CAP Theorem:
+	-We can't achieve true consistency, availability and partition tolerance.
+
+-Why we need Nginx:
+	-Traditional web servers like Apache HTTP Server use what's called a "thread-per-request" model where server creates a dedicated thread to handle request from start to end. Imagine three users visiting your website simultaneously. The server dutifully creates three threads, one for each user. If you have a dual-core processor, two threads can run immediately while the third waits its turn.
+	-When we get thousands of requests a process called context switching is applied.
+		-Here OS spends lot of time just switching b/w threads.
+		-Each threads compete for CPU time.
+		-Each thread typically require 2-8MB of memory just for it's stack. With 10,000 concurrent connections we'r looking at 20-80GB before dng anything useful.
+		-Adds CPU overhead of switching b/w 1000's of threads.
+	-Nginx solves this by:
+		-Instead of creating new thread for each request. It runs small number of worker processes. Typically one per CPU core. And each worker can handle thousands of concurrent connections simultaneously.
+		-It has master process that doesn't handle traffic directly but manages config, spawns worker processes, and handles reloads.
+		-It has cache manager, cache loader that optimize handling static content in background.
+		-In worker process Nginx implements event loop.
+		-When request arrives it's queued on listen socket. Once worker thread accepts a connection it doesn't sit idle if connection is waiting for some I/O intead it adds request into event loop and processes other connections.
+			=The techniqual breakthrough that made this possible involves system calls like epoll on linux and kqueue on BSD/macos.
+				-These are efficient way for programs to monitor 1000's of connections simultaneously with out checking each one individually.
+				-Traditional approach requires server constantly to ask if req1 is ready, req2 is ready, req 3 is ready? thousands of times per sec.
+					-With epoll the server instead tells operating system. Monitor all these connections and let me know when any of them have something to do.
+					=When epoll notifies event loop connection 450 is ready. The worker processes this request immediately and moves on. No time wasting checking connections that aren't ready.
+					-If new connections become ready even microseconds later, epoll catches them and the cycle continues.
+	-The memory footprint remains modest because you're not allocating thread stacks for each connection.
+	-It also provides load balancing across CPU cores.
+	-For optimal performance requires thoughtfult config:
+		-No.of worker processes should typically match no of CPU cores.
+		-Worker conn settings how many simultaneously connections each worker can handle(1024-4096) are common starting point.
+		-OS limits becomes crucial at scale. The max no of open file descriptors must be increased since each connection requires a file descriptor.
+		-Network buffer sizes might need tuning for high-throughput applications.
+		-The listen socket backlog should be large enough to handle large traffic spikes without dropping connections.
+		-Monitoring is essential(Key metrics: connections per worker, request processing time, sys resource utilization).
+	=Ngnix excels for I/O bound workloads but isn't optimal for every scenario.
+		-CPU bound tasks can block the event loop workers process events sequentially.
+		-An unhandled exception or infinite loop in one request can freeze entire worker affecting thousands of connections.
+		-While Nginx uses less memory per connection. It can use more memory per worker for shared resources like session cache or application state.
+	-Nginx vs nodeJS(async):
+		-Both use event driven architectures. But both of them implement them differently.
+		-NodeJS starts with single thread running java script code. It uses lib libuv to handle I\O asynchronusly.

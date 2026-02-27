@@ -106,7 +106,7 @@ Using Polars:
 		-This conversion requires installing pyarrow lib.
 		-This clones data similar to calling to_numpy on DF.
 		-df.to_pandas(use_pyarrow_extension_array=True) #pyArrow backed pandas.
-			-Here we create pandas data frame that refers same arrow table as polars DF. This means you can use pandas code on data with out 			 copying it.
+			-Here we create pandas data frame that refers same arrow table as polars DF. This means you can use pandas code on data with out copying it.
 			-This is very cheap as it does not copy whole data.
 	->.value_count() on series creates DF with 2 cols. Series as col and count of each value is series.
 	->Selecting Rows(polars doesn't have explicit index however it has implicit index):
@@ -119,7 +119,7 @@ Using Polars:
 		-df.filter(pl.col('Col1')>54)
 		-df.filter([True, false]) list length should be equal to no of rows in dataFrame.
 			Eg: df.with_columns(new_col=pl.col("col1")<30).filter(new_col) # filtering on Boolean column to get rows that have True value for new_col.
-		-df.partion_by("col1" ,to_dict=False) to get separate list of data frames grouped by col name given.
+		=df.partion_by("col1" ,to_dict=False) to get separate list of data frames grouped by col name given.
 	->.suffix("_ff") would create col with suffix.
 	->Selecting columns:
 		-df["col1"] #return col1 column as polars Series.
@@ -234,7 +234,9 @@ Using Polars:
 		-We have methods to do row wise or column wise statistics.
 	->Pivot:
 		-Converts values in columns as separate column.
-	->Melting:
+		-Understand args: on, index, value, aggr.
+			-No of new cols generated=No of unique combinations b/w on and value args.
+	->unpivot:
 		-Converts column names as values in a column.
 	->unstack:
 		-Taking n-row values and creating new col out of it....
@@ -252,7 +254,7 @@ Using Polars:
 			-pl.concat([df1, df2], how='vertical', rechunk=False).
 				-This is same as vstack. Keeping rechunk=True or False makes a copy or just refers df's.
 	->Joins:
-		-Joins on categorical on enum type cols are faster.
+		-Joins on categorical or enum type cols are faster.
 			-But when doing categorical joins use global string cache.
 		-Semi join: Join where only cols from lef df are returned with only the left rows having keys in right df.
 		-Anti join: Join where only cols from lef df are returned with only the left rows not having keys in right df.

@@ -17,4 +17,8 @@
 ->To increase query speed:
 	-Filtering the data to include only the observations you need can dramatically improve query speed.
 	-Always try to filter or reduce number of rows before doing join.
+->Unique CONSTRAINT:
+	-SQL Server: Only one NULL allowed unless you use a filtered index.
+	-PostgreSQL / Oracle / MySQL: Multiple NULLs allowed because NULL <> NULL.
+
 ===>Need to check pivot and unpivot in SQL.

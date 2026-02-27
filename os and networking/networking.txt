@@ -1,0 +1,4 @@
+- Socket: An abstraction provided by operating systems to enable communication between processes either on same machine or over a n/w.
+    -When two machines or two applications need to talk to each other over n/w each side of that communication creates a socket.
+    -It is a software construct of protocol(TCP/UDP) + IPAddress + Port Number.
+    -The tcp is 3 way handshake protocol that establishes connection before actual connection happens so it is slow but reliable.

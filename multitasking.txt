@@ -1,3 +1,33 @@
 -In Python, threads and asynchronous tasks facilitate concurrency on a single processor, while multiprocessing allows for true parallelism by utilizing multiple CPU cores.
 -In MultiThreading(preemptive multitasking) here OS can interrupt the thread at any time. Here we don not need to do anything to make the switch. Here the interrupt/switch can happen at any time.
 -In asynchronous(cooperative multitasking) here the tasks must cooperate with each other when they are ready to switch with out OS involvement. Here OS can't switch tasks on it's own.
+
+-Libraries:
+	-Both threading and multiprocessing represent fairly low-level building blocks in concurrent programs. In practice, you can often replace them with concurrent.futures, which provides a higher-level interface for both modules. On the other hand, asyncio offers a bit of a different approach to concurrency, which you’ll dive into later.
+
+-Threading:
+	-threading.local() a way to store data that is unique to each thread even when same name variables.
+	-Using a thread pool can be beneficial when you have limited system resources but still want to handle many tasks. By creating the threads upfront and 	 reusing them for the subsequent tasks, a pool reduces the overhead of repeatedly creating and destroying threads.
+	-There are several strategies for making data access thread-safe. One of them is to use a thread-safe data structure, such as a queue.Queue, 	 	 multiprocessing.Queue, or an asyncio.Queue.They use lock objects to ensure that only one thread can access a block of code or a bit of memory at the same time. Another strategy is to use threading.local().
+
+-Asynchronous(python):
+	Asynchronous processing is a concurrency model that’s well-suited for I/O-bound tasks—hence the name, asyncio. It ***avoids the overhead of context switching between threads*** by employing the event loop, non-blocking operations, and coroutines, among other things. Perhaps somewhat surprisingly, the asynchronous code needs only one thread of execution to run concurrently.
+	-In python we can await on coroutines(async function), tasks(), futures(result of coroutine).
+	-Creating coroutines won't schedule them in event loop. When we await it, it's scheduled and executes it and wait for completion.
+	-Creating task schedules them in event loop. Awaiting them would start their execution.
+	-Event loop:
+		-It contains collection of jobs to be run. Some jobs are added directly by you, and some indirectly by asyncio. 
+		-The event loop takes a job from its backlog of work and invokes it.Once it pauses or completes, it returns control to the event loop. The event loop will then select another job from its pool and invokes/resumes it.
+		-It follows FIFO when their is await on any task/obj/.. it starts executing the first job in event loop.
+	==Calling async function does not execute function body instead it creates coroutine object. A coroutine has to be explicitly started; again, merely creating the coroutine does not start it. The coroutine can be paused and resumed at various points within the function’s body. Coroutines and coroutine functions were built by leveraging the functionality of generators.
+		-The behavior of await coroutine is effectively the same as invoking a regular, synchronous Python function.
+		-While the await task cedes control back to event loop.
+		-The .create_task(fun()) this adds task in event loop and the task starts when the current function execution is complete or their was an await execution on any coroutine.
+
+	-Future is an object meant to represent a computations status of incomplete coroutine.
+		-.get() on future to get the result of coroutine. This will await if result is not yet generated.
+		-await on it to complete the task.
+	-To use async on synchronous functions we use threads and processes.
+	-task.done()
+	-Examples:
+		https://youtu.be/t5Bo1Je9EmE?si=ZqgCjpLgEaUP8TLQ

@@ -25,3 +25,17 @@ Binary Search:
     -We can apply binary search for problems. We need to find k, if condition(k) is True then condition(k + 1) is True, then we can consider binary search.
         -Here we need to create condition function which could be complex.
         -And decide on upper, lower bounds.
+
+Hashing(https://www.hackerearth.com/practice/data-structures/hash-tables/basics-of-hash-tables/tutorial/):
+    -In hashing larger keys are converted to smaller keys by using hash functions. The values are then sorted in a data structure called hash table. The idea of hashing is to distribute entries uniformly across an array. Here each element can be accessed in avg O(1) time.
+        hash = hashfunc(key)
+        index = hash % array_size
+    -A good hash function should:
+        -Be easy to compute.
+        -Uniform distribution.
+        -Less Collision.(More Collision could lead to time complexity of O(n)): Collision occurs when same hash is retuned on different inputs.
+    -Collision resolution techniques:
+        =Separate chaining: Uses linked lists to store element. **Most commonly used**
+        -Linear probing:If index from hash function is filled Will loop on index=(index+1)%array_size untill empts slot is found..
+        -Quadratic probing: Same as linear probing here index=(index+i^2)%array_size is used where i=i+1 on every loop.
+        -Double hasing: Same as linear probing here index=(index+i*indexH)%array_size is used where i=i+1 on every loop and indexH is hash value from other hashFunction(element).

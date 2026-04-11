@@ -6,9 +6,9 @@
 	->py manage.py makemigrations(to create files that stores changes made to DB).
 ->edit config for manage.py by adding parameter runserver to run app directly without cmnd.
 ->Need to register app in settings.py by adding app name in INSTALLED_APPS.
-->use admin.py file to register models for app.
+->use admin.py file to register models for app. For models to appear in django-admin interface.
 	->admin.site.register(Movie)
-->use def __str__() inside model class to change the way objects displayed in Django admin ui.
+=>use def __str__() inside model class to change the way objects displayed in Django admin ui.
 
 Django settings:
 

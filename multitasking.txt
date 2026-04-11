@@ -1,7 +1,9 @@
 -In Python, threads and asynchronous tasks facilitate concurrency on a single processor, while multiprocessing allows for true parallelism by utilizing multiple CPU cores.
 -In MultiThreading(preemptive multitasking) here OS can interrupt the thread at any time. Here we don not need to do anything to make the switch. Here the interrupt/switch can happen at any time.
 -In asynchronous(cooperative multitasking) here the tasks must cooperate with each other when they are ready to switch with out OS involvement. Here OS can't switch tasks on it's own.
-
+-In multiprocessing if we use more processes than possible OS uses context switching to switch b\w processes.
+	-This is more resource intensive as OS must save and load separate memory spaces.
+	-For threads it is faster as they share same memory.
 -Libraries:
 	-Both threading and multiprocessing represent fairly low-level building blocks in concurrent programs. In practice, you can often replace them with concurrent.futures, which provides a higher-level interface for both modules. On the other hand, asyncio offers a bit of a different approach to concurrency, which you’ll dive into later.
 

@@ -12,7 +12,8 @@
     @app.get("/items/{item_id}")
     def read_item(item_id: int, q: Union[str, None] = None):    # q is query param. As the q parameter is declared with = None, it is optional. Without None it would be required.
         return {"item_id": item_id, "q": q}
--fastapi dev main.py    # to start web server.
+-fastapi dev main.py    # to start web development server. In development server we have auto reload on change.
+-fastapi run main.py    # to start prod server.
 
 -http://127.0.0.1:8000/docs     # to open api documentaion(swagger) use /redoc for alternate documentaion.
     -FastAPI generates schema with all API's using the OpenAPI standard for defining API schemas.
@@ -55,3 +56,6 @@
 
 -Header has a little extra functionality on top of what Path, Query and Cookie provide. It converts _ with - in header names.
     -For example, if you have a header parameter save_data in the code, the expected HTTP header will be save-data, and it will show up like that in the docs.
+
+
+-HTTPException, status from fast api helps in raising http errors with appropriate status codes.

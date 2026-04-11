@@ -4,8 +4,10 @@
 ->If we have python 2 and 3 to run python cmmnds with version 3 we use python3 in cmd.
 ->Python imports:
 	->To import scripts from parent or sibling directories we should use packages(dir with __init__.py).
-
-->Strings are immutable in Python, so any modification to a string creates a new string object.
+-Call by object referaence:
+	->Always passes obj reference as arg.
+	->Strings are immutable, any modification to a string creates a new string object.
+	->List is mutable, modifications on list would modify actual data but assigning list to new list or value would create copy and does not modify outer value.
 
 ->The Python logging module has four main parts:
   Loggers

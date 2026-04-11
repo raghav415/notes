@@ -1,0 +1,20 @@
+->Trino is distributed SQL query engine to analyze large data sets (PB's,..). 
+    -It can connect to diff data sources(DBMS, NO sql, spread sheets...).
+    -It can run sql on data even if data source doesn't inherently support SQL.
+->Catalog:
+    -Uses a connector.
+    -Contains configuration for connector, credentials to connect to data source and access details(read, write,..).
+    -We can create as many catalogues as we want. We can run queries on 2 catalogues connected to same data source will be executed at same time.
+
+->Connector:
+    -Knows how to read and write data in data source.
+    -Configured in each catalogue.
+    -Translates Trino operations to data sources.
+    -Object storage conectors:
+        -Reads and writes metadata, storage files.
+    -RDBMS connectors:
+        -Translates input SQL query to SQL of RDBMS.
+        -Often uses JDBC drivers.
+    -Other connectors:
+        -Might convert to API call or other query languages.
+

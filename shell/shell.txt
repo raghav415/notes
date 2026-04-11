@@ -1,0 +1,159 @@
+Linux:
+	-Open source operating system. We have access to source code.
+	-Deletes permanently.
+	-Runs faster.
+Linux file structure:
+	bin - binary or executable files.
+	etc - system config files.
+	opt - optional(3rd party softwares).
+	var - log files.
+	tmp - temporary space cleared on reboot.
+	usr - user related programs.
+	boot - contains boot files.
+	dev - contains device files.
+	lib - contains kernel files and shared library.
+	lost+found - contains orphan/corrupted files.
+	media - contains removable device files.
+	mnt - same as media.
+	proc - stores running processes with PID.
+	run - stores volatile runtime data.
+	sbin - system admin executable files.
+	srv - server related files.
+	sys - vitual file an interface b\w user and kernel. provides structured view of h\w devices...
+	other dirs - home
+CLI:
+	-The command line interface is a text based interface used to interace with software and operating system by typing commands into the interface and receive response in the same way.
+Shell:
+	-Shell is command line **interpreter**. It translates commands to language understood by kernel.
+Shell script:
+	-A list of commands to be executed in sequence.
+	-They are interpreted, so there is no compile step.
+	-Can use # for comments.
+	-!#/bin/sh # usually have this at top of shell script file. This tells full path of interpreter.
+		-called shebang line.
+		-Uses specified shell interpreter even if executed from diff shell.
+	-Types of variables:
+		1. Local varible: created in command propt while executing the script.
+		2. Environment variable: It is avail to all child processes of the shell.
+		3. Shell variable.
+	-Adding user defined function .bashrc file will enable to execute it from any dir and terminal session.
+		-".bashrc" is a shell script that Bash shell runs whenever it is started interactively. The purpose of a .bashrc file is to provide a place where you can set up variables, functions, and aliases, define our prompt, and define other settings that we want to use whenever we open a new terminal window.
+	-if in shell example:
+		x=10
+		y=11
+		if [ $x -ne $y ] # space around [] is must
+		then
+		echo "Not equal"
+		elif [$x -eq 1]
+		then
+		echo "Equals 1"
+		else
+		echo "equal"
+		fi
+	-do while example:
+		x=2
+		while [ $x -lt 6 ]
+		do
+		echo $x
+		x=`expr $x + 1`		# we enclose expr in ` when assigning it to variable.
+		done	
+	-for loop:
+		for var in 2 4 5 8
+		do
+		echo $var
+		done
+	-positional arguments: arguments which we pass to shell when executing script.
+		=The are acessed using variables $1,..$9,${10}...
+		->./script1.sh hi hello	# here $1 inside script returns hi.
+	-Special variables in shell:
+		->$#	# returns no of arguments passed to script.
+		->$0	# returns name of script.
+		->$?	# returns exit code of last executed command. Can return value from 0(success) to 255.
+	-command output can be stored in var in 2 ways:
+		->a=$(pwd)
+		->a=`pwd`
+	-We can manually set exit code in our script.
+		->exit 5	#exits with exit code 5.
+Main types of Shell:
+	-Bourne shell(sh) - faster,# in cmd prompt represents root user
+		-can't recall previouse command, don't have built in support of arithmetic ops and logical expr..
+	-Bourne again shell(BASH) - Inc features from korn and bourne shell. # in cmd prompt represents root user
+	-Korn shell(ksh) - faster than cshell, compatible with cshell script. # in cmd prompt represents root user.
+		-it has interactive fetures, support built in arithmetic ops, C like arrays, functions, str ops.
+	-cshell(csh) - supports features like command history and c like expression syntax, # in cmd prompt represents root user.
+	-zshell(zsh) - extended from bash.
+	-others.....
+	-Shell type and ops:
+		-Bourne shell(sh) can be interpreted by Bash and ksh as they both are improved versions of sh and they have more features than sh.
+		->echo $SHELL	# To check type of shell using.
+		->ps -p $$		# Prints info about shell process.
+		->zsh	# enter shell name to switch shells.
+		->csh -s <path> 	# to change the default shell
+		->cat /etc/shells	# to get list of avail shells
+Nano, vim are command line text editors.
+We always need to add file name with path if operation is not in pwd.
+File permission format:
+	->All linux files belong to an owner and a group.
+	->-rwxr-xr--.	# this is example of permissions on a file/dir.
+		->-		# file type, - indicates normal file if it is d it indicates dir there are other file types as well.
+		->rwx	# first set applies to owner of file.
+		->r-x	# second set applies to user grp that owns the file.
+		->r--	# third set applies to others.
+		->.		# for Extended attributes.
+Commands:
+	->cmnd_name --help # will list flags avail for command
+	-File Management -> cp, mv, rm, mkdir, touch
+		->touch file.txt file2.txt 	# used to create files.
+	
+	-Navigation -> cd, pwd, ls
+		ls -l 	# for more info on file list.
+	
+	-Text Processing -> cat, grep, sort, head, more, tail, wc
+		->cat file_name		# shows content of file (it concatentes file with terminal).
+		->grep search_text	# can be used to search the file or command.
+			->mv --help|grep verbose	# searches for word verbose in mv --help output.
+			->grep "error" log.txt
+		->more file_name	# can view/stream content of file using down arrow instead of all at once.
+		->sort filename		# sort lines of text, can be used on csv to sort cols..
+		->wc filename	# counts lines, words, chars in a file.
+	
+	-Permissions and Ownership -> chmod, chown(changes owner and grp), chgrp(changes grp)
+		->chmod	+wx file_name	# Adds write and executable permision, (helps in changing permissions).
+		->chmod ug+rw,o+r filename 	# Adding read and write permissions to the owner and group, and 		  read-only permissions to others.
+		->chmod 777 file_name
+			->Each digit represents permission for owner, group, others.
+			->Each digit can have value from 0(---: 000) to 7(rwx: 111) indicating 3 binary values.
+		->File created using shell has only permissions to read.
+	
+	-Networking - > ping, wget, curl, ssh, scp, ftp
+		->wget http://a.com//file.zip	# retrieve files from web.
+		->curl http://a.com		# to send receive data from server.
+		->ssh s@a.com	# to open remote login.
+		->scp file_name user@example.com:/path/	# securely copies files b/w hosts.
+		->ftp ftp.example.com	# transfer files using ftp.
+	-Compression and Archiving - > tar, gzip, gunzip, zip, unzip
+	
+	-Process Management -> kill, killall, bg, killall, kill
+	-System Monitoring -> top, ps, df
+		->top	# Displays real-time system information (CPU, memory)
+		->ps	# Displays list of running processes...
+		->df	# Disk space usage.
+	-Package Management - > dnf, yum, apt-get
+
+	->find /home/user -name "*.txt"
+		-It searches for file in specified dir, sub dirs.
+		-find *file1*.txt	#searches for file1 word in all file names.
+	->expr a tool in shell used for evaluating expresions.
+		-Arithmetic ops.
+		-Evaluating regex, substr from str using indexes, len of str...
+		->expr 1 + 2	# space around operator is must.
+Piping:
+	-Can combine multiple commands.
+	-Output of one command will be input of other command.
+	->mv --help|grep verbose	# searches for word verbose in mv --help output.
+Applicaions:
+	-Helps in automation tasks.
+		-Health checks.
+		-Setting up servers.
+		-Scheduling jobs.
+		-Deployments and infra management.

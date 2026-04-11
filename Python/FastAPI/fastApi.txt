@@ -1,0 +1,61 @@
+- Fast API sample api's:
+    from fastapi import FastAPI
+
+    app = FastAPI()
+
+
+    @app.get("/")
+    def read_root():
+        return {"Hello": "World"}
+
+
+    @app.get("/items/{item_id}")
+    def read_item(item_id: int, q: Union[str, None] = None):    # q is query param. As the q parameter is declared with = None, it is optional. Without None it would be required.
+        return {"item_id": item_id, "q": q}
+-fastapi dev main.py    # to start web development server. In development server we have auto reload on change.
+-fastapi run main.py    # to start prod server.
+
+-http://127.0.0.1:8000/docs     # to open api documentaion(swagger) use /redoc for alternate documentaion.
+    -FastAPI generates schema with all API's using the OpenAPI standard for defining API schemas.
+    -http://127.0.0.1:8000/openapi.json to get opeAPI schema for the server.
+    -OpenAPI powers the two interactive documentaions /doc and /redoc. We can use this to utilize any other doc that support openAPI.
+
+-Using pydantic to do type validation, serialization for receiving data:
+    class Item(BaseModel):
+        name: str
+        price: float
+        is_offer: Union[bool, None] = None
+    @app.put("/items/{item_id}")
+        def update_item(item_id: int, item: Item):
+
+-FastAPI() is class that inherits directly from starlette. The instance of this class is main point to create any API.
+
+-Because path operations are evaluated in order, you need to make sure that the path for /users/me is declared before the one for /users/{user_id}.
+
+-Path and query params:
+    -We can validate path params to be set of values by using Enum.
+    -When you declare other function parameters that are not part of the path parameters, they are automatically interpreted as "query" parameters.
+    -If the parameter is declared to be of the type of a Pydantic model, it will be interpreted as a request body.
+    -When default value is not provided for param then it is required param.
+
+-Data validation:
+    -q: str|None and q: Annotated[str|None] mean the same thing.
+        Annotated can accept metadata which are used for validations.
+    -def fun(q: Annotated[str|None, Query(max_length=50, pattern="^Hi")]=None)
+        # here we are validating a query pram q to have char len <= 50 we can add similar validation on Body(), Path(), Header(), Cookie().
+    -def fun(q: str|None = Query(max_length=50, default=None))  # Used in older versions not preferred.
+    -To declare a query parameter with a type of list, like in the example below, you need to explicitly use Query, otherwise it would be interpreted as a request body.
+        q: Annotated[list[str], Query()]
+    -ues q: Anmotated[str, Query(alias="item-query")] when - is in param name
+    -Add custo validation function:
+        -id: Annotated[str | None, AfterValidator(check_valid_id)]
+    -We can declare pydantic models to declare query prameters in FastAPI with validations and forbid from receiveing extra params.
+    -We can add validations inside Pydantic models using Field()
+
+-(Dbt)Browsers restrict JavaScript access to cookies, so even if you fill in data and click "Execute" in the docs UI, cookies won’t be sent. As a result, you’ll get an error as if no values were entered.
+
+-Header has a little extra functionality on top of what Path, Query and Cookie provide. It converts _ with - in header names.
+    -For example, if you have a header parameter save_data in the code, the expected HTTP header will be save-data, and it will show up like that in the docs.
+
+
+-HTTPException, status from fast api helps in raising http errors with appropriate status codes.

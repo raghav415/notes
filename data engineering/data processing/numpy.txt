@@ -1,0 +1,24 @@
+import numpy as np
+->Numpy provide n dimensional arrays with fast ops.
+->ndarray obj: Encapsulates n dim arrays of single data type with many ops performed.
+->They have fixed size and shape on creation. Changing the size of array will create new array and delete the original array.
+    -1 case where each element in array has diff size is when it contains arra of objects.
+-When an ndarray is involved element by element operation is speedily executed by pre-compiled C code.
+-Vectorization describes absence of any explicit looping and indexing.The looping happens of course in background in pre compiled C code(for numpy).
+-Array creation:
+    -np.array([1,2,3]) # by defaulty type is detected from elements
+        -np.array([1,2,3], dtype=np.int16)
+    -np.zeros((3,4)) # creates 2d array 3-rows and 4-cols all zeroes. By default type is float64.
+        -np.ones((3,4))
+        -np.empty((3,4)) # contains random data. 
+    -np.arange(10,30,5) # same as python range()
+-Arithmetic Ops:
+    # here a and b are numpy arrays.
+    c = a-b # a-=b, a*=3 are possible
+    a.sum() #a.min(), a.max(), a.cumsum()...
+        a.sum(axis=0)
+-a.ravel() # flattens to 1-D and returns view. a.flatten() returns 1-D array as copy.
+-a.reshape(3,4) # a.reshape(3,-1) when -1 specified the other dimensions are auto calculated.
+-a.resize((3,4)) #to change shape or size of array 
+-np.vstack(a,b) # np.hstack(a,b)
+-

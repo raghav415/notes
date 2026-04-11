@@ -1,4 +1,6 @@
 ->MongoDB is a document database. It stores data in a type of JSON format called BSON.
+->collection: table(1 or more docs).
+->document: record(grp of field value).
 ->Collection is a group of documents. Collection is equivalent to RDBMS table.
 ->Records in a MongoDB database are called documents, and the field values may include numbers, strings, booleans, arrays, or even nested documents. Collections do not enforce a schema.
 ->ObjectId ensures that every document in a collection has a unique identifier, even across multiple MongoDB instances and servers.
@@ -9,3 +11,51 @@
 	->The last Field is 3 bytes used for incrementing the objectid.
 ->ObjectId is indexed.
 ->In MongoDB we create relation b/w two collections by storing _id's of document in one collection as list of _id in a document in other collection. Or we can create separate collection to store both doc _id's from diff collection.
+
+->In python we can use PyMongo lib to interact with db.
+
+Mangosh(shell):
+->mongosh-to connect to db
+->show dbs-need to add a collection on new db to see it here. 
+->use dbName - Created db if doesn't exist.
+->Operators here are denoted with $.
+->Indexes allows quick lookup of field. But slows down updates, inserts and del.
+	->Indexes are created by default for _id.
+->db.createCollection("coll1", {capped:true, size:10000000, max:100}, {autoIndexId:false})
+	->All are optional.
+	->capped - Indicates we have limit for number of records.
+	->size - Indicates storage limit for the collection.
+	->max - Indicates max no of records we can store in collection.
+	->autoIndexId - Tells whether to create index on _id.
+->show collections - to get collections in db.
+->db.coll1.drop()
+->db.dropDatabase()
+->db.coll1.insertOne({key1: "1", k2:"we"}) - if collection doesn't exist it created one.
+->db.coll1.insertMany([{key1: "1", k2:"we"}, {key1: "2", k2:"i"}])
+->db.coll1.fin() - returns all docs.
+->Data types:
+	->{todayDate: new Date()} - Takes todays date defaults to UAT time zone.
+	->We can have arrays, nested docs.
+	->We can have value as null.
+->db.coll1.find().sort({key1: 1}) - (1: asc, -1: desc).
+->db.students.find().limit(1)
+->db.find({name: "Spk"},{key1:true, k2:1}) - (filter, projection(cols to retrieve can use true or 1 to get col))
+	->By default we get ObjectId's we can exclude it if needed..
+->db.coll1.updateOne({key1: 1},{$set:{k2:"454"}}) - updates/Inserts k2 for 1st doc that has key1 value as 1.
+->db.coll1.updateOne({key1: 1}, {$unset: {"k2": ""}} - removes k2 for 1st doc that has key1 as 1.
+->db.coll1.updateMany({fullTime:{$exists:false}}, {$set:{fullTime:true}}) - It sets fullTime to true to all the docs that doesn't have fullTime field in it.
+->db.coll1.deleteOne({key1: 1}) - deletes 1st doc that matches.
+->db.coll1.deleteMany({key1: 1})
+	->db.coll1.deleteMany({key1: {$exists: true}})
+->db.coll1.find({name:{$ne:"Ram"}})- returns docs whose name != Ram
+->$lt,$lte,$gt,$gte, {$in: []}, {$nin:[]}.
+->db.coll1.find({gpa:{$gt:2, $lt:7}}) - records b/w gpa of 2 and 7.
+->logical ops:
+	->$and, $not, $nor, $or.
+	->db.students.find({$and:[{name:"ram"},{age:{$gt:22}}]})
+	->db.students.find({$nor:[{name:"ram"},{age:{$gt:22}}]}) - Both should be false.
+	->db.students.find({age:{$not:{$age:30}}}) - Returns < 30 age docs inc null.($lt:30 returns non null values)
+->.explain(executionStats) gives stats of query(how many records have been checked...)
+->db.coll1.createIndex({key1: 1}) - (1 creates asc index doc key1, -1 creates desc index for doc key1).
+->db.coll1.getIndexes() - To get list of indexes of a collection coll1.
+->db.student.dropIndex("index_name")

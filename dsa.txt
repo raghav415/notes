@@ -1,0 +1,41 @@
+Here are 20 LeetCode questions that can significantly boost problem-solving skills:
+1️⃣ Merge Intervals: https://leetcode.com/problems/merge-intervals/ -> Use lambda when possible(readability). for is faster than while.
+Understand time optimization calculation...
+2️⃣ ***Koko Eating Bananas***
+3️⃣ ***Search in Rotated Sorted Array***
+4️⃣ Detect a Cycle in Linked List
+5️⃣ Word Search II
+6️⃣ Gas Station
+7️⃣ Sliding Window Maximum
+8️⃣ Coin Change
+9️⃣ Word Break
+🔟 Edit Distance
+1️⃣1️⃣ Trapping Rainwater
+1️⃣2️⃣ Largest Rectangle in a Histogram
+1️⃣3️⃣ Rod Cutting
+1️⃣4️⃣ Binary Tree Maximum Path Sum
+1️⃣5️⃣ Number of Distinct Islands
+1️⃣6️⃣ Rotten Oranges
+1️⃣7️⃣ Course Schedule II
+1️⃣8️⃣ Pacific Atlantic Water Flow
+1️⃣9️⃣ Cheapest Flights Within K Stops
+2️⃣0️⃣ Min Cost to Connect All Points
+
+Binary Search:
+    -We can apply binary search for problems. We need to find k, if condition(k) is True then condition(k + 1) is True, then we can consider binary search.
+        -Here we need to create condition function which could be complex.
+        -And decide on upper, lower bounds.
+
+Hashing(https://www.hackerearth.com/practice/data-structures/hash-tables/basics-of-hash-tables/tutorial/):
+    -In hashing larger keys are converted to smaller keys by using hash functions. The values are then sorted in a data structure called hash table. The idea of hashing is to distribute entries uniformly across an array. Here each element can be accessed in avg O(1) time.
+        hash = hashfunc(key)
+        index = hash % array_size
+    -A good hash function should:
+        -Be easy to compute.
+        -Uniform distribution.
+        -Less Collision.(More Collision could lead to time complexity of O(n)): Collision occurs when same hash is retuned on different inputs.
+    -Collision resolution techniques:
+        =Separate chaining: Uses linked lists to store element. **Most commonly used**
+        -Linear probing:If index from hash function is filled Will loop on index=(index+1)%array_size untill empts slot is found..
+        -Quadratic probing: Same as linear probing here index=(index+i^2)%array_size is used where i=i+1 on every loop.
+        -Double hasing: Same as linear probing here index=(index+i*indexH)%array_size is used where i=i+1 on every loop and indexH is hash value from other hashFunction(element).

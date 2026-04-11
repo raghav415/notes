@@ -1,10 +1,13 @@
+=>Decorators, Closure, Genrators, Descriptors.
 ->The Python Package Index (PyPI) is a repository of software for the Python programming language.
 ->To install modules of PYPI and other indexes we use pip.
 ->If we have python 2 and 3 to run python cmmnds with version 3 we use python3 in cmd.
 ->Python imports:
 	->To import scripts from parent or sibling directories we should use packages(dir with __init__.py).
-
-->Strings are immutable in Python, so any modification to a string creates a new string object.
+-Call by object referaence:
+	->Always passes obj reference as arg.
+	->Strings are immutable, any modification to a string creates a new string object.
+	->List is mutable, modifications on list would modify actual data but assigning list to new list or value would create copy and does not modify outer value.
 
 ->The Python logging module has four main parts:
   Loggers
@@ -115,5 +118,18 @@
 	-Decorators receive the function to be decorated as an argument. This allows the decorator to modify or enhance the function’s behavior.
 	-Decorators return a new function that wraps the original function. This new function adds additional behavior before or after the original function is called.
 	-When a function is decorated, it is assigned to the variable name of the original function. This means the original function is replaced by the decorated (wrapped) function.
-	-@decorator_name:This syntax applies the decorator to the function_to_decorate function. It is equivalent to writing function_to_decorate = decorator_name(function_to_decorate)
+	-@decorator_name:This syntax applies the decorator to the function_to_decorate function. It is equivalent to writing function_to_decorate = decorator_name(function_to_decorate).
+		=once we add @decorator_name to a function python calls function with name decorator_name and executes it even if we don't call decorated function.
 	=A decorator can be applied to multiple functions, promoting code reuse. Instead of writing the same code multiple times to modify different functions, you can write a decorator once and apply it wherever needed.
+->Async:
+	-The async keyword transforms a regular function into a coroutine function(async-capable).
+	-When we call async function we get coroutine obj. To actually run it, you need await or asyncio.run(fun())
+	-asyncio.sleep() vs time.sleep()
+	-asyncio.gather(f1(), f2()) will wait for all functions to complete its executions.
+	-__aenter__() and __aexit__() methods in class helps in executing before and after executing methods.
+		Eg:async with Class1() as resource: # in class 1 we define funs __aenter__, __aexit__
+        	       result = await resource.do_work()
+	-return_val=asyncio.create_task(fun1()) create tasks that run in the background. We can use asyncio.gather(return_val) to wait.
+	
+->*, as the first parameter of the function.
+	-Python won't do anything with that *, but it will know that all the following parameters should be called as keyword arguments (key-value pairs), also known as kwargs. Even if they don't have a default value.

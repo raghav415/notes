@@ -2,7 +2,8 @@
 ->Window function call always contain over clause directly following the window function.
 	-Eg: select depname, sal, avg(sal) over (partition by depname) from empsal;
 	-Eg: select sal, depname, rank() over (partition by depname order by sal desc) from empsal;
-	===WindowFrame: Many (but not all) window functions act only on the rows of the window frame, rather than of the whole partition.
+	===WindowFrame: Many (but not all) window functions act only on the rows of the window frame(like sum(col1) over(order by col2 partition by col3)), rather than of the whole partition.
+		-Check syntax ROWS BETWEEN UNBOUNDED PRECEEDING AND CURRENT ROW.
 		-ORDER BY is supplied then the frame consists of all rows from the start of the partition up through the current row, plus any following rows that are equal to the current row.
 		-SELECT salary, sum(salary) OVER () FROM empsalary; #Here lack of order by and partition by makes all rows as single frame.
 		-SELECT salary, sum(salary) OVER (ORDER BY salary) FROM empsalary;# Here the sum is taken from the first (lowest) salary up through the current one, including any duplicates of the current one.
@@ -12,9 +13,27 @@
 	  FROM empsalary
   	 WINDOW w AS (PARTITION BY depname ORDER BY salary DESC);
 	-The WINDOW clause, if included, should always come after the WHERE clause.
-->When we perform an aggregate function with limit in SQL query aggregate is performed on all rows not just limited ones.
+=>When we perform an aggregate function with limit in SQL query aggregate is performed on all rows not just limited ones.
 ->The more queries running concurrently on a database, the more the database must process at a given time and the slower everything will run. It can be especially bad if others are running particularly resource-intensive queries that fulfill some of the above criteria.
-->To increase query speed:
-	-Filtering the data to include only the observations you need can dramatically improve query speed.
+
+===>To increase query speed:
 	-Always try to filter or reduce number of rows before doing join.
+	-Use EXISTS instead of IN as IN would scan all rows.
+	-Use join if possible instead of sub query as joins(even for self join) are optimized by DB's.
+	-Use window functions over joins if possible as they scan table only once.
+
+->Unique CONSTRAINT:
+	-SQL Server: Only one NULL allowed unless you use a filtered index.
+	-PostgreSQL / Oracle / MySQL: Multiple NULLs allowed because NULL <> NULL.
+
 ===>Need to check pivot and unpivot in SQL.
+
+
+
+
+->GraphDB: Useful when relation ships needs to be stored.
+	->Social networks.
+	->Neo4j a popular graph DB.
+->VectorDB: Stores data in form of vectors. Usefult for machine learning.
+	->Can store pdf's. Fast at finding text from large data.
+	->Pinecone a popular vector DB.

@@ -1,6 +1,6 @@
 Cloud VPN tunnels
 VLAN attachments
-VPC Network Peering
-Cloud VPN
-Multiple network interfaces(VM's)
-Shared VPC
+Multiple network interfaces(VM's): For VM instance to connect to different VPC's.
+Shared VPC: To share VPC n\w across projects in org. Can create temporary connection with other org for migration.
+VPC Network Peering: Can connect any two VPC's in gcp(inc., across orgs).
+Cloud VPN: To communicate with VPC over internet.

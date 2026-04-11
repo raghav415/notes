@@ -52,3 +52,5 @@ Git is the distributed version control system.
 	->For centralized we do not have local copy of different versions or branches for every command, checkout,.. we need to connect with server to make the change.
 
 SIMD(a form of parallelism) stands for Single Instruction, Multiple Data, a type of parallel processing where a single instruction operates on multiple data elements simultaneously, enhancing performance in tasks.
+
+Simple calculators use firmware to interact with hardwares but not complexOS.

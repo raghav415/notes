@@ -14,7 +14,7 @@ Project:
 	4. [entity]: Defines the type of resource being managed (e.g., instances for Compute Engine VMs, buckets for Cloud Storage).
 	5. [operation]: Specifies the action to be performed on the resource (e.g., create, list, delete, describe).
 	6. [positional arguments]: Required arguments in a specific order (e.g., <INSTANCE_NAME> for creating an instance).
-	7. [flags]: Optional arguments that modify the command's behavior (e.g., --zonis for clients inside cloud.e=us-central1-a).
+	7. [flags]: Optional arguments that modify the command's behavior (e.g., --zone for clients inside cloud --zone=us-central1-a).
 =>You can use Cloud Identity to manage your users, apps, and devices from a central location—the Google Admin console.
 =>Disabling a service's API access does not delete the underlying data which will continue to be billed. 
 =>If you attempt to disable a service that other enabled services depend on, the call will fail.
@@ -53,7 +53,7 @@ Project:
 ->Cloud storage
     ->Standard: Frequent 
     ->Nearline: <=1 a month(min duration) (backups)
-    ->Coldline: <=1 a quater(min duration) (disaster recovery)
+    ->Coldline: <=1 a quarter(min duration) (disaster recovery)
     ->Archive: <=1 a year(min duration) (digital preservation)
 =>Persistent disks are used to store dataBase.
 =>Types of storages(disk, object, ) GCP:https://cloud.google.com/products/storage/?userloc_155420-network_o&&hl=en
@@ -124,11 +124,11 @@ Project:
     ->Metrics explorer to filter and query on metrics.
     ->Uptime check: To know point in time status of service.
 ->Cloud logging:
-    ->To get loggs from on-prem we can use cloud logging API.
-    ->Access transparency logs:Action performed by gcp team.
+    ->To get logs from on-prem we can use cloud logging API.
+    ->Access transparency logs: Action performed by gcp team.
     ->Cloud Audit logs:
-        ->Activity logs:These log entries capture API calls or administrative actions that modify the configuration or metadata of GCP resources. They are enabled by default for all GCP services and cannot be modified.
-        ->Data access log:Admin read, Data read, and Data write.
+        ->Activity logs: These log entries capture API calls or administrative actions that modify the configuration or metadata of GCP resources. They are enabled by default for all GCP services and cannot be modified.
+        ->Data access log: Admin read, Data read, and Data write.
         ->To download logs >10000 we can use sink in Log router.
 ->Deployment manager:  Define the desired state of your resources in a YAML configuration file, and then Deployment Manager takes care of creating, updating, and deleting those resources to match the defined state.
     ->Any changes made are automatically applied.

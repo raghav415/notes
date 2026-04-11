@@ -1,0 +1,2 @@
+Scrapy:
+->It is app framework for crawling extracting structured data.

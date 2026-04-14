@@ -14,7 +14,9 @@
         return {"item_id": item_id, "q": q}
 -fastapi dev main.py    # to start web development server. In development server we have auto reload on change.
 -fastapi run main.py    # to start prod server.
+-uvicorn books:app --reload #uvicorn is webserver that comes with fastapi. books is .py file we created Fastapi() in. --reload used to reload app whever new change is made.
 
+-Always add static and short urls at top as FastAPI looks for URL from top to bottom.
 -http://127.0.0.1:8000/docs     # to open api documentaion(swagger) use /redoc for alternate documentaion.
     -FastAPI generates schema with all API's using the OpenAPI standard for defining API schemas.
     -http://127.0.0.1:8000/openapi.json to get opeAPI schema for the server.
@@ -57,5 +59,6 @@
 -Header has a little extra functionality on top of what Path, Query and Cookie provide. It converts _ with - in header names.
     -For example, if you have a header parameter save_data in the code, the expected HTTP header will be save-data, and it will show up like that in the docs.
 
-
 -HTTPException, status from fast api helps in raising http errors with appropriate status codes.
+
+-fastapi provides Body() class to accept body only from post (or) put requests. Using it in get results in error while hitting API with body.

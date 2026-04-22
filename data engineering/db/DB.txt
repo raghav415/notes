@@ -1,3 +1,5 @@
+->DataBase: Collection of data.
+->DBMS: Application that manages data. Eg: MySQL.
 ->psql let's us connect to postgres db in CLI.
 ->Window function call always contain over clause directly following the window function.
 	-Eg: select depname, sal, avg(sal) over (partition by depname) from empsal;
@@ -27,8 +29,8 @@
 	-PostgreSQL / Oracle / MySQL: Multiple NULLs allowed because NULL <> NULL.
 
 ===>Need to check pivot and unpivot in SQL.
-
-
+->Flush: Sends the data to DBMS, Making changes active in the database session but not yet permanent. It can still be rolled back.
+	-Flushing makes updates visible to only current session/transaction.
 
 
 ->GraphDB: Useful when relation ships needs to be stored.
@@ -37,3 +39,5 @@
 ->VectorDB: Stores data in form of vectors. Usefult for machine learning.
 	->Can store pdf's. Fast at finding text from large data.
 	->Pinecone a popular vector DB.
+
+-

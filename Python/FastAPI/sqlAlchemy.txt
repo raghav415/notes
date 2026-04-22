@@ -1,0 +1,22 @@
+->Database engine is something we use to be able to open up a connection and be able to use our database.
+->DeclarativeBase?
+->Base class is created by inheriting from DeclarativeBase class. All Model classes(Mapped class) created would inherit from Base class.
+->__tablename__ class level attribute is used to define table name in DB.
+->For table columns we use typing annotation Mapped[col type]. where col type can be str, int, Optional[int] -indicates nullable,"User", List["Address"] where user, Address are other models.
+	Eg: id: Mapped[int] = mapped_colums(primary_key=True).
+=>All ORM mapped classes require at least one column be declared as primary key.
+=>relationship() denotes linkage b/w 2 ORM classes.
+->Session() obj uses Engine to interact with database. It works as connection to execute db ops using model classes.
+	Eg: a=User()
+	    b=User()
+	    session.add_all([a,b])
+	Eg2: s = select(User).where(User.name.in_(["a", "b"])
+	     for i in session.scalars(stmt):
+		print(i) # Obj(id=1, name="Fc",...)
+->.scalars() vs .execute() with specific cols, and all cols???.
+->We use select(Address).join(Address.user) to join diff tables. Here Address is model and user is foreign key.
+->We can update returned obj from select and .commit() to apply changes in DB (Or) we can use .update() to avoid 2 trips/searches in DB.
+=>When we session.commit() the existing objects fetched from DB will be expired. So when we try to work with expired objects sqlAlchemy reloads them from DB.
+	-To avoid this we can use sessionmaker(bind=engine, expire_on_commit=False).
+->To delete from related object we can use user1.addresses.remove(user1_address) then session.commit(). Hera sandy is user model object, addresses is field of user with one to many relation with Address obj.
+->session.delete(user1) then session.commit()

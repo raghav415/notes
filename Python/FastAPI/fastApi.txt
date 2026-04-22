@@ -41,6 +41,9 @@
     -When default value is not provided for param then it is required param.
 
 -Data validation:
+    -We can add validations inside Pydantic models using Field()
+    -We can validate path params using Path() from fastapi.
+    -We can validate query params using Query() from fastapi.
     -q: str|None and q: Annotated[str|None] mean the same thing.
         Annotated can accept metadata which are used for validations.
     -def fun(q: Annotated[str|None, Query(max_length=50, pattern="^Hi")]=None)
@@ -52,13 +55,22 @@
     -Add custo validation function:
         -id: Annotated[str | None, AfterValidator(check_valid_id)]
     -We can declare pydantic models to declare query prameters in FastAPI with validations and forbid from receiveing extra params.
-    -We can add validations inside Pydantic models using Field()
+
+-Status codes:
+    -1xx: Information Response - Indicates request received and is being processed. It alerts client to wait for final response.
+    -2xx: Request successfully completed.
+    -3xx: Indicates client must take additional action.
+    -4xx: Client errors. Error caused by client.
+    -5xx: Server Errors. An error occured on server.
+
+-HTTPException, status from fastapi helps in raising http errors with appropriate status codes.
+    Eg: raise HTTPException(status_code=404, detail='Item Not Found')
+-We can explicitly mention the status code for successful requests using status_code param.
+    Eg: @app.get('/abc/', status_code=status.HTTP_200_OK) # status imported from stalette.
 
 -(Dbt)Browsers restrict JavaScript access to cookies, so even if you fill in data and click "Execute" in the docs UI, cookies won’t be sent. As a result, you’ll get an error as if no values were entered.
 
 -Header has a little extra functionality on top of what Path, Query and Cookie provide. It converts _ with - in header names.
     -For example, if you have a header parameter save_data in the code, the expected HTTP header will be save-data, and it will show up like that in the docs.
-
--HTTPException, status from fast api helps in raising http errors with appropriate status codes.
 
 -fastapi provides Body() class to accept body only from post (or) put requests. Using it in get results in error while hitting API with body.

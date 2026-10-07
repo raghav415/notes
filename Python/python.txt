@@ -4,7 +4,7 @@
 ->If we have python 2 and 3 to run python cmmnds with version 3 we use python3 in cmd.
 ->Python imports:
 	->To import scripts from parent or sibling directories we should use packages(dir with __init__.py).
--Call by object referaence:
+-Call by object reference:
 	->Always passes obj reference as arg.
 	->Strings are immutable, any modification to a string creates a new string object.
 	->List is mutable, modifications on list would modify actual data but assigning list to new list or value would create copy and does not modify outer value.
@@ -16,8 +16,8 @@
   Formatters:Formatters describe the format of the text which will be rendered.
 
 	->Logger:If log level is the same or exceeds the log level of the logger, the message is sent to the handler for further processing. The log levels are:
-  		DEBUG: Low-level system information
-  		INFO: General system information
+  		DEBUG: Low-level system information # For debugging can be removed later
+  		INFO: General system information # For getting info from run
   		WARNING: Minor problems related information
   		ERROR: Major problems related information
   		CRITICAL: Critical problems related information
@@ -103,17 +103,17 @@ a new sorted list from the elements of any iterable, be it lists, tuples, dictio
     	    print(p)
 ->we can use the path.append() method - in effect, the new path will occupy the last element in the path list; if you don't like the idea, you can use insert() instead.
 ->Use in if u want to check if single char exists it's faster, index() will return index but will raise error if not found, find() will return -1 if not found.
-->raise and raise BaseException are same.
+=>raise and raise BaseException are same.
 -__call__() in python class lets us to use instances of class as a function. If obj is instance of class we can call obj(1,2) which executes __call__().
 	->Exception is subset of BaseException.
 ->Python private variables can be accessed and modified outside of class using __dict__ or mangled name constructed as _ClassName__PrivatePropertyName.
 ->A class variable always presents the same value in all class instances (objects).
-->If there is more than one class on a particular inheritance path, Python scans them from left to right.
-->A generator returns json content we can use .json()  to use python dict directly.
-a series of values, and in general, is (implicitly) invoked more than once.
+->If there is more than one class on a particular inheritance path, Python scans them from left to right to search for any attribute or method.
+->A generator yields a series of values, and in general, is (implicitly) invoked more than once(for example, by a for loop calling next()).
 	->range() is generator.
-		->range(5) generator is invoked six times, providing five subsequent values from zero to four, and 		finally signaling that the series is complete.
+		->range(5) generator is invoked six times, providing five subsequent values from zero to four, and finally signaling that the series is complete.
 ->We can use os.system("") to execute os commands using python.
+->If a http response returns JSON content, we can use .json() to get a Python dict directly.
 ->Garbage collection: A way for a program to automatically release memory when the object taking up memory is no longer in use.
 	Types:
 	1. Reference counting.
@@ -137,6 +137,24 @@ a series of values, and in general, is (implicitly) invoked more than once.
 	
 ->*, as the first parameter of the function.
 	-Python won't do anything with that *, but it will know that all the following parameters should be called as keyword arguments (key-value pairs), also known as kwargs. Even if they don't have a default value.
+
+
+-Python stores references of objects and not actual values.
+	-List stores list of references to different objects(int, string,...).
+=Some objects in python are mutable(list) and some are immutable(int, string,...).
+	-Changing mutable objects changes values every where it references. But assigning list to new list or value would create copy and does not modify outer value.
+	-Changing immutable objects creates copies on new references.
+-List is dynamic object it increases allocated space by allocating more space than required for future insertions on addition of new objects when the list is full.
+	-This new memory allocation requires copying of existing array to new location with time complexity of O(n).
+		-Same for strings in python.
+	-Python lists are stores in heap.
+-Linked list worst time takes O(n) for insertion/deletion.
+	-Linked list is good when we are fine with random dynamic memory allocation.
+=Some code in python is executed during compile time:
+	-Decorators are executed during compile time so when we execute the func wrapper function is executed during run time.
+	-Default arguments are assigned only once during compile time.
+		Eg def fun(i, a=[]): #calling fun(1) n times creates list a[] with n elements.
+			a.append(i)
 ->We can use any immutable obj as key to python dict.
 ->User defined classes can override __eq__ and __hash__ methods.
 	-__eq__ is executed when equality(==) b/w 2 instances is being checked.

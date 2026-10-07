@@ -1,0 +1,7 @@
+-CPP is C Preprocessor it is separate programme that runs on your source code before the actual compiler ever sees it.
+	-It edits code where it finds command starting with #.
+	-#define MAX_SPEED 100 //this replaces every MAX_SPEED with 100 in your code.
+	-#include <stdio.h> //This gets replaced by entire stdio.h content at exact same spot.
+	-#if, #else, #endif //These are logic gates of source code. The code that doesn't meet the conditions are entirely removed before compilation. Results in small application for specific platform.
+	-(#ifndef HEADER_H)
+

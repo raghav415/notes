@@ -23,10 +23,21 @@ Encryption:
 
 ->Session based Authentication:
 	-Creds are sent to server for validation if validated we create session and store it in DB or cache it(in redis..) this contains user id, session exp time, other metadata then the server sends back the session Id. In all the subsequent requests client sends the session Id and we verify the session from storage.
+	-It is only used to recognize the user.
 	-With session based authentication server is responsible for storing the session data.
 	-Pros: Revoking session is easy.
 	-Cons: Scaling DB's(or distributed DB's) need centralized session storage this adds some complexity and latency.
+-CSRF token:
+	-It is secureway for making sensitive requests to server by **logged in authenticated user** from a browser.
+	-It ensures that the request is made by intended user and not by other website using the stored cookies of logged in website posing as user.
+		-As malicious websites might make request to bank server from our browser by using the bank cookies stored in browser.
+	-When sensitive api or form is to be submitted bank provides token in the html page or in the javascript header as we navigate to that submission page. Before the request is made which will be sent along with api request we made to ensure the request is being sent by indended user. 
+	-While modern browsers blocks cross site cookie use it is csrf tokens are still being Implemented.
+-CORS
 ->JWT based auth it creates signed token which is verified using the key.
+	-JWT are good but can't revoke them on user logout can be done on client side by removing/forgetting token but if the token is stored or accessed again it authenticates user.
+		-Tokens can only be waited to be expired or refreshed.
+		-Changing signature requires all users to be authenticated again.
 	-Both symmetric(HMAC) and asymmetric(RSA, ECDSA) algorithms are avail.
 		-While asymmetric are more secure their is overhead here.
 		-Generally we use symmetric way if application is monolithic, and asymmetric if app is microservice.

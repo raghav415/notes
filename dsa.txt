@@ -39,3 +39,20 @@ Hashing(https://www.hackerearth.com/practice/data-structures/hash-tables/basics-
         -Linear probing:If index from hash function is filled Will loop on index=(index+1)%array_size untill empts slot is found..
         -Quadratic probing: Same as linear probing here index=(index+i^2)%array_size is used where i=i+1 on every loop.
         -Double hasing: Same as linear probing here index=(index+i*indexH)%array_size is used where i=i+1 on every loop and indexH is hash value from other hashFunction(element).
+
+Heap:
+-Heap sort has O(nlogn) and O(1) space complexity.
+    =Heap shines for insertion and deletion while accessing max/min val as it takes time O(logn) for insertion and deletion while other sorted arrays might take O(n). 
+    =Despite theoritical time complexity mergesort gives much better performance as random access(2*i+1 and 2*i+2) of elements causes cache miss especially for larger arrays.
+    -Eg: 2^24 integers took ~8 sec with heap sort while merge sort took 1.6 sec.
+    -The speed difference is significant only for very large data sets.
+
+**Cache hit vs cache miss**:
+    -Data oriented design: Optimizing/organizing code based on how cpu and memory hardware works.
+    -Eg: 
+        -Use Struct of arrays(Fields in struct are arrays) instead of Array of struct(list of struct).
+        -Traversing 2d array in cols when it is stored in row major order.
+        -Avoid linked lists.
+        -Cache line arg. It forces compiler to start cache here...
+        -Use separate struct or class for most frequently used data. With storing pointer to less used data stored for connection.
+-Bottom up vs Top down merge sort?

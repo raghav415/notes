@@ -1,0 +1,16 @@
+->Serverless postgreSql differ from traditional postgresql because it decouples compute(CPU/RAM) from storage allowing to scale and shut off when not in use.
+	-Shared/Distributed storage.
+	-Compute nodes are temporary and stateless.
+	==Compute pauses completely during inactivity.
+	==Pay for active compute seconds and storage.
+	-Offers git-style database branching. Let's us to use large data(>1TB) in seconds in different env.
+		-Storage costs scale only when modifications are made.
+	-AWS aurora and Google AlloyDB separates compute and storage only these DB engines can access data.
+-Databricks wants to build OLTP DB that:
+    -Has compute and storage separate.
+    -Stores data in an open format to enable interoperability.
+    -Has the ability to branch out.
+-Lakebase resizes compute continuously based on live workload.
+-Design decisions:
+    -Leverage object storage for the storage layer they are famous for durability and availability.
+    -

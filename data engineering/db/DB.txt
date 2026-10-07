@@ -1,3 +1,13 @@
+-Page:
+	-A DB page is I/O unit created and managed by the database s/w itself.
+	-Entire page is fetched into memory for any read or write.
+	->A rows unique address is composite key(DB Page ID+It's position in the page).
+-WAL:
+	-When modifying data in DB changing data in memory the flushing to disk is risky, as memory is volatile if machine crashes before flush changes are gone.
+	-WAL is separate, append only structure on disk that records every change as it happens.
+		-This is faster because appending to a log is cheaper than scattered page writes.
+		-WAL is written to disk first before actual disk change or commit ok is sent back.
+
 ->psql let's us connect to postgres db in CLI.
 ->Window function call always contain over clause directly following the window function.
 	-Eg: select depname, sal, avg(sal) over (partition by depname) from empsal;
@@ -28,9 +38,16 @@
 
 ===>Need to check pivot and unpivot in SQL.
 
-
-
-
+->Using ID(int) vs UUID in table as primary key:
+	-As some DB's create default primary index on primary key using id with auto increment maintains insertion order. While UUID being random creates randomized order for records.
+		-Helps to retrieve recent records, records inorder from latest to oldest faster. 
+		-This also makes writes slower for UUID. As random uuid forces record to insert in random page that cause index fragmentation which can lead to heavy page split.
+	-For Sharded table:
+		-Using Id's need central system if we need unique id's across diff sharded tables. While UUID is always different irrespective of table.
+	-Storage:
+		-id 4 to 8 bytes.
+		-UUID 16 bytes(36 chars). Consumes RAM when needed.
+	=Sol'n: Use Time ordered unique identifiers(UUIDv7 or ULID).
 ->GraphDB: Useful when relation ships needs to be stored.
 	->Social networks.
 	->Neo4j a popular graph DB.

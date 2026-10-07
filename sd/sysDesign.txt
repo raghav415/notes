@@ -98,3 +98,14 @@
 	-Nginx vs nodeJS(async):
 		-Both use event driven architectures. But both of them implement them differently.
 		-NodeJS starts with single thread running java script code. It uses lib libuv to handle I\O asynchronusly.
+
+-Throtling vs rate limiting:
+	-Rate limiting: Limits no of requests sent per client to server with in given time window. Blocks over limits.
+	-Throttling: Controls speed of incoming requests over time slowing down processing of requests. Reduces speed but allows continued usage.
+
+-Circuit breaker:
+	-It halts calls to failing service instead of overwhelming it allowing system to recover.
+	States:
+		- Closed: Requests gothrough circuit breaker to downstream service without interference.
+		-Open: If the number of failures and timeouts exceed a threshold the breaker enters open state rejecting further calls.
+		-Half open: After specific recovery period. The breaker allows limited requests to flowthrough if they are successful the system moves to closed state else to open state.

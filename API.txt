@@ -1,0 +1,1 @@
+->REST, SOAP, GraphQL, Grpc, Webhook, Websocket, WebRTC(Framework, no server in middle, direct peer to peer communication).

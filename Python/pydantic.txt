@@ -1,0 +1,6 @@
+->Pydantic models help in type checking, data validation(<,>,...), serialization, deserialization.
+    -We inherit from BaseModel to create pydantic class with type hints and validation using Field() from pydantic.
+    -We can create models dynamically from dict using create_model(**py_dict) where py_dict contains field name as key and (type, value) as default value as field value.
+        -We can use ... in place of default value to make field required. 
+    -We can create model obj from py dict using ModelName(**dict) or ModelName.model_validate(dict)
+    -We can create dict from model using obj.model_dump()

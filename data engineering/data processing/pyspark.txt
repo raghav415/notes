@@ -1,0 +1,17 @@
+# spark is spaek session object.
+# spark execution follows descriptive pgrmng we just tell spark what needs to be done the actual execution will be created by spark in the background.
+-spark.createDataFrame(data, schema) #data is list of lists and schema is of ...
+-df.show() #prints df with data.
+-df.select("col1") #df with selected cols.
+-df.withColumn("col1", col("exCol")+1) #creates/renames column. # import col from pyspark.sql.functions
+    -withColumns for multiple cols.
+-df.sort(col("id").desc)
+-col() returns column object with associated type on which spark methods(ops) can be called.
+    -Can use df.col_name(with out space)/df["col_name"] instead.
+    -select(), drop(), expr(), groupBy(),... col() is optional if no ops are needed direct col name can be passed.
+-we have Row() object in spark can be used to create single Row() of DF.
+    -Merging multipe rows creates DF.
+-SamplingRatio
+-.collect() #retrieves all records of DF as Row() objs into memory might raise overflow error for larger data sets.
+-.take(n) #retrieves n records of DF as Row() objs into memory.
+-.show() #Displays ~20 records in formatted tabular struc on console.

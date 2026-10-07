@@ -60,3 +60,10 @@ An orphan process, on the other hand, is a child process whose **parent process 
 A daemon process is a background process designed to run continuously and provide system services without direct user interaction. They are intentionally designed to run in background.
 
 Gracefully unmount a disk is process of safely disconnecting a storage device or filesystem from the operating system allowing it to finish any pending operations and detach the device without causing harm.
+
+Base64: It converts binary data to text like data using the 64 chars(a-z,A-Z,0-9,+,/). It is invented as not all data transfer systems handle arbitrary bytes safely as these are designed to carry text.
+	-Base64 encodes 3 bytes into 4 characters so the data size increases by 33%(4:3) than actual size.
+	-Used to embed imgs, pdf's into text..
+	-Also used in JWT:
+		-Since JWT's are sent in http headers, query params, or cookies. Raw json might contain special chars like {,": these chars might have special meaning in URL's and http systems. Encoading the JWT in base64URL(differ from base64 +->- and /->_) converts everything into safe alpha neumeric chars.
+		-Cryptographic signature at the end is raw binary data(copy pasting it will be difficult).

@@ -1,0 +1,34 @@
+-UV reuses the same version dependencies across environments without recreating/duplicating them.
+-Has ways of managing diff python versions, has ways to upload packages to pypi, features to build optimized docker containers.
+-uv init proj1 
+    -auto creates dir named proj1 with git repo initialized.
+    -Has options of --app for applications and --lib for package creations.
+    -Has main.py, .python-version file and readme.md files.
+    -pyproject.toml file.
+-uv add flask requests #installs libraries and its dependencies.
+    -This auto creates .venv if does not exist for proj.
+    -Auto updates pyproject.toml file with flask and requests with verions >=.
+    -creates uv.lock file this contains all info about python version, sub dependencies,..(simlar to pip tools)
+-uv tree
+    -This shows libraries and there dependencies as structured tree.
+-uv run main.py
+    -This auto runs python script from the directories venv even without activating it.
+    -Auto creates .venv and installs packages from uv.lock.
+-uv sync
+    -This creates .venv installing all dependencies from uv.lock file.
+-uv remove flask
+    -Removes package and all its dependencies and updates pyproject.toml and uv.lock file.
+-uv pip install numpy
+    -could use uv with pip commands.
+    -This doesn't need venv activation as well.
+-uv add -r requirements.txt
+    -To install libraries from requirements.txt and add dependencies into pyproject.toml and uv.lock file.
+-uv tool intall ruff
+    -This installs ruff in isolated env which is accessible from every venv.
+    -Works similar to pipx.
+-uv tool run ruff check
+    -This installs ruff in temp space then runs ruff check command and uninstalls the package/tool very quickly.
+    -Can use uvx ruff check instead for shorter command.
+-uv tool list
+    -To get list of tools installed.
+-uv python install 3.12

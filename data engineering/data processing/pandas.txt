@@ -19,7 +19,7 @@
 	->.count() returns no of values in series excluding missing values. While .size would include missing values.
 	->broadcasting: The process of applying an arithmetic operation to an array.
 		-> ops for series=add, sub, mul, div,...
-	->.value_counts() returns number of times the value present in series in descending order by default. normalize=True in .value_counts() will return % of value in total series data set.
+	->.value_counts() returns number of times the value present in series in descending order by default. normalize=True in .value_counts() will return %(percentage) of value in total series data set.
 	->.apply() takes func name as argument and applies the function to all values in the Series.
 		===This is slow. Here we loop through each row of DF sequentially, executing the operation on each row instead of using SIMD as other built-in methods.
 	->.map() acts as bridge to connect series data set with other data set(dict, series,...) to get additional info about values. Here value acts as Foreign Key in DB to connect one data set with other.
@@ -44,9 +44,9 @@
 	->.info() would return summary of Series or DF.(number of columns, column labels, column data types, memory usage...)
 	->df1.col1 or df1["col1"] to get col1 column as series this is view.
 	->df1[["col1"]] will return df with one col.
-	->df1["col1", "col2"] to get multi cols as df this is copy.
+	->df1[["col1", "col2"]] to get multi cols as df this is copy.
 	->df1['newCol1']="Hi" will create new col with Hi as all of the row values. df1['newCol1']=df1['col1'].mul(2)
-	->.dropna() will remove entire row that has enen 1 Nan value this will return copy.
+	->.dropna() will remove entire row that has even 1 Nan value this will return copy.
 		-.dropna(how="any")-default.
 		-.dropna(how="all") - will remove row that has all NaN values.
 		-.dropna(subset=["col1", "col2"]) - will remove row if either col1 or col2 has NaN values.
@@ -63,4 +63,11 @@
 		-.sort_values(by=["col1", "col2"], ascending=[True, False]) will sort col1 in asc, and col2 in desc.
 	->.sort_index() sort by index label.
 	->df1["salary"].rank(ascending=True) by default this will set higher number rank for higher salary if we want lower no rank we use .rank(ascending=False)
+->df.filter() is used to filter data in pandas based on column header or index labels using(like(where header/index contains text), regex, items(exact list of headers/labels)).
+->Filter on values:
+	-df[(df['age']>25) & (df['Status'] == 'Active')]
+	-df.query("age > 25 and status=='Active'")
+->Filter row and cols:
+	-df.loc[:, ['col1','col2']] #can use slicing or lists but .loc supports only labels.
+	-df.iloc[:, [1,2]] #can use slicing or lists but .iloc only support row or col indexes.
 ->Modin lib that uses pandas api's and executes in distributed way.

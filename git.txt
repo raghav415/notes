@@ -1,0 +1,4 @@
+-Git worktrees:
+    -They allow us to work with different branches simultaneously.
+    -Creating worktree creates separate dir for that branch.
+    -We can still commit and push changes to git here.

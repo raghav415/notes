@@ -20,13 +20,17 @@
     -http://127.0.0.1:8000/openapi.json to get opeAPI schema for the server.
     -OpenAPI powers the two interactive documentaions /doc and /redoc. We can use this to utilize any other doc that support openAPI.
 
--Using pydantic to do type validation, serialization for receiving data:
-    class Item(BaseModel):
-        name: str
-        price: float
-        is_offer: Union[bool, None] = None
-    @app.put("/items/{item_id}")
-        def update_item(item_id: int, item: Item):
+-FastAPI can convert python class into json when returning it as response of API.
+
+-**Pydantic**
+    -Using **pydantic** to do type validation, serialization for receiving data:
+        class Item(BaseModel):
+            name: str
+            price: float
+            is_offer: Union[bool, None] = None
+        @app.put("/items/{item_id}")
+            def update_item(item_id: int, item: Item):
+    -We use item.dict()(v1-pydantic) or item.mode_dump()(v2-pydantic) to convert pydantic model into python dictionary.  
 
 -FastAPI() is class that inherits directly from starlette. The instance of this class is main point to create any API.
 
